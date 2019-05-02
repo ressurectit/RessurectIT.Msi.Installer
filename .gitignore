@@ -1,0 +1,12 @@
+obj
+bin
+Logs
+node_modules
+.vs
+package-lock.json
+*~
+*.log
+*.user
+*.orig
+*.bak
+*.DotSettings

@@ -141,6 +141,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\Config.cs" />
+    <Compile Include="Gatherer\Dto\MsiInstallerUpdates.cs" />
+    <Compile Include="Gatherer\Dto\MsiUpdate.cs" />
+    <Compile Include="Gatherer\HttpGatherer.cs" />
     <Compile Include="WindowsInstaller.cs" />
     <Content Include="RessurectIT.Msi.Installer.config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

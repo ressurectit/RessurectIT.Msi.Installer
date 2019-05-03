@@ -5,6 +5,7 @@ using System.IO;
 using System.Reflection;
 using System.Security.Principal;
 using System.ServiceProcess;
+using RessurectIT.Msi.Installer.Configuration;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 
@@ -21,6 +22,19 @@ namespace RessurectIT.Msi.Installer
         /// Required designer variable.
         /// </summary>
         private IContainer components;
+        #endregion
+
+
+        #region public properties
+
+        /// <summary>
+        /// Gets instance of configuration for application
+        /// </summary>
+        internal static Config Config
+        {
+            get;
+            private set;
+        }
         #endregion
 
 
@@ -62,13 +76,17 @@ namespace RessurectIT.Msi.Installer
 
             IConfigurationRoot appConfig = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddEnvironmentVariables("RESSURECTIT_MSI_INSTALLER")
                 .AddJsonFile("RessurectIT.Msi.Installer.config.json", false, true)
 #if DEBUG
                 .AddJsonFile("RessurectIT.Msi.Installer.config.dev.json", true, true)
 #endif
+                .AddEnvironmentVariables("RESSURECTIT_MSI_INSTALLER")
                 .AddCommandLine(args)
                 .Build();
+
+            Config config = Config = new Config();
+
+            appConfig.Bind(config);
 
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(appConfig)

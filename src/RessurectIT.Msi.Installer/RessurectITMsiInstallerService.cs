@@ -1,6 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 using System.ServiceProcess;
+using Microsoft.Extensions.Configuration;
+using Serilog;
 
 namespace RessurectIT.Msi.Installer
 {
@@ -38,7 +43,28 @@ namespace RessurectIT.Msi.Installer
         /// <param name="args">Data passed by the start command. </param>
         protected override void OnStart(string[] args)
         {
-            // Logger.LogMessage("Service is starting!", SharedConstants.TaskQueueProcessorName);
+            Debugger.Launch();
+            string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+            UriBuilder uri = new UriBuilder(codeBase);
+            // ReSharper disable once AssignNullToNotNullAttribute
+            Environment.CurrentDirectory = Path.GetDirectoryName(Uri.UnescapeDataString(uri.Path));
+
+            IConfigurationRoot appConfig = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddEnvironmentVariables("RESSURECTIT_MSI_INSTALLER")
+                .AddJsonFile("RessurectIT.Msi.Installer.config.json", false, true)
+#if DEBUG
+                .AddJsonFile("RessurectIT.Msi.Installer.config.dev.json", true, true)
+#endif
+                .AddCommandLine(args)
+                .Build();
+
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(appConfig)
+                .CreateLogger();
+
+
+            Log.Logger.Information($"Service '{Constants.ServiceName}' is starting!");
             AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
         }
 
@@ -47,7 +73,7 @@ namespace RessurectIT.Msi.Installer
         /// </summary>
         protected override void OnStop()
         {
-            // Logger.LogMessage("Service is stopping!", SharedConstants.TaskQueueProcessorName);
+            Log.Logger.Information($"Service '{Constants.ServiceName}' is stopping!");
         }
 
         /// <summary>
@@ -101,7 +127,8 @@ namespace RessurectIT.Msi.Installer
         /// <param name="e"></param>
         private void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            // Logger.LogException(e.ExceptionObject as Exception, SharedConstants.TaskQueueProcessorName);
+            Log.Logger.Error(e.ExceptionObject as Exception, $"Unhandled exception occured in service '{Constants.ServiceName}'");
+
             OnStop();
         }
         #endregion

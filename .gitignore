@@ -2,6 +2,7 @@ obj
 bin
 Logs
 node_modules
+packages/
 .vs
 package-lock.json
 *~

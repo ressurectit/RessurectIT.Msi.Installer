@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Security.Principal;
 using System.ServiceProcess;
 using Microsoft.Extensions.Configuration;
 using Serilog;
@@ -44,6 +45,16 @@ namespace RessurectIT.Msi.Installer
         protected override void OnStart(string[] args)
         {
             Debugger.Launch();
+
+            if (!IsAdministrator())
+            {
+                Log.Error($"User running this service '{Constants.ServiceName}' is not administrator!");
+
+                Stop();
+
+                return;
+            }
+
             string codeBase = Assembly.GetExecutingAssembly().CodeBase;
             UriBuilder uri = new UriBuilder(codeBase);
             // ReSharper disable once AssignNullToNotNullAttribute
@@ -64,7 +75,7 @@ namespace RessurectIT.Msi.Installer
                 .CreateLogger();
 
 
-            Log.Logger.Information($"Service '{Constants.ServiceName}' is starting!");
+            Log.Information($"Service '{Constants.ServiceName}' is starting!");
             AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
         }
 
@@ -73,7 +84,7 @@ namespace RessurectIT.Msi.Installer
         /// </summary>
         protected override void OnStop()
         {
-            Log.Logger.Information($"Service '{Constants.ServiceName}' is stopping!");
+            Log.Information($"Service '{Constants.ServiceName}' is stopping!");
         }
 
         /// <summary>
@@ -127,9 +138,21 @@ namespace RessurectIT.Msi.Installer
         /// <param name="e"></param>
         private void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            Log.Logger.Error(e.ExceptionObject as Exception, $"Unhandled exception occured in service '{Constants.ServiceName}'");
+            Log.Error(e.ExceptionObject as Exception, $"Unhandled exception occured in service '{Constants.ServiceName}'");
 
             OnStop();
+        }
+
+        /// <summary>
+        /// Tests whether user that is running application has administrator role
+        /// </summary>
+        /// <returns>True if user has administrator role, otherwise false</returns>
+        private bool IsAdministrator()
+        {
+            WindowsIdentity identity = WindowsIdentity.GetCurrent();
+            WindowsPrincipal principal = new WindowsPrincipal(identity);
+
+            return principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
         #endregion
     }

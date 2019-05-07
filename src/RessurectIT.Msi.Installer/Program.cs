@@ -16,6 +16,8 @@ namespace RessurectIT.Msi.Installer
         {
             ServiceBase servicesToRun = new RessurectITMsiInstallerService();
             ServiceBase.Run(servicesToRun);
+
+            //new HttpGatherer();
         }
         #endregion
     }

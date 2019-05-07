@@ -1,4 +1,6 @@
 ﻿{
+    "UpdatesJsonUrl": "http://localhost:8888/updates.json",
+    "CheckInterval": 120000,
     "Serilog":
     {
         "Using":

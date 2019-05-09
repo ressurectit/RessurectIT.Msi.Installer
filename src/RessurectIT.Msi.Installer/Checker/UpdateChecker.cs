@@ -34,6 +34,7 @@ namespace RessurectIT.Msi.Installer.Checker
             _timer.Elapsed += DoCheck;
             _timer.AutoReset = true;
 
+            DoCheck(null, null);
             _timer.Start();
         }
         #endregion
@@ -62,7 +63,7 @@ namespace RessurectIT.Msi.Installer.Checker
         {
             Log.Information("Checking for updates!");
 
-
+            _gatherer.CheckForUpdates();
         }
         #endregion
     }

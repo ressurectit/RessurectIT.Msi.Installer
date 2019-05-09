@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using RessurectIT.Msi.Installer.Gatherer.Dto;
@@ -46,9 +48,9 @@ namespace RessurectIT.Msi.Installer.Gatherer
         #region public methods
 
         /// <summary>
-        /// 
+        /// Checks for updates and returns array of updates to install
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Array of updates that should be installed</returns>
         public MsiUpdate[] CheckForUpdates()
         {
             HttpResponseMessage result = _httpClient.GetAsync(RessurectITMsiInstallerService.Config.UpdatesJsonUrl).Result;
@@ -74,19 +76,61 @@ namespace RessurectIT.Msi.Installer.Gatherer
                 return new MsiUpdate[0];
             }
 
+            updates.Updates = updates.Updates.Where(update =>
+            {
+                try
+                {
+                    HttpResponseMessage msiResult = _httpClient.GetAsync(update.MsiDownloadUrl).Result;
+                    // ReSharper disable once AssignNullToNotNullAttribute
+                    string tempPath = Path.Combine(Path.GetTempPath(), Path.GetFileName(update.MsiDownloadUrl));
+
+                    using (Stream contentStream = msiResult.Content.ReadAsStreamAsync().Result)
+                    using (Stream fileStream = File.Create(tempPath))
+                    {
+                        contentStream.CopyTo(fileStream);
+                    }
+
+                    update.MsiPath = tempPath;
+                    update.Version = Installer.WindowsInstaller.GetProductCode(tempPath);
+                }
+                catch (Exception e)
+                {
+                    Log.Warning(e, $"Unable to obtain msi for '{update.Id}' with url '{update.MsiDownloadUrl}'!");
+
+                    return false;
+                }
+
+                return true;
+            }).ToArray();
+
+            Dictionary<string, InstalledUpdateInfo> installedUpdates = new Dictionary<string, InstalledUpdateInfo>();
+
             if (File.Exists(InstalledUpdatesJson))
             {
                 try
                 {
-                    File.ReadAllLines(InstalledUpdatesJson);
+                    installedUpdates = JsonConvert.DeserializeObject<Dictionary<string, InstalledUpdateInfo>>(File.ReadAllText(InstalledUpdatesJson));
                 }
                 catch (Exception e)
                 {
-
+                    Log.Warning(e, $"Failed to load installed updates!");
                 }
             }
 
-            return null;
+            return (from update in updates.Updates
+                    join installedUpdateIdJoin in installedUpdates.Keys on update.Id equals installedUpdateIdJoin into installedUpdatesIds
+                    from installedUpdateId in installedUpdatesIds.DefaultIfEmpty()
+                    where !string.IsNullOrEmpty(update.MsiPath) && (installedUpdateId == null || installedUpdates[installedUpdateId].VersionObj < new Version(update.Version))
+                    select new MsiUpdate
+                    {
+                        Version = update.Version,
+                        Id = update.Id,
+                        InstallParameters = update.InstallParameters,
+                        MsiDownloadUrl = update.MsiDownloadUrl,
+                        StopProcessName = update.StopProcessName,
+                        UninstallParameters = update.UninstallParameters,
+                        UninstallProductCode = update.UninstallProductCode ?? (installedUpdateId != null ? installedUpdates[installedUpdateId].ProductCode : null)
+                    }).ToArray();
         }
         #endregion
 

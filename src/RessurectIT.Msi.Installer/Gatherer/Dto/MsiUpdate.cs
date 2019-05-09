@@ -5,6 +5,28 @@
     /// </summary>
     internal class MsiUpdate
     {
+        #region internal
+
+        /// <summary>
+        /// Gets or sets version of msi
+        /// </summary>
+        internal string Version
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Path to msi download to local computer
+        /// </summary>
+        internal string MsiPath
+        {
+            get;
+            set;
+        }
+        #endregion
+
+
         #region public properties
 
         /// <summary>

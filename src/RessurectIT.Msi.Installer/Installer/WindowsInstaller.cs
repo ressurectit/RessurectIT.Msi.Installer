@@ -108,7 +108,7 @@ namespace RessurectIT.Msi.Installer.Installer
         /// <returns>True if provided MSI is for RessurectIT.Msi.Installer</returns>
         public bool IsRessurectITMsiInstallerMsi()
         {
-            string upgradeCode = GetMsiProperty("UpgradeCode");
+            string upgradeCode = GetMsiProperty("UpgradeCode", _msiPath);
 
             return "B074C4B8-5B0A-4221-83B3-7AEECB00FD61" == upgradeCode;
         }
@@ -119,7 +119,17 @@ namespace RessurectIT.Msi.Installer.Installer
         /// <returns>String number of version</returns>
         public string GetMsiVersion()
         {
-            return GetMsiProperty("ProductVersion");
+            return GetMsiProperty("ProductVersion", _msiPath);
+        }
+
+        /// <summary>
+        /// Gets product code from msi file
+        /// </summary>
+        /// <param name="msiPath">Path to msi file from which product code will be obtained</param>
+        /// <returns>Obtained product code</returns>
+        public static string GetProductCode(string msiPath)
+        {
+            return GetMsiProperty("ProductCode", msiPath);
         }
         #endregion
 
@@ -130,13 +140,14 @@ namespace RessurectIT.Msi.Installer.Installer
         /// Gets value of MSI property as string
         /// </summary>
         /// <param name="propertyName">Name of MSI property to be read</param>
+        /// <param name="msiPath">Path to msi file from which obtain property value</param>
         /// <returns>String representing MSI property value</returns>
-        private string GetMsiProperty(string propertyName)
+        private static string GetMsiProperty(string propertyName, string msiPath)
         {
             Type type = Type.GetTypeFromProgID("WindowsInstaller.Installer");
             MsiInstaller installer = (MsiInstaller)Activator.CreateInstance(type);
 
-            Database db = installer.OpenDatabase(_msiPath, 0);
+            Database db = installer.OpenDatabase(msiPath, 0);
             View dv = db.OpenView($"SELECT `Value` FROM `Property` WHERE `Property`='{propertyName}'");
             dv.Execute();
             Record record = dv.Fetch();

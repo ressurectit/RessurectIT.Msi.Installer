@@ -141,11 +141,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Checker\UpdateChecker.cs" />
     <Compile Include="Configuration\Config.cs" />
+    <Compile Include="Gatherer\Dto\InstalledUpdateInfo.cs" />
     <Compile Include="Gatherer\Dto\MsiInstallerUpdates.cs" />
     <Compile Include="Gatherer\Dto\MsiUpdate.cs" />
     <Compile Include="Gatherer\HttpGatherer.cs" />
-    <Compile Include="WindowsInstaller.cs" />
+    <Compile Include="Installer\WindowsInstaller.cs" />
     <Content Include="RessurectIT.Msi.Installer.config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

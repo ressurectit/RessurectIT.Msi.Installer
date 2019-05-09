@@ -5,6 +5,7 @@ using System.IO;
 using System.Reflection;
 using System.Security.Principal;
 using System.ServiceProcess;
+using RessurectIT.Msi.Installer.Checker;
 using RessurectIT.Msi.Installer.Configuration;
 using Microsoft.Extensions.Configuration;
 using Serilog;
@@ -22,6 +23,11 @@ namespace RessurectIT.Msi.Installer
         /// Required designer variable.
         /// </summary>
         private IContainer components;
+
+        /// <summary>
+        /// Update checker used for checking for updates
+        /// </summary>
+        private UpdateChecker _checker;
         #endregion
 
 
@@ -92,9 +98,11 @@ namespace RessurectIT.Msi.Installer
                 .ReadFrom.Configuration(appConfig)
                 .CreateLogger();
 
-
             Log.Information($"Service '{Constants.ServiceName}' is starting!");
             AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
+
+            _checker = new UpdateChecker();
+            _checker.Start();
         }
 
         /// <summary>
@@ -130,6 +138,8 @@ namespace RessurectIT.Msi.Installer
             if (disposing)
             {
                 components?.Dispose();
+                _checker?.Dispose();
+                _checker = null;
             }
 
             base.Dispose(disposing);

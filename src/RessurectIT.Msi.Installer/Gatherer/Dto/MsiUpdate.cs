@@ -8,6 +8,15 @@
         #region public properties
 
         /// <summary>
+        /// Gets or sets unique id of application to be upgraded, should be same for all versions of application
+        /// </summary>
+        public string Id
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Gets or sets download url for MSI
         /// </summary>
         public string MsiDownloadUrl

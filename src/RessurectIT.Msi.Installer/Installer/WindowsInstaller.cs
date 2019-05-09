@@ -2,9 +2,10 @@
 using System.Diagnostics;
 using System.IO;
 using WindowsInstaller;
+using Serilog;
 using MsiInstaller = WindowsInstaller.Installer;
 
-namespace RessurectIT.Msi.Installer
+namespace RessurectIT.Msi.Installer.Installer
 {
     /// <summary>
     /// Class used for installing msi and reading data from them
@@ -17,6 +18,11 @@ namespace RessurectIT.Msi.Installer
         /// Path to msi to be worked with
         /// </summary>
         private readonly string _msiPath;
+
+        /// <summary>
+        /// Product code that is used for uninstalling of previous version, GUID, not required
+        /// </summary>
+        private readonly string _productCode;
         #endregion
 
 
@@ -26,9 +32,11 @@ namespace RessurectIT.Msi.Installer
         /// Creates instance of <see cref="WindowsInstaller"/>
         /// </summary>
         /// <param name="msiPath">Path to msi to be worked with</param>
-        public WindowsInstaller(string msiPath)
+        /// <param name="productCode">Product code that is used for uninstalling of previous version, GUID, not required</param>
+        public WindowsInstaller(string msiPath, string productCode)
         {
             _msiPath = msiPath;
+            _productCode = productCode;
         }
         #endregion
 
@@ -48,13 +56,45 @@ namespace RessurectIT.Msi.Installer
                     {
                         FileName = "msiexec",
                         WorkingDirectory = Directory.GetCurrentDirectory(),
-                        Arguments = $" /quiet /i {_msiPath} /L*V \"C:\\example.log\" HPRO_PLUGIN=1"
+                        Arguments = $" /q /i {_msiPath} /L*V \"C:\\example.log\" HPRO_PLUGIN=1"
                     }
                 };
 
-                //process.StartInfo.WorkingDirectory = @"C:\temp\";
                 process.Start();
-                process.WaitForExit(60000);
+                process.WaitForExit(90000);
+            }
+            catch (Exception e)
+            {
+                
+            }
+        }
+
+        /// <summary>
+        /// Uninstalls ProductCode that is specified by this <see cref="WindowsInstaller"/>, if no product code was specified, does nothing
+        /// </summary>
+        public void Uninstall()
+        {
+            if (string.IsNullOrEmpty(_productCode))
+            {
+                Log.Information("No product code was specified");
+
+                return;
+            }
+
+            try
+            {
+                Process process = new Process
+                {
+                    StartInfo =
+                    {
+                        FileName = "msiexec",
+                        WorkingDirectory = Directory.GetCurrentDirectory(),
+                        Arguments = $" /q /x {{{_productCode}}} /L*V \"C:\\example.log\" HPRO_PLUGIN=1"
+                    }
+                };
+
+                process.Start();
+                process.WaitForExit(90000);
             }
             catch (Exception e)
             {

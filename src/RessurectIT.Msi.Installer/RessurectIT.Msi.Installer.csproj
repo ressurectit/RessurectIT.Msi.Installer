@@ -147,6 +147,7 @@
     <Compile Include="Gatherer\Dto\MsiInstallerUpdates.cs" />
     <Compile Include="Gatherer\Dto\MsiUpdate.cs" />
     <Compile Include="Gatherer\HttpGatherer.cs" />
+    <Compile Include="Installer\InstallationException.cs" />
     <Compile Include="Installer\WindowsInstaller.cs" />
     <Content Include="RessurectIT.Msi.Installer.config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

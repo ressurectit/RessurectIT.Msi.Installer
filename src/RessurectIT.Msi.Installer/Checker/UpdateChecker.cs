@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Configuration.Install;
+using System.Diagnostics;
+using System.Linq;
 using System.Timers;
 using RessurectIT.Msi.Installer.Gatherer;
+using RessurectIT.Msi.Installer.Gatherer.Dto;
 using Serilog;
 
 namespace RessurectIT.Msi.Installer.Checker
@@ -63,7 +67,67 @@ namespace RessurectIT.Msi.Installer.Checker
         {
             Log.Information("Checking for updates!");
 
-            _gatherer.CheckForUpdates();
+            MsiUpdate[] newUpdates = _gatherer.CheckForUpdates();
+
+            foreach (MsiUpdate update in newUpdates)
+            {
+                Log.Information($"Installing update for {update.Id}, version {update.Version}");
+
+                Installer.WindowsInstaller installer = new Installer.WindowsInstaller(update);
+
+                try
+                {
+                    StopProcess(update);
+                    installer.Uninstall();
+                    installer.Install();
+                }
+                catch (InstallException ex)
+                {
+                    Log.Error(ex, "Failed to install new update!");
+
+                    continue;
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, "Failed to install new update!");
+
+                    continue;
+                }
+
+                update.UninstallProductCode = Installer.WindowsInstaller.GetProductCode(update.MsiPath);
+
+                _gatherer.SetInstalledUpdates(update);
+            }
+        }
+
+        /// <summary>
+        /// Stops process specified by update
+        /// </summary>
+        /// <param name="update">Update that contains information which process should be stopped</param>
+        private void StopProcess(MsiUpdate update)
+        {
+            if (string.IsNullOrEmpty(update.StopProcessName))
+            {
+                return;
+            }
+
+            Log.Information($"Looking for process with name '{update.StopProcessName}'.");
+
+            Process runningProcess = Process.GetProcesses().SingleOrDefault(process => process.ProcessName == update.StopProcessName);
+
+            if (runningProcess != null)
+            {
+                Log.Information($"Stopping process '{runningProcess.Id}' with name '{runningProcess.ProcessName}'.");
+
+                try
+                {
+                    runningProcess.Kill();
+                }
+                catch (Exception e)
+                {
+                    Log.Warning(e, $"Failed to stop process '{runningProcess.ProcessName}'!");
+                }
+            }
         }
         #endregion
     }

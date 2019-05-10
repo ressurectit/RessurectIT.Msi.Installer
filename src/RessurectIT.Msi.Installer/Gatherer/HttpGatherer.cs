@@ -78,6 +78,13 @@ namespace RessurectIT.Msi.Installer.Gatherer
 
             updates.Updates = updates.Updates.Where(update =>
             {
+                if (string.IsNullOrEmpty(update.Id))
+                {
+                    Log.Error($"Update is missing ID!");
+
+                    return false;
+                }
+
                 try
                 {
                     HttpResponseMessage msiResult = _httpClient.GetAsync(update.MsiDownloadUrl).Result;
@@ -91,7 +98,7 @@ namespace RessurectIT.Msi.Installer.Gatherer
                     }
 
                     update.MsiPath = tempPath;
-                    update.Version = Installer.WindowsInstaller.GetProductCode(tempPath);
+                    update.Version = Installer.WindowsInstaller.GetMsiVersion(tempPath);
                 }
                 catch (Exception e)
                 {
@@ -103,19 +110,7 @@ namespace RessurectIT.Msi.Installer.Gatherer
                 return true;
             }).ToArray();
 
-            Dictionary<string, InstalledUpdateInfo> installedUpdates = new Dictionary<string, InstalledUpdateInfo>();
-
-            if (File.Exists(InstalledUpdatesJson))
-            {
-                try
-                {
-                    installedUpdates = JsonConvert.DeserializeObject<Dictionary<string, InstalledUpdateInfo>>(File.ReadAllText(InstalledUpdatesJson));
-                }
-                catch (Exception e)
-                {
-                    Log.Warning(e, $"Failed to load installed updates!");
-                }
-            }
+            Dictionary<string, InstalledUpdateInfo> installedUpdates = GetInstalledUpdates();
 
             return (from update in updates.Updates
                     join installedUpdateIdJoin in installedUpdates.Keys on update.Id equals installedUpdateIdJoin into installedUpdatesIds
@@ -123,14 +118,39 @@ namespace RessurectIT.Msi.Installer.Gatherer
                     where !string.IsNullOrEmpty(update.MsiPath) && (installedUpdateId == null || installedUpdates[installedUpdateId].VersionObj < new Version(update.Version))
                     select new MsiUpdate
                     {
-                        Version = update.Version,
                         Id = update.Id,
+                        Version = update.Version,
                         InstallParameters = update.InstallParameters,
                         MsiDownloadUrl = update.MsiDownloadUrl,
+                        MsiPath = update.MsiPath,
                         StopProcessName = update.StopProcessName,
                         UninstallParameters = update.UninstallParameters,
                         UninstallProductCode = update.UninstallProductCode ?? (installedUpdateId != null ? installedUpdates[installedUpdateId].ProductCode : null)
                     }).ToArray();
+        }
+
+        /// <summary>
+        /// Sets installed update to stored json
+        /// </summary>
+        /// <param name="update">Information about installed update</param>
+        public void SetInstalledUpdates(MsiUpdate update)
+        {
+            Dictionary<string, InstalledUpdateInfo> installedUpdates = GetInstalledUpdates();
+
+            installedUpdates[update.Id] = new InstalledUpdateInfo
+            {
+                Version = update.Version,
+                ProductCode = update.UninstallProductCode
+            };
+
+            try
+            {
+                File.WriteAllText(InstalledUpdatesJson, JsonConvert.SerializeObject(installedUpdates, Formatting.Indented));
+            }
+            catch (Exception e)
+            {
+                Log.Warning(e, "Failed to store installed updates json!");
+            }
         }
         #endregion
 
@@ -141,6 +161,33 @@ namespace RessurectIT.Msi.Installer.Gatherer
         public void Dispose()
         {
             _httpClient.Dispose();
+        }
+        #endregion
+
+
+        #region private methods
+
+        /// <summary>
+        /// Gets installed updates object
+        /// </summary>
+        /// <returns>Gets information about installed updates</returns>
+        private Dictionary<string, InstalledUpdateInfo> GetInstalledUpdates()
+        {
+            Dictionary<string, InstalledUpdateInfo> installedUpdates = new Dictionary<string, InstalledUpdateInfo>();
+
+            if (File.Exists(InstalledUpdatesJson))
+            {
+                try
+                {
+                    installedUpdates = JsonConvert.DeserializeObject<Dictionary<string, InstalledUpdateInfo>>(File.ReadAllText(InstalledUpdatesJson));
+                }
+                catch (Exception e)
+                {
+                    Log.Warning(e, "Failed to load installed updates!");
+                }
+            }
+
+            return installedUpdates;
         }
         #endregion
     }

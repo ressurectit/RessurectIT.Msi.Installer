@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using WindowsInstaller;
+using RessurectIT.Msi.Installer.Gatherer.Dto;
 using Serilog;
 using MsiInstaller = WindowsInstaller.Installer;
 
@@ -15,14 +16,9 @@ namespace RessurectIT.Msi.Installer.Installer
         #region private fields
 
         /// <summary>
-        /// Path to msi to be worked with
+        /// Information about update that should be installed
         /// </summary>
-        private readonly string _msiPath;
-
-        /// <summary>
-        /// Product code that is used for uninstalling of previous version, GUID, not required
-        /// </summary>
-        private readonly string _productCode;
+        private readonly MsiUpdate _update;
         #endregion
 
 
@@ -31,12 +27,10 @@ namespace RessurectIT.Msi.Installer.Installer
         /// <summary>
         /// Creates instance of <see cref="WindowsInstaller"/>
         /// </summary>
-        /// <param name="msiPath">Path to msi to be worked with</param>
-        /// <param name="productCode">Product code that is used for uninstalling of previous version, GUID, not required</param>
-        public WindowsInstaller(string msiPath, string productCode)
+        /// <param name="update">Information about update that should be installed</param>
+        public WindowsInstaller(MsiUpdate update)
         {
-            _msiPath = msiPath;
-            _productCode = productCode;
+            _update = update;
         }
         #endregion
 
@@ -48,6 +42,8 @@ namespace RessurectIT.Msi.Installer.Installer
         /// </summary>
         public void Install()
         {
+            string logPath = Path.Combine(Directory.GetCurrentDirectory(), "msiexec-install.log");
+
             try
             {
                 Process process = new Process
@@ -55,17 +51,29 @@ namespace RessurectIT.Msi.Installer.Installer
                     StartInfo =
                     {
                         FileName = "msiexec",
-                        WorkingDirectory = Directory.GetCurrentDirectory(),
-                        Arguments = $" /q /i {_msiPath} /L*V \"C:\\example.log\" HPRO_PLUGIN=1"
+                        Arguments = $" /q /i {_update.MsiPath} /L*V \"{logPath}\" {_update.InstallParameters}"
                     }
                 };
 
                 process.Start();
                 process.WaitForExit(90000);
+
+                if (process.ExitCode != 0)
+                {
+                    throw new InstallationException($"Failed to install product! Process exited with code {process.ExitCode}!");
+                }
+            }
+            catch (InstallationException)
+            {
+                throw;
             }
             catch (Exception e)
             {
-                
+                throw new InstallationException("Failed to install product!", e);
+            }
+            finally
+            {
+                LogLog(logPath);
             }
         }
 
@@ -74,12 +82,14 @@ namespace RessurectIT.Msi.Installer.Installer
         /// </summary>
         public void Uninstall()
         {
-            if (string.IsNullOrEmpty(_productCode))
+            if (string.IsNullOrEmpty(_update.UninstallProductCode))
             {
                 Log.Information("No product code was specified");
 
                 return;
             }
+
+            string logPath = Path.Combine(Directory.GetCurrentDirectory(), "msiexec-uninstall.log");
 
             try
             {
@@ -88,17 +98,25 @@ namespace RessurectIT.Msi.Installer.Installer
                     StartInfo =
                     {
                         FileName = "msiexec",
-                        WorkingDirectory = Directory.GetCurrentDirectory(),
-                        Arguments = $" /q /x {{{_productCode}}} /L*V \"C:\\example.log\" HPRO_PLUGIN=1"
+                        Arguments = $" /q /x {_update.UninstallProductCode} /L*V \"{logPath}\" {_update.UninstallParameters}"
                     }
                 };
 
                 process.Start();
                 process.WaitForExit(90000);
+
+                if (process.ExitCode != 0)
+                {
+                    Log.Error($"Failed to uninstall product! Process exited with code {process.ExitCode}!");
+                }
             }
             catch (Exception e)
             {
-                
+                Log.Error(e, "Failed to uninstall product!");
+            }
+            finally
+            {
+                LogLog(logPath);
             }
         }
 
@@ -108,7 +126,7 @@ namespace RessurectIT.Msi.Installer.Installer
         /// <returns>True if provided MSI is for RessurectIT.Msi.Installer</returns>
         public bool IsRessurectITMsiInstallerMsi()
         {
-            string upgradeCode = GetMsiProperty("UpgradeCode", _msiPath);
+            string upgradeCode = GetMsiProperty("UpgradeCode", _update.MsiPath);
 
             return "B074C4B8-5B0A-4221-83B3-7AEECB00FD61" == upgradeCode;
         }
@@ -116,10 +134,11 @@ namespace RessurectIT.Msi.Installer.Installer
         /// <summary>
         /// Gets version of MSI for this <see cref="WindowsInstaller"/> instance
         /// </summary>
+        /// <param name="msiPath">Path to msi file from which product version will be obtained</param>
         /// <returns>String number of version</returns>
-        public string GetMsiVersion()
+        public static string GetMsiVersion(string msiPath)
         {
-            return GetMsiProperty("ProductVersion", _msiPath);
+            return GetMsiProperty("ProductVersion", msiPath);
         }
 
         /// <summary>
@@ -153,7 +172,34 @@ namespace RessurectIT.Msi.Installer.Installer
             Record record = dv.Fetch();
 
             return record?.StringData[1];
-        }        
+        }
+
+        /// <summary>
+        /// Logs msiexec install/uninstall log
+        /// </summary>
+        /// <param name="logPath">Path to log to be logged</param>
+        private void LogLog(string logPath)
+        {
+            try
+            {
+                if (File.Exists(logPath))
+                {
+                    string contents = File.ReadAllText(logPath);
+
+                    File.Delete(logPath);
+
+                    Log.Information($"MSIEXEC LOG: {contents}");
+                }
+                else
+                {
+                    Log.Error("Failed to obtain msiexec log! No log found.");
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(e, "Failed to obtain msiexec log!");
+            }
+        }
         #endregion
     }
 }

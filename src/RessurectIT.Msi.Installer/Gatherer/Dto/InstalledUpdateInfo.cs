@@ -6,7 +6,7 @@ namespace RessurectIT.Msi.Installer.Gatherer.Dto
     /// <summary>
     /// Information about installed update
     /// </summary>
-    public class InstalledUpdateInfo
+    internal class InstalledUpdateInfo
     {
         #region internal properties
 

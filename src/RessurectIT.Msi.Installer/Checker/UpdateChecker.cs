@@ -65,13 +65,13 @@ namespace RessurectIT.Msi.Installer.Checker
         /// <param name="e">Event object</param>
         private void DoCheck(object sender, ElapsedEventArgs e)
         {
-            Log.Information("Checking for updates!");
+            Log.Information("Checking for updates! Machine: '{MachineName}'");
 
             MsiUpdate[] newUpdates = _gatherer.CheckForUpdates();
 
             foreach (MsiUpdate update in newUpdates)
             {
-                Log.Information($"Installing update for {update.Id}, version {update.Version}");
+                Log.Information($"Installing update for {update.Id}, version {update.Version}. Machine: '{{MachineName}}'");
 
                 Installer.WindowsInstaller installer = new Installer.WindowsInstaller(update);
 
@@ -83,13 +83,13 @@ namespace RessurectIT.Msi.Installer.Checker
                 }
                 catch (InstallException ex)
                 {
-                    Log.Error(ex, "Failed to install new update!");
+                    Log.Error(ex, "Failed to install new update! Machine: '{MachineName}'");
 
                     continue;
                 }
                 catch (Exception ex)
                 {
-                    Log.Error(ex, "Failed to install new update!");
+                    Log.Error(ex, "Failed to install new update! Machine: '{MachineName}'");
 
                     continue;
                 }
@@ -97,6 +97,8 @@ namespace RessurectIT.Msi.Installer.Checker
                 update.UninstallProductCode = Installer.WindowsInstaller.GetProductCode(update.MsiPath);
 
                 _gatherer.SetInstalledUpdates(update);
+
+                Log.Information($"Installation of update for '{update.Id}' version '{update.Version}' was successful. Machine: '{{MachineName}}'");
             }
         }
 

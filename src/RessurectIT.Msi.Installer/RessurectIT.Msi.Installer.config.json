@@ -1,6 +1,6 @@
 ﻿{
     "UpdatesJsonUrl": "http://localhost:8888/updates.json",
-    "CheckInterval": 120000,
+    "CheckInterval": 300000,
     "Serilog":
     {
         "Using":
@@ -15,7 +15,6 @@
             "Default": "Verbose",
             "Override":
             {
-                "Microsoft": "Information",
                 "System": "Error"
             }
         },
@@ -41,13 +40,15 @@
                 {
                     "source": "RessurectIT.Msi.Installer",
                     "logName": "Application",
-                    "manageEventSource": true
+                    "manageEventSource": true,
+                    "restrictedToMinimumLevel": "Error" 
                 }
             }
         ],
         "Enrich":
         [
-            "FromLogContext"
+            "FromLogContext",
+            "WithMachineName"
         ]
     }
 }

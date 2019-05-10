@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Security.Principal;
@@ -9,6 +8,7 @@ using RessurectIT.Msi.Installer.Checker;
 using RessurectIT.Msi.Installer.Configuration;
 using Microsoft.Extensions.Configuration;
 using Serilog;
+using Serilog.Events;
 
 namespace RessurectIT.Msi.Installer
 {
@@ -64,11 +64,9 @@ namespace RessurectIT.Msi.Installer
         /// <param name="args">Data passed by the start command. </param>
         protected override void OnStart(string[] args)
         {
-            Debugger.Launch();
-
             if (!IsAdministrator())
             {
-                Log.Error($"User running this service '{Constants.ServiceName}' is not administrator!");
+                Log.Error($"User running this service '{Constants.ServiceName}' is not administrator! Machine: '{{MachineName}}'");
 
                 Stop();
 
@@ -166,7 +164,7 @@ namespace RessurectIT.Msi.Installer
         /// <param name="e"></param>
         private void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            Log.Error(e.ExceptionObject as Exception, $"Unhandled exception occured in service '{Constants.ServiceName}'");
+            Log.Error(e.ExceptionObject as Exception, $"Unhandled exception occured in service '{Constants.ServiceName}'. Machine: '{{MachineName}}'");
 
             OnStop();
         }

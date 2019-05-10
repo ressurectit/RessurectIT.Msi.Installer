@@ -107,12 +107,12 @@ namespace RessurectIT.Msi.Installer.Installer
 
                 if (process.ExitCode != 0)
                 {
-                    Log.Error($"Failed to uninstall product! Process exited with code {process.ExitCode}!");
+                    Log.Error($"Failed to uninstall product! Process exited with code {process.ExitCode}! Machine: '{{MachineName}}'");
                 }
             }
             catch (Exception e)
             {
-                Log.Error(e, "Failed to uninstall product!");
+                Log.Error(e, "Failed to uninstall product! Machine: '{MachineName}'");
             }
             finally
             {
@@ -192,12 +192,12 @@ namespace RessurectIT.Msi.Installer.Installer
                 }
                 else
                 {
-                    Log.Error("Failed to obtain msiexec log! No log found.");
+                    Log.Error("Failed to obtain msiexec log! No log found. Machine: '{MachineName}'");
                 }
             }
             catch (Exception e)
             {
-                Log.Error(e, "Failed to obtain msiexec log!");
+                Log.Error(e, "Failed to obtain msiexec log! Machine: '{MachineName}'");
             }
         }
         #endregion

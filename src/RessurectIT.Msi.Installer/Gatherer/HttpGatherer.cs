@@ -64,14 +64,14 @@ namespace RessurectIT.Msi.Installer.Gatherer
                 }
                 catch (Exception e)
                 {
-                    Log.Error(e, "Error during deserialization of updates result.");
+                    Log.Error(e, "Error during deserialization of updates result. Machine: '{MachineName}'");
 
                     return new MsiUpdate[0];
                 }
             }
             else
             {
-                Log.Error($"Obtaining failed, returned status code '{result.StatusCode}'.");
+                Log.Error($"Obtaining failed, returned status code '{result.StatusCode}'. Machine: '{{MachineName}}'");
 
                 return new MsiUpdate[0];
             }
@@ -80,7 +80,7 @@ namespace RessurectIT.Msi.Installer.Gatherer
             {
                 if (string.IsNullOrEmpty(update.Id))
                 {
-                    Log.Error($"Update is missing ID!");
+                    Log.Error("Update is missing ID! Machine: '{MachineName}'");
 
                     return false;
                 }

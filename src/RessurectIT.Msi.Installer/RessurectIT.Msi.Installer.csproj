@@ -162,6 +162,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Constants.cs" />
+    <Compile Include="Extensions\LoggerSinkConfigurationExtensions.cs" />
+    <Compile Include="Logger\RestLogger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

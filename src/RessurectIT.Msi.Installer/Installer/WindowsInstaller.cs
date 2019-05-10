@@ -188,7 +188,7 @@ namespace RessurectIT.Msi.Installer.Installer
 
                     File.Delete(logPath);
 
-                    Log.Information($"MSIEXEC LOG: {contents}");
+                    Log.Information($"Machine: '{{MachineName}}' MSIEXEC LOG: {contents}");
                 }
                 else
                 {

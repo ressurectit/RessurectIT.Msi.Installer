@@ -1,6 +1,7 @@
 ﻿{
     "UpdatesJsonUrl": "http://localhost:8888/updates.json",
     "CheckInterval": 300000,
+    "RemoteLogRestUrl": "http://localhost:8888/log",
     "Serilog":
     {
         "Using":
@@ -8,7 +9,8 @@
             "Serilog.Sinks.File",
             "Serilog.Sinks.EventLog",
             "Serilog.Sinks.Console",
-            "Serilog.Sinks.Debug"
+            "Serilog.Sinks.Debug",
+            "RessurectIT.Msi.Installer"
         ],
         "MinimumLevel":
         {
@@ -27,6 +29,9 @@
                 "Name": "Console"
             },
             {
+                "Name": "RestLogger"
+            },
+            {
                 "Name": "File",
                 "Args":
                 {
@@ -41,7 +46,7 @@
                     "source": "RessurectIT.Msi.Installer",
                     "logName": "Application",
                     "manageEventSource": true,
-                    "restrictedToMinimumLevel": "Error" 
+                    "restrictedToMinimumLevel": "Error"
                 }
             }
         ],

@@ -24,6 +24,15 @@
             get;
             set;
         }
+
+        /// <summary>
+        /// Gets or sets url that is used for POSTing logs to centralized store
+        /// </summary>
+        public string RemoteLogRestUrl
+        {
+            get;
+            set;
+        }
         #endregion
     }
 }

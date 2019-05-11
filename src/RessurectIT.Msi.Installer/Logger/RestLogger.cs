@@ -49,7 +49,7 @@ namespace RessurectIT.Msi.Installer.Logger
             {
                 try
                 {
-                    client.PostAsync(RessurectITMsiInstallerService.Config.RemoteLogRestUrl, new StringContent(message, Encoding.UTF8, "text/plain")).Wait();
+                    client.PostAsync(RessurectITMsiInstallerService.Config.RemoteLogRestUrl, new StringContent($@"""{message}""", Encoding.UTF8, "application/json")).Wait();
                 }
                 //this loggers should do nothing if URL endpoint is not listening
                 catch

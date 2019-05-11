@@ -1,7 +1,7 @@
 ﻿{
     "UpdatesJsonUrl": "http://localhost:8888/updates.json",
     "CheckInterval": 300000,
-    "RemoteLogRestUrl": "http://localhost:8888/log",
+    "RemoteLogRestUrl": "http://localhost:49817/api/values",
     "Serilog":
     {
         "Using":

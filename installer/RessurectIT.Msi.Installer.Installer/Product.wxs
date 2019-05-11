@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+    <Product Id="5BE67480-31A6-4896-A10A-83F7497A1C6E" Name="RessurectIT.Msi.Installer" Language="1033" Codepage="1250" Version="!(bind.assemblyVersion.RessurectIT.Msi.Installer.exe)" Manufacturer="RessurectIT" UpgradeCode="369C83BF-7965-4AEE-B1DD-329BEB92D719">
+        <Package Id="*" InstallerVersion="405" Compressed="yes" InstallScope="perMachine" InstallPrivileges="elevated" />
+        <MajorUpgrade DowngradeErrorMessage="Novšia verzia [ProductName] je už nainštalovaná." />
+        <Media Id="1" EmbedCab="yes" Cabinet="RessurectIT.Msi.Installer.cab"/>
+
+        <PropertyRef Id="WIX_IS_NETFRAMEWORK_461_OR_LATER_INSTALLED" />
+
+        <Condition Message="This application requires .NET Framework 4.6.1 or higher. Please install the .NET Framework then run this installer again.">
+            <![CDATA[Installed OR WIX_IS_NETFRAMEWORK_461_OR_LATER_INSTALLED]]>
+        </Condition>
+
+        <Condition Message="This application requires administrator privileges to be installed.">
+            <![CDATA[Privileged]]>
+        </Condition>
+
+        <Binary Id="RessurectIT.Msi.Installer.Installer.CustomActions.CA.dll" SourceFile="$(var.RessurectIT.Msi.Installer.Installer.CustomActions.TargetDir)RessurectIT.Msi.Installer.Installer.CustomActions.CA.dll" />
+
+        <CustomAction Id="UpdateConfig"
+                      Return="check"
+                      Execute="immediate"
+                      BinaryKey="RessurectIT.Desktop.Client.Installer.CustomActions.CA.dll"
+                      DllEntry="UpdateConfig"/>
+
+        <CustomAction Id="SetRootDrive" Property="CROOT" Value="C:\RessurectIT" />
+
+        <Feature Id="MsiInstaller" Title="Msi Installer" Level="1">
+            <ComponentGroupRef Id="MsiInstallerFiles" />
+            <ComponentRef Id="InstallFolderPermissions" />
+        </Feature>
+
+        <Upgrade Id="369C83BF-7965-4AEE-B1DD-329BEB92D719">
+            <UpgradeVersion Minimum="1.0.0"
+                            IncludeMinimum="yes"
+                            OnlyDetect="no"
+                            IncludeMaximum="no"
+                            Property="PREVIOUSFOUND" />
+        </Upgrade>
+
+        <InstallUISequence>
+            <Custom Action="SetRootDrive" Before="AppSearch" />
+        </InstallUISequence>
+
+        <InstallExecuteSequence>
+            <Custom Action="SetRootDrive" Before="AppSearch" />
+            <Custom Action="UpdateConfig" After="InstallFinalize"><![CDATA[NOT REMOVE]]></Custom>
+        </InstallExecuteSequence>
+    </Product>
+
+    <Fragment>
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="CROOT" Name="RessurectIT">
+                <Directory Id="INSTALLFOLDER" Name="RessurectIT.Msi.Installer">
+                    <Directory Id="DESKTOPCLIENTLOGFOLDER" Name="Logs" />
+                </Directory>
+            </Directory>
+        </Directory>
+    </Fragment>
+
+    <Fragment>
+        <ComponentGroup Id="MsiInstallerFiles" Directory="INSTALLFOLDER" Source="$(var.RessurectIT.Desktop.Client.TargetDir)">
+        </ComponentGroup>
+
+        <DirectoryRef Id="INSTALLFOLDER">
+            <Component Id="InstallFolderPermissions" Guid="F56A438B-5A89-4BF5-8A7E-A11EF410451F">
+                <CreateFolder>
+                    <util:PermissionEx User="Users" GenericWrite="no" Delete="no"/>
+                    <util:PermissionEx User="Administrators" GenericAll="yes"/>
+                </CreateFolder>
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+</Wix>

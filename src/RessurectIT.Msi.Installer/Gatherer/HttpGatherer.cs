@@ -53,7 +53,19 @@ namespace RessurectIT.Msi.Installer.Gatherer
         /// <returns>Array of updates that should be installed</returns>
         public MsiUpdate[] CheckForUpdates()
         {
-            HttpResponseMessage result = _httpClient.GetAsync(RessurectITMsiInstallerService.Config.UpdatesJsonUrl).Result;
+            HttpResponseMessage result;
+
+            try
+            {
+                result = _httpClient.GetAsync(RessurectITMsiInstallerService.Config.UpdatesJsonUrl).Result;
+            }
+            catch (Exception e)
+            {
+                Log.Error(e, "Unable to obtain updates json! Machine: '{MachineName}'");
+
+                return new MsiUpdate[0];
+            }
+
             MsiInstallerUpdates updates;
 
             if (result.StatusCode == HttpStatusCode.OK)

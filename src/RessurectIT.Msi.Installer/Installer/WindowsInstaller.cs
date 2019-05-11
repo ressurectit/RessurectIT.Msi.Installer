@@ -128,7 +128,7 @@ namespace RessurectIT.Msi.Installer.Installer
         {
             string upgradeCode = GetMsiProperty("UpgradeCode", _update.MsiPath);
 
-            return "B074C4B8-5B0A-4221-83B3-7AEECB00FD61" == upgradeCode;
+            return "369C83BF-7965-4AEE-B1DD-329BEB92D719" == upgradeCode;
         }
 
         /// <summary>

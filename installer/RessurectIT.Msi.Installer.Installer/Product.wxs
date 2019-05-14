@@ -94,10 +94,6 @@
                 <File Id="RessurectIT.Msi.Installer.pdb" KeyPath="yes" Name="RessurectIT.Msi.Installer.pdb" />
             </Component>
 
-            <Component Id="installed.updates.json" Guid="9E060FA9-F29D-476E-8DAD-3007AED3B1A0">
-                <File Id="installed.updates.json" KeyPath="yes" Name="installed.updates.json" />
-            </Component>
-
             <Component Id="Microsoft.DotNet.PlatformAbstractions.dll" Guid="870DDA21-F343-4D29-A220-3150111F881A">
                 <File Id="Microsoft.DotNet.PlatformAbstractions.dll" KeyPath="yes" Name="Microsoft.DotNet.PlatformAbstractions.dll" Assembly=".net" AssemblyApplication="Microsoft.DotNet.PlatformAbstractions.dll" />
             </Component>

@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using System.ServiceProcess;
+﻿using System.ServiceProcess;
 
 namespace RessurectIT.Msi.Installer
 {
@@ -15,13 +14,8 @@ namespace RessurectIT.Msi.Installer
         /// </summary>
         public static void Main()
         {
-            //ServiceBase serviceToRun = new RessurectITMsiInstallerService();
-            //ServiceBase.Run(serviceToRun);
-
-            using (RessurectITMsiInstallerService svc = new RessurectITMsiInstallerService())
-            {
-                svc.GetType().GetMethod("OnStart", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(svc, new object[] {new string[0]});
-            }
+            ServiceBase serviceToRun = new RessurectITMsiInstallerService();
+            ServiceBase.Run(serviceToRun);
         }
         #endregion
     }

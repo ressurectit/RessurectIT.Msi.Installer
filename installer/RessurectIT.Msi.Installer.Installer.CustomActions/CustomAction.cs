@@ -43,6 +43,20 @@ namespace RessurectIT.Msi.Installer.Installer.CustomActions
         #endregion
 
 
+        #region constants - UpdateConfig
+
+        /// <summary>
+        /// Name of SERVICEACCOUNT property
+        /// </summary>
+        private const string PropServiceAccount = "SERVICEACCOUNT";
+
+        /// <summary>
+        /// Name of SERVICEPASSWORD property
+        /// </summary>
+        private const string PropServicePassword = "SERVICEPASSWORD";
+        #endregion
+
+
         #region public methods - UpdateConfig
 
         /// <summary>
@@ -111,6 +125,34 @@ namespace RessurectIT.Msi.Installer.Installer.CustomActions
             {
                 session.Log($"UpdateConfig failed '{e.Message}'");
                 
+                return ActionResult.Failure;
+            }
+
+            return ActionResult.Success;
+        }
+
+        #endregion
+
+
+        #region public methods - CheckServiceAccount
+
+        /// <summary>
+        /// Checks whether service account username and password were provided
+        /// </summary>
+        /// <param name="session">Session of current installer</param>
+        /// <returns>Indication that operation was successful or not</returns>
+        [CustomAction]
+        public static ActionResult CheckServiceAccount(Session session)
+        {
+            string serviceAccount = session[PropServiceAccount];
+            string servicePassword = session[PropServicePassword];
+
+            session.Log("Begin CheckServiceAccount");
+
+            if (string.IsNullOrEmpty(serviceAccount) || string.IsNullOrEmpty(servicePassword))
+            {
+                session.Log("Missing service account name or service password!");
+
                 return ActionResult.Failure;
             }
 

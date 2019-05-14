@@ -23,6 +23,12 @@
                       BinaryKey="RessurectIT.Msi.Installer.Installer.CustomActions.CA.dll"
                       DllEntry="UpdateConfig"/>
 
+        <CustomAction Id="CheckServiceAccount"
+                      Return="check"
+                      Execute="immediate"
+                      BinaryKey="RessurectIT.Msi.Installer.Installer.CustomActions.CA.dll"
+                      DllEntry="CheckServiceAccount"/>
+
         <CustomAction Id="SetRootDrive" Property="CROOT" Value="C:\RessurectIT" />
 
         <Feature Id="MsiInstaller" Title="Msi Installer" Level="1">
@@ -43,6 +49,7 @@
         </InstallUISequence>
 
         <InstallExecuteSequence>
+            <Custom Action="CheckServiceAccount" Before="AppSearch"><![CDATA[NOT REMOVE]]></Custom>
             <Custom Action="SetRootDrive" Before="AppSearch" />
             <Custom Action="UpdateConfig" After="InstallFinalize"><![CDATA[NOT REMOVE]]></Custom>
         </InstallExecuteSequence>
@@ -66,6 +73,17 @@
 
             <Component Id="RessurectIT.Msi.Installer.exe" Guid="5102E418-2F63-4271-B1DD-322800B4BB57">
                 <File Id="RessurectIT.Msi.Installer.exe" KeyPath="yes" Name="RessurectIT.Msi.Installer.exe" Assembly=".net" AssemblyApplication="RessurectIT.Msi.Installer.exe" />
+
+                <ServiceInstall Id="MsiInstallerServiceInstall"
+                                Type="ownProcess"
+                                Name="RessurectIT.Msi.Installer"
+                                DisplayName="RessurectIT MSI Installer"
+                                Description="Automated MSI installer service."
+                                Start="auto"
+                                Account="[SERVICEACCOUNT]"
+                                Password="[SERVICEPASSWORD]"
+                                ErrorControl="normal"/>
+                <ServiceControl Id="MsiInstallerServiceStart" Start="install" Stop="both" Remove="uninstall" Name="RessurectIT.Msi.Installer" Wait="no" />
             </Component>
 
             <Component Id="RessurectIT.Msi.Installer.exe.config" Guid="71DCDF62-20DE-4356-8261-B036190649E1">

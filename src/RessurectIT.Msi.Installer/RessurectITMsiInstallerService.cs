@@ -8,7 +8,6 @@ using RessurectIT.Msi.Installer.Checker;
 using RessurectIT.Msi.Installer.Configuration;
 using Microsoft.Extensions.Configuration;
 using Serilog;
-using Serilog.Events;
 
 namespace RessurectIT.Msi.Installer
 {

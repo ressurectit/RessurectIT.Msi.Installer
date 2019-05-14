@@ -41,9 +41,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\src\RessurectIT.Msi.Installer\Configuration\Config.cs">
-      <Link>Config.cs</Link>
-    </Compile>
     <Compile Include="CustomAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="CustomAction.config" />

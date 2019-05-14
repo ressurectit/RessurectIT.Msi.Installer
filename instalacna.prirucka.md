@@ -38,6 +38,8 @@ Zoznam parametrov:
  - UPDATE_JSON_URL - Url adresa, na ktorej je možné pomocou GET získať JSON s dostupnými aktualizáciami (príklad UPDATE_JSON_URL=http://intranet/updates)
  - CHECK_INTERVAL - časový interval (v ms) v akom kontrolovať dostupnosť nových aktualizácii(príklad CHECK_INTERVAL=900000)
  - REMOTE_LOG_REST_URL - adresa pre vzdialené logovanie logov pomocou POST (príklad REMOTE_LOG_REST_URL=http://intranet/api/logs)
+ - SERVICEACCOUNT - POVINNÝ parameter, názov účtu, pod ktorým bude služba spustená, musí mať Administrátorské oprávnenia a musí byť absolútny (príklad pre lokálne účty ".\UCET")
+ - SERVICEPASSWORD - POVINNÝ parameter, heslo k účtu, pod ktorým bude služba spustená
 
 ### Inštalácia cez Group Policy
 

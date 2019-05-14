@@ -112,9 +112,9 @@ namespace RessurectIT.Utilities
 
 Add-Type -ReferencedAssemblies $assem -TypeDefinition $source -Language CSharp 
 
-$namespace = New-Object -TypeName Guid -ArgumentList "6F859896-0F46-4258-BD1D-F18B5B8E1594"
-$versionFile = "$PSScriptRoot/../src/RessurectIT.Desktop.Client/version.txt"
-$productWixPath = "$PSScriptRoot/../installer/RessurectIT.Desktop.Client.Installer/Product.wxs"
+$namespace = New-Object -TypeName Guid -ArgumentList "6EC6AB6A-DBFC-47D7-BC2A-3B4AB5C8C258"
+$versionFile = "$PSScriptRoot/../src/RessurectIT.Msi.Installer/version.txt"
+$productWixPath = "$PSScriptRoot/../installer/RessurectIT.Msi.Installer.Installer/Product.wxs"
 
 $version = [System.Text.RegularExpressions.Regex]::Replace((Get-Content $versionFile -Encoding UTF8 | Out-String).TrimEnd(), "^(\d+\.\d+\.\d+).*?`$", "`$1", [System.Text.RegularExpressions.RegexOptions]::Singleline)
 

@@ -6,16 +6,16 @@
     <ProductVersion>3.10</ProductVersion>
     <ProjectGuid>8e164aed-e24a-43a5-a14f-ac1bbe699fa5</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>RessurectIT.Msi.Installer.Installer</OutputName>
+    <OutputName>RessurectIT.Msi.Installer</OutputName>
     <OutputType>Package</OutputType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <DefineConstants>Debug</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
@@ -40,11 +40,28 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
+    <ProjectReference Include="..\RessurectIT.Msi.Installer.Installer.CustomActions\RessurectIT.Msi.Installer.Installer.CustomActions.csproj">
+      <Name>RessurectIT.Msi.Installer.Installer.CustomActions</Name>
+      <Project>{f3100f86-4ce7-4626-8d6b-dd37b6cf5ab0}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />
   <Target Name="EnsureWixToolsetInstalled" Condition=" '$(WixTargetsImported)' != 'true' ">
     <Error Text="The WiX Toolset v3.11 (or newer) build tools must be installed to build this project. To download the WiX Toolset, see http://wixtoolset.org/releases/" />
+  </Target>
+  <Target Name="SignMsiInstaller" AfterTargets="Build">
+    <MSBuild Projects="$(ProjectDir)RessurectIT.Msi.Installer.Installer.Signing.csproj"
+             Targets="Restore"
+             Condition="'$(Configuration)' == 'Release'" />
+    <MSBuild Projects="$(ProjectDir)RessurectIT.Msi.Installer.Installer.Signing.csproj"
+             Targets="Rebuild"
+             Properties="SignBinaryPath=$(TargetPath);JenkinsUserName=$(JenkinsUserName);JenkinsPassword=$(JenkinsPassword)"
+             Condition="'$(Configuration)' == 'Release'" />
   </Target>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.

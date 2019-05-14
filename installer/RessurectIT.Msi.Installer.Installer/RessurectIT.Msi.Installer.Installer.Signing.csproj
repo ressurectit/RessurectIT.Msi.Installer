@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <!-- BUILD OPTIONS -->
+    <PropertyGroup>
+        <OutputPath>bin\</OutputPath>
+        <RunSignTool>true</RunSignTool>
+    </PropertyGroup>
+
+    <!-- FRAMEWORK -->
+    <PropertyGroup>
+        <TargetFramework>net461</TargetFramework>
+    </PropertyGroup>
+    
+    <!-- FILES -->
+    <ItemGroup>
+        <None Remove="**/*.*" />
+    </ItemGroup>
+
+    <!-- NUGET DEPENDENCIES -->
+    <ItemGroup>
+        <PackageReference Include="JenkinsSignBinaryClient" Version="1.0.3" PrivateAssets="All" />
+    </ItemGroup>
+</Project>

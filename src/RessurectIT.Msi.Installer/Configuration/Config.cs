@@ -33,6 +33,15 @@
             get;
             set;
         }
+
+        /// <summary>
+        /// Gets or sets indication whether is same version allowed to be reinstalled
+        /// </summary>
+        public bool AllowSameVersion
+        {
+            get;
+            set;
+        }
         #endregion
     }
 }

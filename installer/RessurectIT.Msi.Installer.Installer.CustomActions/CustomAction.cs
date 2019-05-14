@@ -87,7 +87,7 @@ namespace RessurectIT.Msi.Installer.Installer.CustomActions
                 {
                     session.Log($"Setting check interval to value '{checkInterval}'");
 
-                    configContent = Regex.Replace(configContent, @"""CheckInterval"": "".*?""", $@"""CheckInterval"": ""{checkInterval}""", RegexOptions.Singleline);
+                    configContent = Regex.Replace(configContent, @"""CheckInterval"": .*?,", $@"""CheckInterval"": {checkInterval},", RegexOptions.Singleline);
                 }
 
                 if (!string.IsNullOrEmpty(remoteLogRestUrl))

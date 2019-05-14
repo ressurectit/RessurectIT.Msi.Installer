@@ -58,7 +58,7 @@
                 "Name": "File",
                 "Args":
                 {
-                    "path": "./Logs/Errors.logs",
+                    "path": "./Logs/App.logs",
                     "rollingInterval": "Day"
                 }
             },

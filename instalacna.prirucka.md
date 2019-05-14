@@ -76,7 +76,7 @@ fungovať nebude. Toto je však riskantné, pretože funguje len pokiaľ Microso
 
 ## Typy log súborov
 
-ErrorsDátum.logs - Obsahuje zalogované chyby, alebo pri zmene úrovne logovania aj iné typy logov
+AppDátum.logs - Obsahuje aplikačné logy
 
 ## Známe chyby pri inštalácii
 

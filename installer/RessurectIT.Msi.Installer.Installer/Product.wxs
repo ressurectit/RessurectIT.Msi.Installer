@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-    <Product Id="5BE67480-31A6-4896-A10A-83F7497A1C6E" Name="RessurectIT.Msi.Installer" Language="1033" Codepage="1250" Version="!(bind.assemblyVersion.RessurectIT.Msi.Installer.exe)" Manufacturer="RessurectIT" UpgradeCode="369C83BF-7965-4AEE-B1DD-329BEB92D719">
+    <Product Id="2210ab06-8ebc-5c1f-8c3d-d7620348ab7c" Name="RessurectIT.Msi.Installer" Language="1033" Codepage="1250" Version="!(bind.assemblyVersion.RessurectIT.Msi.Installer.exe)" Manufacturer="RessurectIT" UpgradeCode="369C83BF-7965-4AEE-B1DD-329BEB92D719">
         <Package Id="*" InstallerVersion="405" Compressed="yes" InstallScope="perMachine" InstallPrivileges="elevated" />
         <MajorUpgrade DowngradeErrorMessage="Novšia verzia [ProductName] je už nainštalovaná." />
         <Media Id="1" EmbedCab="yes" Cabinet="RessurectIT.Msi.Installer.cab"/>
@@ -65,7 +65,7 @@
             </Component>
 
             <Component Id="RessurectIT.Msi.Installer.exe" Guid="5102E418-2F63-4271-B1DD-322800B4BB57">
-                <File Id="RessurectIT.Msi.Installer.exe" KeyPath="yes" Name="RessurectIT.Msi.Installer.exe" />
+                <File Id="RessurectIT.Msi.Installer.exe" KeyPath="yes" Name="RessurectIT.Msi.Installer.exe" Assembly=".net" AssemblyApplication="RessurectIT.Msi.Installer.exe" />
             </Component>
 
             <Component Id="RessurectIT.Msi.Installer.exe.config" Guid="71DCDF62-20DE-4356-8261-B036190649E1">

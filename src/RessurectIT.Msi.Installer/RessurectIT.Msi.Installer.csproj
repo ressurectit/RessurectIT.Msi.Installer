@@ -239,6 +239,7 @@
   <!-- EXPORT VERSION NUMBER -->
   <Target Name="ExportVersion" AfterTargets="Build">
     <Exec Command="echo $(Version) &gt; $(ProjectDir)\version.txt" />
+    <Exec Command="powershell -ExecutionPolicy Bypass .\updateInstaller.ps1" WorkingDirectory="$(ProjectDir)..\..\.utils" />
   </Target>
 
   <!-- GENERATE VERSION NUMBER -->

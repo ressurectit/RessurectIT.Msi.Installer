@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using Microsoft.Deployment.WindowsInstaller;
@@ -43,17 +44,12 @@ namespace RessurectIT.Msi.Installer.Installer.CustomActions
         #endregion
 
 
-        #region constants - UpdateConfig
+        #region constants - UpdateConfigPrepareData
 
         /// <summary>
-        /// Name of SERVICEACCOUNT property
+        /// Name of UpdateConfig property
         /// </summary>
-        private const string PropServiceAccount = "SERVICEACCOUNT";
-
-        /// <summary>
-        /// Name of SERVICEPASSWORD property
-        /// </summary>
-        private const string PropServicePassword = "SERVICEPASSWORD";
+        private const string PropUpdateConfig = "UpdateConfig";
         #endregion
 
 
@@ -67,11 +63,11 @@ namespace RessurectIT.Msi.Installer.Installer.CustomActions
         [CustomAction]
         public static ActionResult UpdateConfig(Session session)
         {
-            string configPath = $"{session.GetTargetPath(ConfigFolder)}RessurectIT.Msi.Installer.config.json";
-            string updatesJsonUrl = session[PropUpdatesJsonUrl];
-            string checkInterval = session[PropCheckInterval];
-            string remoteLogRestUrl = session[PropRemoteLogRestUrl];
-            string allowSameVersion = session[PropAllowSameVersion];
+            string configPath = $"{session.CustomActionData[ConfigFolder]}RessurectIT.Msi.Installer.config.json";
+            string updatesJsonUrl = session.CustomActionData[PropUpdatesJsonUrl];
+            string checkInterval = session.CustomActionData[PropCheckInterval];
+            string remoteLogRestUrl = session.CustomActionData[PropRemoteLogRestUrl];
+            string allowSameVersion = session.CustomActionData[PropAllowSameVersion];
 
             session.Log("Begin UpdateConfig");
             session.Log($"Configuration path is '{configPath}'");
@@ -130,31 +126,29 @@ namespace RessurectIT.Msi.Installer.Installer.CustomActions
 
             return ActionResult.Success;
         }
-
         #endregion
 
 
-        #region public methods - CheckServiceAccount
+        #region public methods - UpdateConfigPrepareData
 
         /// <summary>
-        /// Checks whether service account username and password were provided
+        /// Prepares property for deferred updates of configuration file
         /// </summary>
         /// <param name="session">Session of current installer</param>
         /// <returns>Indication that operation was successful or not</returns>
         [CustomAction]
-        public static ActionResult CheckServiceAccount(Session session)
+        public static ActionResult UpdateConfigPrepareData(Session session)
         {
-            string serviceAccount = session[PropServiceAccount];
-            string servicePassword = session[PropServicePassword];
-
-            session.Log("Begin CheckServiceAccount");
-
-            if (string.IsNullOrEmpty(serviceAccount) || string.IsNullOrEmpty(servicePassword))
+            List<string> configProps = new List<string>
             {
-                session.Log("Missing service account name or service password!");
+                $"INSTALLFOLDER={session.GetTargetPath(ConfigFolder)}",
+                $"UPDATE_JSON_URL={session[PropUpdatesJsonUrl]}",
+                $"CHECK_INTERVAL={session[PropCheckInterval]}",
+                $"REMOTE_LOG_REST_URL={session[PropRemoteLogRestUrl]}",
+                $"ALLOW_SAME_VERSION={session[PropAllowSameVersion]}"
+            };
 
-                return ActionResult.Failure;
-            }
+            session[PropUpdateConfig] = string.Join(";", configProps);
 
             return ActionResult.Success;
         }

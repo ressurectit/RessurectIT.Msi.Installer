@@ -6,6 +6,7 @@
         <Media Id="1" EmbedCab="yes" Cabinet="RessurectIT.Msi.Installer.cab"/>
 
         <PropertyRef Id="WIX_IS_NETFRAMEWORK_461_OR_LATER_INSTALLED" />
+        <Property Id="SERVICEPASSWORD" Hidden="yes" />
 
         <Condition Message="This application requires .NET Framework 4.6.1 or higher. Please install the .NET Framework then run this installer again.">
             <![CDATA[Installed OR WIX_IS_NETFRAMEWORK_461_OR_LATER_INSTALLED]]>
@@ -17,17 +18,17 @@
 
         <Binary Id="RessurectIT.Msi.Installer.Installer.CustomActions.CA.dll" SourceFile="$(var.RessurectIT.Msi.Installer.Installer.CustomActions.TargetDir)RessurectIT.Msi.Installer.Installer.CustomActions.CA.dll" />
 
+        <CustomAction Id="UpdateConfigPrepareData"
+                      Return="check"
+                      Execute="immediate"
+                      BinaryKey="RessurectIT.Msi.Installer.Installer.CustomActions.CA.dll"
+                      DllEntry="UpdateConfigPrepareData"/>
+
         <CustomAction Id="UpdateConfig"
                       Return="check"
-                      Execute="immediate"
+                      Execute="deferred"
                       BinaryKey="RessurectIT.Msi.Installer.Installer.CustomActions.CA.dll"
                       DllEntry="UpdateConfig"/>
-
-        <CustomAction Id="CheckServiceAccount"
-                      Return="check"
-                      Execute="immediate"
-                      BinaryKey="RessurectIT.Msi.Installer.Installer.CustomActions.CA.dll"
-                      DllEntry="CheckServiceAccount"/>
 
         <CustomAction Id="SetRootDrive" Property="CROOT" Value="C:\RessurectIT" />
 
@@ -49,9 +50,9 @@
         </InstallUISequence>
 
         <InstallExecuteSequence>
-            <Custom Action="CheckServiceAccount" Before="AppSearch"><![CDATA[NOT REMOVE]]></Custom>
             <Custom Action="SetRootDrive" Before="AppSearch" />
-            <Custom Action="UpdateConfig" After="InstallFinalize"><![CDATA[NOT REMOVE]]></Custom>
+            <Custom Action="UpdateConfigPrepareData" After="InstallFiles"><![CDATA[NOT REMOVE]]></Custom>
+            <Custom Action="UpdateConfig" After="UpdateConfigPrepareData"><![CDATA[NOT REMOVE]]></Custom>
         </InstallExecuteSequence>
     </Product>
 
@@ -71,10 +72,11 @@
                 <File Id="RessurectIT.Msi.Installer.config.json" KeyPath="yes" Name="RessurectIT.Msi.Installer.config.json" />
             </Component>
 
-            <Component Id="RessurectIT.Msi.Installer.exe" Guid="5102E418-2F63-4271-B1DD-322800B4BB57">
+            <Component Id="RessurectIT.Msi.Installer.exe.User" Guid="FBA74E8F-45B4-4DA3-B517-C17F58B4C1A4">
+                <Condition>SERVICEACCOUNT AND SERVICEPASSWORD</Condition>
                 <File Id="RessurectIT.Msi.Installer.exe" KeyPath="yes" Name="RessurectIT.Msi.Installer.exe" Assembly=".net" AssemblyApplication="RessurectIT.Msi.Installer.exe" />
 
-                <ServiceInstall Id="MsiInstallerServiceInstall"
+                <ServiceInstall Id="MsiInstallerServiceInstall.User"
                                 Type="ownProcess"
                                 Name="RessurectIT.Msi.Installer"
                                 DisplayName="RessurectIT MSI Installer"
@@ -82,8 +84,27 @@
                                 Start="auto"
                                 Account="[SERVICEACCOUNT]"
                                 Password="[SERVICEPASSWORD]"
-                                ErrorControl="normal"/>
-                <ServiceControl Id="MsiInstallerServiceStart" Start="install" Stop="both" Remove="uninstall" Name="RessurectIT.Msi.Installer" Wait="no" />
+                                ErrorControl="normal"
+                                Vital="yes"
+                                Interactive="no"/>
+                <ServiceControl Id="MsiInstallerServiceStart.User" Start="install" Stop="both" Remove="uninstall" Name="RessurectIT.Msi.Installer" Wait="no" />
+            </Component>
+
+            <Component Id="RessurectIT.Msi.Installer.exe.System" Guid="5102E418-2F63-4271-B1DD-322800B4BB57">
+                <Condition>NOT SERVICEACCOUNT OR NOT SERVICEPASSWORD</Condition>
+                <File Id="RessurectIT.Msi.Installer.exe.System" KeyPath="yes" Name="RessurectIT.Msi.Installer.exe" Assembly=".net" AssemblyApplication="RessurectIT.Msi.Installer.exe" />
+
+                <ServiceInstall Id="MsiInstallerServiceInstall.System"
+                                Type="ownProcess"
+                                Name="RessurectIT.Msi.Installer"
+                                DisplayName="RessurectIT MSI Installer"
+                                Description="Automated MSI installer service."
+                                Start="auto"
+                                Account="LocalSystem"
+                                ErrorControl="normal"
+                                Vital="yes"
+                                Interactive="no"/>
+                <ServiceControl Id="MsiInstallerServiceStart.System" Start="install" Stop="both" Remove="uninstall" Name="RessurectIT.Msi.Installer" Wait="no" />
             </Component>
 
             <Component Id="RessurectIT.Msi.Installer.exe.config" Guid="71DCDF62-20DE-4356-8261-B036190649E1">

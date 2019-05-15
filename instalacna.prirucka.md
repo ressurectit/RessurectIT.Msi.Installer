@@ -31,15 +31,15 @@ Inštalácia, alebo aktualizácia aplikácie bez parametrov vždy nastaví konfi
 V prípade, že sa spustí inštalácia z príkazového riadku pomocou msiexec 
 (napríklad: msiexec /i RessurectIT.Msi.Installer-*.msi /q MENO_PARAMETRA=HODNOTA_PARAMETRA MENO_PARAMETRA2=HODNOTA_PARAMETRA2)
 
-Parametre nie sú povinné (ak nie je napísané inak). Ak sa parameter nenastaví, tak sa použije predvolená hodnota pre daný parameter, ktorá je uvedená v časti "Inštalácia - Bez parametrov".
+Parametre nie sú povinné. Ak sa parameter nenastaví, tak sa použije predvolená hodnota pre daný parameter, ktorá je uvedená v časti "Inštalácia - Bez parametrov".
 
 Zoznam parametrov:
  - INSTALLFOLDER - Cesta kam sa má nainštalovať aplikácia (príklad INSTALLFOLDER="C:\YourApp")
  - UPDATE_JSON_URL - Url adresa, na ktorej je možné pomocou GET získať JSON s dostupnými aktualizáciami (príklad UPDATE_JSON_URL=http://intranet/updates)
  - CHECK_INTERVAL - časový interval (v ms) v akom kontrolovať dostupnosť nových aktualizácii(príklad CHECK_INTERVAL=900000)
  - REMOTE_LOG_REST_URL - adresa pre vzdialené logovanie logov pomocou POST (príklad REMOTE_LOG_REST_URL=http://intranet/api/logs)
- - SERVICEACCOUNT - POVINNÝ parameter, názov účtu, pod ktorým bude služba spustená, musí mať Administrátorské oprávnenia a musí byť absolútny (príklad pre lokálne účty ".\UCET")
- - SERVICEPASSWORD - POVINNÝ parameter, heslo k účtu, pod ktorým bude služba spustená
+ - SERVICEACCOUNT - názov účtu, pod ktorým bude služba spustená, musí mať Administrátorské oprávnenia a musí byť absolútny (príklad pre lokálne účty ".\UCET"), ak sa tento parameter nenastaví, služba pobeží pod SYSTEM
+ - SERVICEPASSWORD - heslo k účtu, pod ktorým bude služba spustená
 
 ### Inštalácia cez Group Policy
 

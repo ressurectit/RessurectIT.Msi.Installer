@@ -31,21 +31,21 @@
             },
             {
                 "Name": "Logger",
-                "Args": 
+                "Args":
                 {
-                    "configureLogger": 
+                    "configureLogger":
                     {
-                        "WriteTo": 
+                        "WriteTo":
                         [
                             {
                                 "Name": "RestLogger"
                             }
                         ],
-                        "Filter": 
+                        "Filter":
                         [
                             {
                                 "Name": "ByIncludingOnly",
-                                "Args": 
+                                "Args":
                                 {
                                     "expression": "@Level = 'Error' or Contains(@MessageTemplate, 'MSIEXEC LOG:')"
                                 }
@@ -55,11 +55,63 @@
                 }
             },
             {
-                "Name": "File",
+                "Name": "Logger",
                 "Args":
                 {
-                    "path": "./Logs/App.logs",
-                    "rollingInterval": "Day"
+                    "configureLogger":
+                    {
+                        "WriteTo":
+                        [
+                            {
+                                "Name": "File",
+                                "Args":
+                                {
+                                    "path": "./Logs/Error.logs",
+                                    "rollingInterval": "Day"
+                                }
+                            }
+                        ],
+                        "Filter":
+                        [
+                            {
+                                "Name": "ByIncludingOnly",
+                                "Args":
+                                {
+                                    "expression": "@Level = 'Error'"
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "Name": "Logger",
+                "Args":
+                {
+                    "configureLogger":
+                    {
+                        "WriteTo":
+                        [
+                            {
+                                "Name": "File",
+                                "Args":
+                                {
+                                    "path": "./Logs/App.logs",
+                                    "rollingInterval": "Day"
+                                }
+                            }
+                        ],
+                        "Filter":
+                        [
+                            {
+                                "Name": "ByExcluding",
+                                "Args":
+                                {
+                                    "expression": "@Level = 'Error' or Contains(@MessageTemplate, 'MSIEXEC LOG:')"
+                                }
+                            }
+                        ]
+                    }
                 }
             },
             {

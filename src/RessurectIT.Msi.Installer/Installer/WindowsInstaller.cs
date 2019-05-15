@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using WindowsInstaller;
 using RessurectIT.Msi.Installer.Gatherer.Dto;
 using Serilog;
@@ -53,6 +54,12 @@ namespace RessurectIT.Msi.Installer.Installer
 
             try
             {
+                //self update and same or older version
+                if (IsRessurectITMsiInstallerMsi() && Assembly.GetExecutingAssembly().GetName().Version >= new Version(_update.Version))
+                {
+                    return;
+                }
+
                 Process process = new Process
                 {
                     StartInfo =
@@ -68,8 +75,7 @@ namespace RessurectIT.Msi.Installer.Installer
                 if (IsRessurectITMsiInstallerMsi())
                 {
                     _stopCallback();
-
-                    return;
+                    Process.GetCurrentProcess().Kill();
                 }
 
                 process.WaitForExit(90000);
@@ -144,7 +150,7 @@ namespace RessurectIT.Msi.Installer.Installer
         {
             string upgradeCode = GetMsiProperty("UpgradeCode", _update.MsiPath);
 
-            return "369C83BF-7965-4AEE-B1DD-329BEB92D719" == upgradeCode;
+            return "{369C83BF-7965-4AEE-B1DD-329BEB92D719}" == upgradeCode;
         }
 
         /// <summary>

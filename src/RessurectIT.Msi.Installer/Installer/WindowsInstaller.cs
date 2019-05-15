@@ -19,6 +19,11 @@ namespace RessurectIT.Msi.Installer.Installer
         /// Information about update that should be installed
         /// </summary>
         private readonly MsiUpdate _update;
+
+        /// <summary>
+        /// Callback called when there is need to stop installer itself
+        /// </summary>
+        private readonly Action _stopCallback;
         #endregion
 
 
@@ -28,9 +33,11 @@ namespace RessurectIT.Msi.Installer.Installer
         /// Creates instance of <see cref="WindowsInstaller"/>
         /// </summary>
         /// <param name="update">Information about update that should be installed</param>
-        public WindowsInstaller(MsiUpdate update)
+        /// <param name="stopCallback">Callback called when there is need to stop installer itself</param>
+        public WindowsInstaller(MsiUpdate update, Action stopCallback)
         {
             _update = update;
+            _stopCallback = stopCallback;
         }
         #endregion
 
@@ -56,6 +63,15 @@ namespace RessurectIT.Msi.Installer.Installer
                 };
 
                 process.Start();
+
+                //self update initiated
+                if (IsRessurectITMsiInstallerMsi())
+                {
+                    _stopCallback();
+
+                    return;
+                }
+
                 process.WaitForExit(90000);
 
                 if (process.ExitCode != 0)

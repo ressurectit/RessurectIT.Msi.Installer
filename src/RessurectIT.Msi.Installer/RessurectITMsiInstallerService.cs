@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Security.Principal;
@@ -91,6 +92,8 @@ namespace RessurectIT.Msi.Installer
 
             appConfig.Bind(config);
 
+            LaunchDebugger();
+
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(appConfig)
                 .CreateLogger();
@@ -98,7 +101,7 @@ namespace RessurectIT.Msi.Installer
             Log.Information($"Service '{Constants.ServiceName}' is starting!");
             AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
 
-            _checker = new UpdateChecker();
+            _checker = new UpdateChecker(Stop);
             _checker.Start();
         }
 
@@ -178,6 +181,18 @@ namespace RessurectIT.Msi.Installer
             WindowsPrincipal principal = new WindowsPrincipal(identity);
 
             return principal.IsInRole(WindowsBuiltInRole.Administrator);
+        }
+
+        /// <summary>
+        /// Launch debugger
+        /// </summary>
+        [Conditional("DEBUG")]
+        private void LaunchDebugger()
+        {
+            if (Config.Debugging)
+            {
+                Debugger.Launch();
+            }
         }
         #endregion
     }

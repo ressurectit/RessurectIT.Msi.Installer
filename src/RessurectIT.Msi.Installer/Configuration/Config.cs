@@ -42,6 +42,17 @@
             get;
             set;
         }
+
+#if DEBUG
+        /// <summary>
+        /// Gets or sets indication
+        /// </summary>
+        public bool Debugging
+        {
+            get;
+            set;
+        }
+#endif
         #endregion
     }
 }

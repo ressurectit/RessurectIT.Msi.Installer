@@ -26,6 +26,24 @@ namespace RessurectIT.Msi.Installer.Checker
         /// Instance of http gatherer used for gathering info about available updates
         /// </summary>
         private readonly HttpGatherer _gatherer = new HttpGatherer();
+
+        /// <summary>
+        /// Callback called when there is need to stop installer itself
+        /// </summary>
+        private readonly Action _stopCallback;
+        #endregion
+
+
+        #region constructors
+
+        /// <summary>
+        /// Creates instance of <see cref="UpdateChecker"/>
+        /// </summary>
+        /// <param name="stopCallback">Callback called when there is need to stop installer itself</param>
+        public UpdateChecker(Action stopCallback)
+        {
+            _stopCallback = stopCallback;
+        }
         #endregion
 
 
@@ -72,15 +90,27 @@ namespace RessurectIT.Msi.Installer.Checker
 
             foreach (MsiUpdate update in newUpdates)
             {
+                bool @break = false;
+
                 Log.Information($"Installing update for {update.Id}, version {update.Version}, from {Path.GetFileName(update.MsiPath)}. Machine: '{{MachineName}}'");
 
-                Installer.WindowsInstaller installer = new Installer.WindowsInstaller(update);
+                Installer.WindowsInstaller installer = new Installer.WindowsInstaller(update,
+                                                                                      () =>
+                                                                                      {
+                                                                                          @break = true;
+                                                                                          _stopCallback();
+                                                                                      });
 
                 try
                 {
                     StopProcess(update);
                     installer.Uninstall();
                     installer.Install();
+
+                    if (@break)
+                    {
+                        break;
+                    }
                 }
                 catch (InstallException ex)
                 {

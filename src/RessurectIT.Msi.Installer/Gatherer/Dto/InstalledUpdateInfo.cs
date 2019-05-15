@@ -51,6 +51,15 @@ namespace RessurectIT.Msi.Installer.Gatherer.Dto
             get;
             set;
         }
+
+        /// <summary>
+        /// Gets or sets hash of installed msi file
+        /// </summary>
+        public string Hash
+        {
+            get;
+            set;
+        }
         #endregion
     }
 }

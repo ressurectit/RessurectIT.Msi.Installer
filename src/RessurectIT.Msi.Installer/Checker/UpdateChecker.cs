@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration.Install;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Timers;
 using RessurectIT.Msi.Installer.Gatherer;
@@ -71,7 +72,7 @@ namespace RessurectIT.Msi.Installer.Checker
 
             foreach (MsiUpdate update in newUpdates)
             {
-                Log.Information($"Installing update for {update.Id}, version {update.Version}. Machine: '{{MachineName}}'");
+                Log.Information($"Installing update for {update.Id}, version {update.Version}, from {Path.GetFileName(update.MsiPath)}. Machine: '{{MachineName}}'");
 
                 Installer.WindowsInstaller installer = new Installer.WindowsInstaller(update);
 

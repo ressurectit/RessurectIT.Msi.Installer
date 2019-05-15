@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Cryptography;
 using RessurectIT.Msi.Installer.Gatherer.Dto;
 using Newtonsoft.Json;
 using Serilog;
@@ -111,6 +112,7 @@ namespace RessurectIT.Msi.Installer.Gatherer
 
                     update.MsiPath = tempPath;
                     update.Version = Installer.WindowsInstaller.GetMsiVersion(tempPath);
+                    update.ComputedHash = ComputeHash(tempPath);
                 }
                 catch (Exception e)
                 {
@@ -127,11 +129,15 @@ namespace RessurectIT.Msi.Installer.Gatherer
             return (from update in updates.Updates
                     join installedUpdateIdJoin in installedUpdates.Keys on update.Id equals installedUpdateIdJoin into installedUpdatesIds
                     from installedUpdateId in installedUpdatesIds.DefaultIfEmpty()
-                    where !string.IsNullOrEmpty(update.MsiPath) && (installedUpdateId == null || installedUpdates[installedUpdateId].VersionObj < new Version(update.Version))
+                    let updateVersion = new Version(update.Version)
+                    where !string.IsNullOrEmpty(update.MsiPath) && 
+                          (installedUpdateId == null || installedUpdates[installedUpdateId].VersionObj < updateVersion) ||
+                          (RessurectITMsiInstallerService.Config.AllowSameVersion && installedUpdates[installedUpdateId].VersionObj == updateVersion && update.ComputedHash != installedUpdates[installedUpdateId].Hash)
                     select new MsiUpdate
                     {
                         Id = update.Id,
                         Version = update.Version,
+                        ComputedHash = update.ComputedHash,
                         InstallParameters = update.InstallParameters,
                         MsiDownloadUrl = update.MsiDownloadUrl,
                         MsiPath = update.MsiPath,
@@ -152,7 +158,8 @@ namespace RessurectIT.Msi.Installer.Gatherer
             installedUpdates[update.Id] = new InstalledUpdateInfo
             {
                 Version = update.Version,
-                ProductCode = update.UninstallProductCode
+                ProductCode = update.UninstallProductCode,
+                Hash = update.ComputedHash
             };
 
             try
@@ -200,6 +207,29 @@ namespace RessurectIT.Msi.Installer.Gatherer
             }
 
             return installedUpdates;
+        }
+
+        /// <summary>
+        /// Computes hash of msi file
+        /// </summary>
+        /// <param name="msiPath">Path to msi file</param>
+        /// <returns>String hash of msi file</returns>
+        private string ComputeHash(string msiPath)
+        {
+            if (string.IsNullOrEmpty(msiPath) || !File.Exists(msiPath))
+            {
+                return null;
+            }
+
+            using (SHA1 sha1 = SHA1.Create())
+            {
+                using (Stream stream = File.OpenRead(msiPath))
+                {
+                    byte[] hash = sha1.ComputeHash(stream);
+
+                    return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+                }
+            }
         }
         #endregion
     }

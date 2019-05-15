@@ -24,6 +24,15 @@
             get;
             set;
         }
+
+        /// <summary>
+        /// Gets or sets computed hash of msi file
+        /// </summary>
+        internal string ComputedHash
+        {
+            get;
+            set;
+        }
         #endregion
 
 

@@ -5,3 +5,5 @@
 - *RessurectIT.Msi.Installer*
    - supports installing others MSI
    - supports reporting of installation progress
+   - supports logging
+   - supports *msi* installer for this application

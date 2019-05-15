@@ -189,10 +189,12 @@ namespace RessurectIT.Msi.Installer
         [Conditional("DEBUG")]
         private void LaunchDebugger()
         {
+#if DEBUG
             if (Config.Debugging)
             {
                 Debugger.Launch();
             }
+#endif
         }
         #endregion
     }

@@ -7,6 +7,7 @@
 
         <PropertyRef Id="WIX_IS_NETFRAMEWORK_461_OR_LATER_INSTALLED" />
         <Property Id="SERVICEPASSWORD" Hidden="yes" />
+        <Property Id="UPDATE_JSON_URL" Value="http://localhost/updates.json" />
 
         <Condition Message="This application requires .NET Framework 4.6.1 or higher. Please install the .NET Framework then run this installer again.">
             <![CDATA[Installed OR WIX_IS_NETFRAMEWORK_461_OR_LATER_INSTALLED]]>
@@ -32,9 +33,24 @@
 
         <CustomAction Id="SetRootDrive" Property="CROOT" Value="C:\RessurectIT" />
 
-        <Feature Id="MsiInstaller" Title="Msi Installer" Level="1">
-            <ComponentGroupRef Id="MsiInstallerFiles" />
-            <ComponentRef Id="InstallFolderPermissions" />
+        <Feature Id="Complete" 
+                 Title="RessurectIT MSI Installer"
+                 Description="Complete with all features."
+                 Display="expand"
+                 Level="1"
+                 ConfigurableDirectory="INSTALLFOLDER"
+                 AllowAdvertise="no"
+                 InstallDefault="local">
+            <Feature Id="MsiInstaller"
+                     Title="Msi Installer"
+                     Description="The main executable."
+                     Level="1"
+                     AllowAdvertise="no"
+                     Absent="disallow"
+                     InstallDefault="local">
+                <ComponentGroupRef Id="MsiInstallerFiles" />
+                <ComponentRef Id="InstallFolderPermissions" />
+            </Feature>
         </Feature>
 
         <Upgrade Id="369C83BF-7965-4AEE-B1DD-329BEB92D719">
@@ -54,6 +70,17 @@
             <Custom Action="UpdateConfigPrepareData" After="InstallFiles"><![CDATA[NOT REMOVE]]></Custom>
             <Custom Action="UpdateConfig" After="UpdateConfigPrepareData"><![CDATA[NOT REMOVE]]></Custom>
         </InstallExecuteSequence>
+
+        <UI Id="MyWixUI_Mondo">
+            <UIRef Id="WixUI_Mondo" />
+
+            <DialogRef Id="ConfigurationDlg" />
+
+            <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="ConfigurationDlg">NOT Installed AND NOT PATCH</Publish>
+            <Publish Dialog="SetupTypeDlg" Control="Back" Event="NewDialog" Value="ConfigurationDlg">1</Publish>
+        </UI>
+
+        <UIRef Id="WixUI_ErrorProgressText" />
     </Product>
 
     <Fragment>

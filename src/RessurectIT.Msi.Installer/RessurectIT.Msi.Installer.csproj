@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\packages\JenkinsSignBinaryClient.1.0.3\build\JenkinsSignBinaryClient.props" Condition="Exists('..\..\packages\JenkinsSignBinaryClient.1.0.3\build\JenkinsSignBinaryClient.props')" />
   <Import Project="..\..\packages\RessurectIT.Git.Version.1.0.5\build\RessurectIT.Git.Version.props" Condition="Exists('..\..\packages\RessurectIT.Git.Version.1.0.5\build\RessurectIT.Git.Version.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -253,9 +252,6 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\RessurectIT.Git.Version.1.0.5\build\RessurectIT.Git.Version.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\RessurectIT.Git.Version.1.0.5\build\RessurectIT.Git.Version.props'))" />
     <Error Condition="!Exists('..\..\packages\RessurectIT.Git.Version.1.0.5\build\RessurectIT.Git.Version.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\RessurectIT.Git.Version.1.0.5\build\RessurectIT.Git.Version.targets'))" />
-    <Error Condition="!Exists('..\..\packages\JenkinsSignBinaryClient.1.0.3\build\JenkinsSignBinaryClient.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\JenkinsSignBinaryClient.1.0.3\build\JenkinsSignBinaryClient.props'))" />
-    <Error Condition="!Exists('..\..\packages\JenkinsSignBinaryClient.1.0.3\build\JenkinsSignBinaryClient.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\JenkinsSignBinaryClient.1.0.3\build\JenkinsSignBinaryClient.targets'))" />
   </Target>
   <Import Project="..\..\packages\RessurectIT.Git.Version.1.0.5\build\RessurectIT.Git.Version.targets" Condition="Exists('..\..\packages\RessurectIT.Git.Version.1.0.5\build\RessurectIT.Git.Version.targets')" />
-  <Import Project="..\..\packages\JenkinsSignBinaryClient.1.0.3\build\JenkinsSignBinaryClient.targets" Condition="Exists('..\..\packages\JenkinsSignBinaryClient.1.0.3\build\JenkinsSignBinaryClient.targets')" />
 </Project>

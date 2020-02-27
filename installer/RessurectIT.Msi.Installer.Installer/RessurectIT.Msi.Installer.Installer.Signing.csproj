@@ -17,6 +17,5 @@
 
     <!-- NUGET DEPENDENCIES -->
     <ItemGroup>
-        <PackageReference Include="JenkinsSignBinaryClient" Version="1.0.3" PrivateAssets="All" />
     </ItemGroup>
 </Project>

@@ -1,0 +1,38 @@
+<Project>
+    <Import Project=".\Dependencies.props" />
+
+    <!-- BASIC INFO -->
+    <PropertyGroup>
+        <Authors>kukjevov</Authors>
+        <Company>Ressurect IT</Company>
+        <Copyright>Copyright © 2020</Copyright>
+    </PropertyGroup>
+
+    <!-- BUILD OPTIONS -->
+    <PropertyGroup>
+        <OutDir>bin</OutDir>
+        <LangVersion>latest</LangVersion>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <SignAssembly>True</SignAssembly>
+        <AssemblyOriginatorKeyFile>..\..\.include\RessurectIT.snk</AssemblyOriginatorKeyFile>
+        <DelaySign>False</DelaySign>
+    </PropertyGroup>
+
+    <!-- FRAMEWORK -->
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <!-- PACKAGING -->
+    <PropertyGroup>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/ressurectit/RessurectIT.Msi.Installer.git</RepositoryUrl>
+    </PropertyGroup>
+
+    <!-- SOURCE LINK - PROPERTIES -->
+    <PropertyGroup>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    </PropertyGroup>
+</Project>

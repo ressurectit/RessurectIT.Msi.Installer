@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+    <!-- BASIC INFO -->
+    <PropertyGroup>
+        <AssemblyName>RessurectIT.Msi.Installer</AssemblyName>
+        <Description>RessurectIT.Msi.Installer is executable application used for installing msi</Description>
+        <RootNamespace>RessurectIT.Msi.Installer</RootNamespace>
+    </PropertyGroup>
+
+    <!-- BUILD OPTIONS -->
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <UseWPF>true</UseWPF>
+    </PropertyGroup>
+
+    <!-- FRAMEWORK -->
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    </PropertyGroup>
+
+    <!-- NUGET DEPENDENCIES -->
+    <ItemGroup>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="$(MicrosoftSourceLinkGitHub)" PrivateAssets="All" />
+        <PackageReference Include="RessurectIT.Git.Version" Version="$(RessurectITGitVersion)" PrivateAssets="All" />
+    </ItemGroup>
+
+    <!-- PROJECT DEPENDENCIES -->
+    <ItemGroup>
+        <ProjectReference Include="..\RessurectIT.Msi.Installer.Logic\RessurectIT.Msi.Installer.Logic.csproj" />
+    </ItemGroup>
+</Project>

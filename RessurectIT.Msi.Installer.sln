@@ -1,54 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.168
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3BA3F6F0-825A-4945-9F28-466E61652CB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RessurectIT.Msi.Installer", "src\RessurectIT.Msi.Installer\RessurectIT.Msi.Installer.csproj", "{7390F376-0A78-4D62-BDA5-7B025C9862C2}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "installer", "installer", "{59CE8CB4-69CC-42E5-8A83-3EE462ED78F8}"
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "RessurectIT.Msi.Installer.Installer", "installer\RessurectIT.Msi.Installer.Installer\RessurectIT.Msi.Installer.Installer.wixproj", "{8E164AED-E24A-43A5-A14F-AC1BBE699FA5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RessurectIT.Msi.Installer.Installer.CustomActions", "installer\RessurectIT.Msi.Installer.Installer.CustomActions\RessurectIT.Msi.Installer.Installer.CustomActions.csproj", "{F3100F86-4CE7-4626-8D6B-DD37B6CF5AB0}"
-EndProject
 Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		DebugInstaller|Any CPU = DebugInstaller|Any CPU
-		Release|Any CPU = Release|Any CPU
-		ReleaseInstaller|Any CPU = ReleaseInstaller|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7390F376-0A78-4D62-BDA5-7B025C9862C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7390F376-0A78-4D62-BDA5-7B025C9862C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7390F376-0A78-4D62-BDA5-7B025C9862C2}.DebugInstaller|Any CPU.ActiveCfg = DebugInstaller|Any CPU
-		{7390F376-0A78-4D62-BDA5-7B025C9862C2}.DebugInstaller|Any CPU.Build.0 = DebugInstaller|Any CPU
-		{7390F376-0A78-4D62-BDA5-7B025C9862C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7390F376-0A78-4D62-BDA5-7B025C9862C2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7390F376-0A78-4D62-BDA5-7B025C9862C2}.ReleaseInstaller|Any CPU.ActiveCfg = ReleaseInstaller|Any CPU
-		{7390F376-0A78-4D62-BDA5-7B025C9862C2}.ReleaseInstaller|Any CPU.Build.0 = ReleaseInstaller|Any CPU
-		{8E164AED-E24A-43A5-A14F-AC1BBE699FA5}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{8E164AED-E24A-43A5-A14F-AC1BBE699FA5}.DebugInstaller|Any CPU.ActiveCfg = Debug|x86
-		{8E164AED-E24A-43A5-A14F-AC1BBE699FA5}.DebugInstaller|Any CPU.Build.0 = Debug|x86
-		{8E164AED-E24A-43A5-A14F-AC1BBE699FA5}.Release|Any CPU.ActiveCfg = Release|x86
-		{8E164AED-E24A-43A5-A14F-AC1BBE699FA5}.ReleaseInstaller|Any CPU.ActiveCfg = Release|x86
-		{8E164AED-E24A-43A5-A14F-AC1BBE699FA5}.ReleaseInstaller|Any CPU.Build.0 = Release|x86
-		{F3100F86-4CE7-4626-8D6B-DD37B6CF5AB0}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{F3100F86-4CE7-4626-8D6B-DD37B6CF5AB0}.DebugInstaller|Any CPU.ActiveCfg = Debug|x86
-		{F3100F86-4CE7-4626-8D6B-DD37B6CF5AB0}.DebugInstaller|Any CPU.Build.0 = Debug|x86
-		{F3100F86-4CE7-4626-8D6B-DD37B6CF5AB0}.Release|Any CPU.ActiveCfg = Release|x86
-		{F3100F86-4CE7-4626-8D6B-DD37B6CF5AB0}.ReleaseInstaller|Any CPU.ActiveCfg = Release|x86
-		{F3100F86-4CE7-4626-8D6B-DD37B6CF5AB0}.ReleaseInstaller|Any CPU.Build.0 = Release|x86
-	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{7390F376-0A78-4D62-BDA5-7B025C9862C2} = {3BA3F6F0-825A-4945-9F28-466E61652CB7}
-		{8E164AED-E24A-43A5-A14F-AC1BBE699FA5} = {59CE8CB4-69CC-42E5-8A83-3EE462ED78F8}
-		{F3100F86-4CE7-4626-8D6B-DD37B6CF5AB0} = {59CE8CB4-69CC-42E5-8A83-3EE462ED78F8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F5A77FE3-29ED-4050-A6E9-BD137A1B6CC6}

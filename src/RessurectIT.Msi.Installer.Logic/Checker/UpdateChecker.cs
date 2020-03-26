@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Configuration.Install;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Timers;
 using RessurectIT.Msi.Installer.Gatherer;
 using RessurectIT.Msi.Installer.Gatherer.Dto;
-using Serilog;
 
 namespace RessurectIT.Msi.Installer.Checker
 {
@@ -20,7 +18,8 @@ namespace RessurectIT.Msi.Installer.Checker
         /// <summary>
         /// Instance of timer used for checking for updates
         /// </summary>
-        private readonly Timer _timer = new Timer(RessurectITMsiInstallerService.Config.CheckInterval);
+        private readonly Timer _timer = new Timer(10000);
+        //private readonly Timer _timer = new Timer(RessurectITMsiInstallerService.Config.CheckInterval);
 
         /// <summary>
         /// Instance of http gatherer used for gathering info about available updates
@@ -84,7 +83,7 @@ namespace RessurectIT.Msi.Installer.Checker
         /// <param name="e">Event object</param>
         private void DoCheck(object sender, ElapsedEventArgs e)
         {
-            Log.Information("Checking for updates! Machine: '{MachineName}'");
+            //Log.Information("Checking for updates! Machine: '{MachineName}'");
 
             MsiUpdate[] newUpdates = _gatherer.CheckForUpdates();
 
@@ -92,7 +91,7 @@ namespace RessurectIT.Msi.Installer.Checker
             {
                 bool @break = false;
 
-                Log.Information($"Installing update for {update.Id}, version {update.Version}, from {Path.GetFileName(update.MsiPath)}. Machine: '{{MachineName}}'");
+                //Log.Information($"Installing update for {update.Id}, version {update.Version}, from {Path.GetFileName(update.MsiPath)}. Machine: '{{MachineName}}'");
 
                 Installer.WindowsInstaller installer = new Installer.WindowsInstaller(update,
                                                                                       () =>
@@ -112,15 +111,15 @@ namespace RessurectIT.Msi.Installer.Checker
                         break;
                     }
                 }
-                catch (InstallException ex)
-                {
-                    Log.Error(ex, "Failed to install new update! Machine: '{MachineName}'");
+                //catch (InstallationException ex)
+                //{
+                //    Log.Error(ex, "Failed to install new update! Machine: '{MachineName}'");
 
-                    continue;
-                }
+                //    continue;
+                //}
                 catch (Exception ex)
                 {
-                    Log.Error(ex, "Failed to install new update! Machine: '{MachineName}'");
+                    //Log.Error(ex, "Failed to install new update! Machine: '{MachineName}'");
 
                     continue;
                 }
@@ -129,7 +128,7 @@ namespace RessurectIT.Msi.Installer.Checker
 
                 _gatherer.SetInstalledUpdates(update);
 
-                Log.Information($"Installation of update for '{update.Id}' version '{update.Version}' was successful. Machine: '{{MachineName}}'");
+                //Log.Information($"Installation of update for '{update.Id}' version '{update.Version}' was successful. Machine: '{{MachineName}}'");
             }
         }
 
@@ -144,13 +143,13 @@ namespace RessurectIT.Msi.Installer.Checker
                 return;
             }
 
-            Log.Information($"Looking for process with name '{update.StopProcessName}'.");
+            //Log.Information($"Looking for process with name '{update.StopProcessName}'.");
 
             Process runningProcess = Process.GetProcesses().SingleOrDefault(process => process.ProcessName == update.StopProcessName);
 
             if (runningProcess != null)
             {
-                Log.Information($"Stopping process '{runningProcess.Id}' with name '{runningProcess.ProcessName}'.");
+                //Log.Information($"Stopping process '{runningProcess.Id}' with name '{runningProcess.ProcessName}'.");
 
                 try
                 {
@@ -158,7 +157,7 @@ namespace RessurectIT.Msi.Installer.Checker
                 }
                 catch (Exception e)
                 {
-                    Log.Warning(e, $"Failed to stop process '{runningProcess.ProcessName}'!");
+                    //Log.Warning(e, $"Failed to stop process '{runningProcess.ProcessName}'!");
                 }
             }
         }

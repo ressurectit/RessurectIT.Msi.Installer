@@ -13,9 +13,11 @@
         <OutDir>bin</OutDir>
         <LangVersion>latest</LangVersion>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <SignAssembly>True</SignAssembly>
+        <PublishTrimmed>true</PublishTrimmed>
+        <InvariantGlobalization>true</InvariantGlobalization>
+        <SignAssembly>true</SignAssembly>
         <AssemblyOriginatorKeyFile>..\..\.include\RessurectIT.snk</AssemblyOriginatorKeyFile>
-        <DelaySign>False</DelaySign>
+        <DelaySign>false</DelaySign>
     </PropertyGroup>
 
     <!-- FRAMEWORK -->

@@ -1,5 +1,4 @@
 ﻿using System;
-using Serilog;
 
 namespace RessurectIT.Msi.Installer.Gatherer.Dto
 {
@@ -23,7 +22,7 @@ namespace RessurectIT.Msi.Installer.Gatherer.Dto
                 }
                 catch (Exception e)
                 {
-                    Log.Warning(e,$"Version '{Version}' for '{ProductCode}' is in incorrect format!");
+                    //Log.Warning(e,$"Version '{Version}' for '{ProductCode}' is in incorrect format!");
 
                     return new Version("0.0.0.0");
                 }

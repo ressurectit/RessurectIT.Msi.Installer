@@ -7,7 +7,6 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using RessurectIT.Msi.Installer.Gatherer.Dto;
 using Newtonsoft.Json;
-using Serilog;
 
 namespace RessurectIT.Msi.Installer.Gatherer
 {
@@ -58,11 +57,12 @@ namespace RessurectIT.Msi.Installer.Gatherer
 
             try
             {
-                result = _httpClient.GetAsync(RessurectITMsiInstallerService.Config.UpdatesJsonUrl).Result;
+                result = _httpClient.GetAsync("").Result;
+                //result = _httpClient.GetAsync(RessurectITMsiInstallerService.Config.UpdatesJsonUrl).Result;
             }
             catch (Exception e)
             {
-                Log.Error(e, "Unable to obtain updates json! Machine: '{MachineName}'");
+                //Log.Error(e, "Unable to obtain updates json! Machine: '{MachineName}'");
 
                 return new MsiUpdate[0];
             }
@@ -77,14 +77,14 @@ namespace RessurectIT.Msi.Installer.Gatherer
                 }
                 catch (Exception e)
                 {
-                    Log.Error(e, "Error during deserialization of updates result. Machine: '{MachineName}'");
+                    //Log.Error(e, "Error during deserialization of updates result. Machine: '{MachineName}'");
 
                     return new MsiUpdate[0];
                 }
             }
             else
             {
-                Log.Error($"Obtaining failed, returned status code '{result.StatusCode}'. Machine: '{{MachineName}}'");
+                //Log.Error($"Obtaining failed, returned status code '{result.StatusCode}'. Machine: '{{MachineName}}'");
 
                 return new MsiUpdate[0];
             }
@@ -93,7 +93,7 @@ namespace RessurectIT.Msi.Installer.Gatherer
             {
                 if (string.IsNullOrEmpty(update.Id))
                 {
-                    Log.Error("Update is missing ID! Machine: '{MachineName}'");
+                    //Log.Error("Update is missing ID! Machine: '{MachineName}'");
 
                     return false;
                 }
@@ -116,7 +116,7 @@ namespace RessurectIT.Msi.Installer.Gatherer
                 }
                 catch (Exception e)
                 {
-                    Log.Warning(e, $"Unable to obtain msi for '{update.Id}' with url '{update.MsiDownloadUrl}'!");
+                    //Log.Warning(e, $"Unable to obtain msi for '{update.Id}' with url '{update.MsiDownloadUrl}'!");
 
                     return false;
                 }
@@ -132,7 +132,8 @@ namespace RessurectIT.Msi.Installer.Gatherer
                     let updateVersion = new Version(update.Version)
                     where !string.IsNullOrEmpty(update.MsiPath) && 
                           (installedUpdateId == null || installedUpdates[installedUpdateId].VersionObj < updateVersion) ||
-                          (RessurectITMsiInstallerService.Config.AllowSameVersion && installedUpdates[installedUpdateId].VersionObj == updateVersion && update.ComputedHash != installedUpdates[installedUpdateId].Hash)
+                          (false && installedUpdates[installedUpdateId].VersionObj == updateVersion && update.ComputedHash != installedUpdates[installedUpdateId].Hash)
+                          //(RessurectITMsiInstallerService.Config.AllowSameVersion && installedUpdates[installedUpdateId].VersionObj == updateVersion && update.ComputedHash != installedUpdates[installedUpdateId].Hash)
                     select new MsiUpdate
                     {
                         Id = update.Id,
@@ -168,7 +169,7 @@ namespace RessurectIT.Msi.Installer.Gatherer
             }
             catch (Exception e)
             {
-                Log.Warning(e, "Failed to store installed updates json!");
+                //Log.Warning(e, "Failed to store installed updates json!");
             }
         }
         #endregion
@@ -202,7 +203,7 @@ namespace RessurectIT.Msi.Installer.Gatherer
                 }
                 catch (Exception e)
                 {
-                    Log.Warning(e, "Failed to load installed updates!");
+                    //Log.Warning(e, "Failed to load installed updates!");
                 }
             }
 

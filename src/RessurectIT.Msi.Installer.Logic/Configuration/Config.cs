@@ -3,7 +3,7 @@
     /// <summary>
     /// Configuration for application
     /// </summary>
-    internal class Config
+    public class Config
     {
         #region public properties
 

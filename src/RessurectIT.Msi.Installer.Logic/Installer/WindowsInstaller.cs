@@ -1,18 +1,17 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+using System.Management.Automation;
 using System.Reflection;
-using WindowsInstaller;
 using RessurectIT.Msi.Installer.Gatherer.Dto;
-using Serilog;
-using MsiInstaller = WindowsInstaller.Installer;
 
 namespace RessurectIT.Msi.Installer.Installer
 {
     /// <summary>
     /// Class used for installing msi and reading data from them
     /// </summary>
-    internal class WindowsInstaller
+    public class WindowsInstaller
     {
         #region private fields
 
@@ -35,7 +34,7 @@ namespace RessurectIT.Msi.Installer.Installer
         /// </summary>
         /// <param name="update">Information about update that should be installed</param>
         /// <param name="stopCallback">Callback called when there is need to stop installer itself</param>
-        public WindowsInstaller(MsiUpdate update, Action stopCallback)
+        internal WindowsInstaller(MsiUpdate update, Action stopCallback)
         {
             _update = update;
             _stopCallback = stopCallback;
@@ -106,7 +105,7 @@ namespace RessurectIT.Msi.Installer.Installer
         {
             if (string.IsNullOrEmpty(_update.UninstallProductCode))
             {
-                Log.Information("No product code was specified");
+                //Log.Information("No product code was specified");
 
                 return;
             }
@@ -129,12 +128,12 @@ namespace RessurectIT.Msi.Installer.Installer
 
                 if (process.ExitCode != 0)
                 {
-                    Log.Error($"Failed to uninstall product! Process exited with code {process.ExitCode}! Machine: '{{MachineName}}'");
+                    //Log.Error($"Failed to uninstall product! Process exited with code {process.ExitCode}! Machine: '{{MachineName}}'");
                 }
             }
             catch (Exception e)
             {
-                Log.Error(e, "Failed to uninstall product! Machine: '{MachineName}'");
+                //Log.Error(e, "Failed to uninstall product! Machine: '{MachineName}'");
             }
             finally
             {
@@ -185,15 +184,36 @@ namespace RessurectIT.Msi.Installer.Installer
         /// <returns>String representing MSI property value</returns>
         private static string GetMsiProperty(string propertyName, string msiPath)
         {
-            Type type = Type.GetTypeFromProgID("WindowsInstaller.Installer");
-            MsiInstaller installer = (MsiInstaller)Activator.CreateInstance(type);
+            using PowerShell ps = PowerShell.Create();
 
-            Database db = installer.OpenDatabase(msiPath, 0);
-            View dv = db.OpenView($"SELECT `Value` FROM `Property` WHERE `Property`='{propertyName}'");
-            dv.Execute();
-            Record record = dv.Fetch();
+            Collection<PSObject> result = ps.AddScript(@$"
+            function Get-Property ($Object, $PropertyName, [object[]]$ArgumentList) 
+            {{
+                return $Object.GetType().InvokeMember($PropertyName, 'Public, Instance, GetProperty', $null, $Object, $ArgumentList)
+            }}
 
-            return record?.StringData[1];
+            function Invoke-Method ($Object, $MethodName, $ArgumentList) 
+            {{
+                return $Object.GetType().InvokeMember($MethodName, 'Public, Instance, InvokeMethod', $null, $Object, $ArgumentList)
+            }}
+
+            $ErrorActionPreference = 'Stop'
+            Set-StrictMode -Version Latest
+
+            $msiOpenDatabaseModeReadOnly = 0
+            $Installer = New-Object -ComObject WindowsInstaller.Installer
+            $Database = Invoke-Method $Installer OpenDatabase  @(""{msiPath}"", $msiOpenDatabaseModeReadOnly)
+            $View = Invoke-Method $Database OpenView  @(""SELECT Value FROM Property WHERE Property='{propertyName}'"")
+
+            Invoke-Method $View Execute
+            $Record = Invoke-Method $View Fetch
+
+            if ($Record) 
+            {{
+                Write-Output (Get-Property $Record StringData 1)
+            }}").Invoke();
+
+            return result[1].ToString();
         }
 
         /// <summary>
@@ -210,16 +230,16 @@ namespace RessurectIT.Msi.Installer.Installer
 
                     File.Delete(logPath);
 
-                    Log.Information($"Machine: '{{MachineName}}' MSIEXEC LOG: {contents}");
+                    //Log.Information($"Machine: '{{MachineName}}' MSIEXEC LOG: {contents}");
                 }
                 else
                 {
-                    Log.Error("Failed to obtain msiexec log! No log found. Machine: '{MachineName}'");
+                    //Log.Error("Failed to obtain msiexec log! No log found. Machine: '{MachineName}'");
                 }
             }
             catch (Exception e)
             {
-                Log.Error(e, "Failed to obtain msiexec log! Machine: '{MachineName}'");
+                //Log.Error(e, "Failed to obtain msiexec log! Machine: '{MachineName}'");
             }
         }
         #endregion

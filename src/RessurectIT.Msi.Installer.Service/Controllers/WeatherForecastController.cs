@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace RessurectIT.Msi.Installer.Service.Controllers
+namespace RessurectIT.Msi.Installer.Controllers
 {
     [ApiController]
     [Route("[controller]")]

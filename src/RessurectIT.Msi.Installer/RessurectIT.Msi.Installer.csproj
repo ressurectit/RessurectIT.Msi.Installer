@@ -58,6 +58,4 @@
         <PackageReference Include="Microsoft.Extensions.FileProviders.Physical" Version="3.1.2" /> -->
         <!-- <PackageReference Include="Microsoft.Extensions.FileSystemGlobbing" Version="3.1.2" /> -->
     </ItemGroup>
-
-    <!-- PROJECT DEPENDENCIES -->
 </Project>

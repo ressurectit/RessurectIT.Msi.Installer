@@ -10,11 +10,9 @@ using DryIoc.MefAttributedModel;
 using DryIoc.Microsoft.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using RessurectIT.Msi.Installer.Configuration;
-using RessurectIT.Msi.Installer.Installer;
 using Serilog;
-using Serilog.Core;
+using SerilogLogger = Serilog.Core.Logger;
 
 namespace RessurectIT.Msi.Installer
 {
@@ -58,8 +56,9 @@ namespace RessurectIT.Msi.Installer
         /// </summary>
         /// <param name="appConfig">Current app configuration</param>
         /// <param name="serviceBuilder">Callback used for adding custom providers</param>
+        /// <param name="config">Application configuration instance</param>
         /// <returns>Built service provider</returns>
-        public static IServiceProvider GetServiceProvider(IConfiguration appConfig, Action<IServiceCollection> serviceBuilder)
+        public static IServiceProvider GetServiceProvider(IConfiguration appConfig, Action<IServiceCollection> serviceBuilder, ConfigBase config)
         {
             //get ressurectit assemblies
             IEnumerable<Assembly> assemblies = AssemblyLoadContext.Default.Assemblies
@@ -67,14 +66,18 @@ namespace RessurectIT.Msi.Installer
 
             //initialize DI
             IServiceCollection services = new ServiceCollection();
-            IContainer container = new Container();
+            IContainer container = new Container(rules => rules.WithDefaultReuse(Reuse.InCurrentScope)
+                                                                       .WithoutThrowOnRegisteringDisposableTransient()
+                                                                       .WithoutImplicitCheckForReuseMatchingScope(),
+                                                 AsyncExecutionFlowScopeContext.Default);
 
             services.AddLogging(builder =>
             {
-                if(!(Log.Logger is Logger))
+                if(!(Log.Logger is SerilogLogger))
                 {
                     Log.Logger = new LoggerConfiguration()
                         .ReadFrom.Configuration(appConfig)
+                        .WriteTo.RestLogger(config)
                         .CreateLogger();
                 }
 
@@ -102,73 +105,17 @@ namespace RessurectIT.Msi.Installer
 
             SetCurrentDirectory();
 
-            //get configuration
             IConfigurationRoot appConfig = GetConfiguration(e.Args);
-
-            Config appConfigObj = new Config();
+            AppConfig appConfigObj = new AppConfig();
             appConfig.Bind(appConfigObj);
 
             IServiceProvider provider = GetServiceProvider(appConfig,
                                                            serviceCollection =>
                                                            {
                                                                serviceCollection.AddSingleton(serviceProvider => appConfigObj);
-                                                           });
-
-            
-            Config cfg = provider.GetService<Config>();
-            ILogger<App> logger = provider.GetService<ILogger<App>>();
-            WindowsInstaller installer = provider.GetService<WindowsInstaller>();
-
-
-            //bool showHelp = false;
-
-            //OptionSet options = new OptionSet
-            //{
-            //    {
-            //        "i|input=", "Cesta k vstupnému súboru, predvolená hodnota 'input.json'", input => InputFile = input
-            //    },
-            //    {
-            //        "o|output=", "Cesta k výstupnému súboru, predvolená hodnota 'output.json'", output => OutputFile = output
-            //    },
-            //    {
-            //        "n|noGui", "Indikácia, že sa má použiť tyto bez vizuálneho rozhrania, vráti originálny variant, predvolená hodnota 'false'", noGui => NoGui = true
-            //    },
-            //    {
-            //        "f|full", "Indikácia, že sa má použiť plné volanie (pomalšie), parameter funguje iba v kombinácii s 'noGui' parametrom, predvolená hodnota 'false'", noGui => Full = true
-            //    },
-            //    {
-            //        "w|wellFormattedOutput", "Indikácia, že výstup má byť pekne naformátovaný, predvolené nastavenie je minimalistický výstup", wellFormattedOutput => WellFormattedOutput = true
-            //    },
-            //    {
-            //        "t|test", "Indikácia, že sa má spustiť test prístupu do registrov a ich existencia pre používateľa spúšťajúceho aplikáciu", registryTest => RunRegistryTest = true
-            //    },
-            //    //{
-            //    //    "f|format=", "Formát dát, povolené hodnoty json|xml, prevolená hodnota json", SetFormat
-            //    //},
-            //    {
-            //        "h|?|help", "Zobrazí tohto pomocníka", v => showHelp = true
-            //    },
-            //};
-
-            //options.Parse(e.Args);
-
-            //if (showHelp)
-            //{
-            //    StringBuilder sb = new StringBuilder();
-
-            //    using (StringWriter writer = new StringWriter(sb))
-            //    {
-            //        options.WriteOptionDescriptions(writer);
-            //    }
-
-            //    WriteConsole("Aplikácia pre prístup k Asseco.Drg.Tyto");
-            //    WriteConsole("Asseco.Drg.Tyto.Runner.exe <options>");
-            //    WriteConsole("");
-            //    WriteConsole("Options:");
-            //    WriteConsole(sb.ToString());
-
-            //    Shutdown();
-            //}
+                                                               serviceCollection.AddSingleton<ConfigBase>(serviceProvider => serviceProvider.GetService<AppConfig>());
+                                                           },
+                                                           appConfigObj);
         }
         #endregion
     }

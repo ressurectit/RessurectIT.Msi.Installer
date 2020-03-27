@@ -1,6 +1,6 @@
 using System;
 
-namespace RessurectIT.Msi.Installer.Service
+namespace RessurectIT.Msi.Installer
 {
     public class WeatherForecast
     {

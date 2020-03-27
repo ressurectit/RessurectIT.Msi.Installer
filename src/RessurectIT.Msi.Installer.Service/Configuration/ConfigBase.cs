@@ -1,9 +1,9 @@
 ﻿namespace RessurectIT.Msi.Installer.Configuration
 {
     /// <summary>
-    /// Configuration for application
+    /// Configuration for service
     /// </summary>
-    public class Config
+    internal class ServiceConfig : ConfigBase
     {
         #region public properties
 
@@ -28,7 +28,7 @@
         /// <summary>
         /// Gets or sets url that is used for POSTing logs to centralized store
         /// </summary>
-        public string RemoteLogRestUrl
+        public string? RemoteLogRestUrl
         {
             get;
             set;

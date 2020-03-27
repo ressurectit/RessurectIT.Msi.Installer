@@ -10,7 +10,6 @@
             "Serilog.Sinks.EventLog",
             "Serilog.Sinks.Console",
             "Serilog.Sinks.Debug",
-            "RessurectIT.Msi.Installer",
             "Serilog.Settings.Configuration"
         ],
         "MinimumLevel":
@@ -28,31 +27,6 @@
             },
             {
                 "Name": "Console"
-            },
-            {
-                "Name": "Logger",
-                "Args":
-                {
-                    "configureLogger":
-                    {
-                        "WriteTo":
-                        [
-                            {
-                                "Name": "RestLogger"
-                            }
-                        ],
-                        "Filter":
-                        [
-                            {
-                                "Name": "ByIncludingOnly",
-                                "Args":
-                                {
-                                    "expression": "@Level = 'Error' or Contains(@MessageTemplate, 'MSIEXEC LOG:')"
-                                }
-                            }
-                        ]
-                    }
-                }
             },
             {
                 "Name": "Logger",

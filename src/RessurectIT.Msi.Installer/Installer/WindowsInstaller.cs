@@ -1,43 +1,40 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel.Composition;
 using System.Diagnostics;
 using System.IO;
 using System.Management.Automation;
 using System.Reflection;
-using RessurectIT.Msi.Installer.Gatherer.Dto;
+using DryIocAttributes;
+using Microsoft.Extensions.Logging;
 
 namespace RessurectIT.Msi.Installer.Installer
 {
     /// <summary>
     /// Class used for installing msi and reading data from them
     /// </summary>
+    [ExportEx]
+    [CurrentScopeReuse]
     public class WindowsInstaller
     {
         #region private fields
 
         /// <summary>
-        /// Information about update that should be installed
+        /// Logger used for logging
         /// </summary>
-        private readonly MsiUpdate _update;
-
-        /// <summary>
-        /// Callback called when there is need to stop installer itself
-        /// </summary>
-        private readonly Action _stopCallback;
+        private readonly ILogger<WindowsInstaller> _logger;        
         #endregion
-
+        
 
         #region constructors
 
         /// <summary>
         /// Creates instance of <see cref="WindowsInstaller"/>
         /// </summary>
-        /// <param name="update">Information about update that should be installed</param>
-        /// <param name="stopCallback">Callback called when there is need to stop installer itself</param>
-        internal WindowsInstaller(MsiUpdate update, Action stopCallback)
+        /// <param name="logger">Logger used for logging</param>
+        public WindowsInstaller(ILogger<WindowsInstaller> logger)
         {
-            _update = update;
-            _stopCallback = stopCallback;
+            _logger = logger;
         }
         #endregion
 
@@ -47,14 +44,16 @@ namespace RessurectIT.Msi.Installer.Installer
         /// <summary>
         /// Installs MSI that is specified by this <see cref="WindowsInstaller"/>
         /// </summary>
-        public void Install()
+        /// <param name="update">Information about update that should be installed</param>
+        /// <param name="stopCallback">Callback called when there is need to stop installer itself</param>
+        public void Install(IMsiUpdate update, Action stopCallback)
         {
             string logPath = Path.Combine(Directory.GetCurrentDirectory(), "msiexec-install.log");
 
             try
             {
                 //self update and same or older version
-                if (IsRessurectITMsiInstallerMsi() && Assembly.GetExecutingAssembly().GetName().Version >= new Version(_update.Version))
+                if (IsRessurectITMsiInstallerMsi(update) && Assembly.GetExecutingAssembly().GetName().Version >= new Version(update.Version))
                 {
                     return;
                 }
@@ -64,16 +63,16 @@ namespace RessurectIT.Msi.Installer.Installer
                     StartInfo =
                     {
                         FileName = "msiexec",
-                        Arguments = $" /q /i {_update.MsiPath} /L*V \"{logPath}\" {_update.InstallParameters}"
+                        Arguments = $" /q /i {update.MsiPath} /L*V \"{logPath}\" {update.InstallParameters}"
                     }
                 };
 
                 process.Start();
 
                 //self update initiated
-                if (IsRessurectITMsiInstallerMsi())
+                if (IsRessurectITMsiInstallerMsi(update))
                 {
-                    _stopCallback();
+                    stopCallback();
                     Process.GetCurrentProcess().Kill();
                 }
 
@@ -101,11 +100,12 @@ namespace RessurectIT.Msi.Installer.Installer
         /// <summary>
         /// Uninstalls ProductCode that is specified by this <see cref="WindowsInstaller"/>, if no product code was specified, does nothing
         /// </summary>
-        public void Uninstall()
+        /// <param name="update">Information about update that should be installed</param>
+        public void Uninstall(IMsiUpdate update)
         {
-            if (string.IsNullOrEmpty(_update.UninstallProductCode))
+            if (string.IsNullOrEmpty(update.UninstallProductCode))
             {
-                //Log.Information("No product code was specified");
+                _logger.LogInformation("No product code was specified");
 
                 return;
             }
@@ -119,7 +119,7 @@ namespace RessurectIT.Msi.Installer.Installer
                     StartInfo =
                     {
                         FileName = "msiexec",
-                        Arguments = $" /q /x {_update.UninstallProductCode} /L*V \"{logPath}\" {_update.UninstallParameters}"
+                        Arguments = $" /q /x {update.UninstallProductCode} /L*V \"{logPath}\" {update.UninstallParameters}"
                     }
                 };
 
@@ -128,12 +128,12 @@ namespace RessurectIT.Msi.Installer.Installer
 
                 if (process.ExitCode != 0)
                 {
-                    //Log.Error($"Failed to uninstall product! Process exited with code {process.ExitCode}! Machine: '{{MachineName}}'");
+                    _logger.LogError($"Failed to uninstall product! Process exited with code {process.ExitCode}! Machine: '{{MachineName}}'");
                 }
             }
             catch (Exception e)
             {
-                //Log.Error(e, "Failed to uninstall product! Machine: '{MachineName}'");
+                _logger.LogError(e, "Failed to uninstall product! Machine: '{MachineName}'");
             }
             finally
             {
@@ -144,10 +144,11 @@ namespace RessurectIT.Msi.Installer.Installer
         /// <summary>
         /// Checks whether is provided msi current application msi
         /// </summary>
+        /// <param name="update">Information about update that should be installed</param>
         /// <returns>True if provided MSI is for RessurectIT.Msi.Installer</returns>
-        public bool IsRessurectITMsiInstallerMsi()
+        public bool IsRessurectITMsiInstallerMsi(IMsiUpdate update)
         {
-            string upgradeCode = GetMsiProperty("UpgradeCode", _update.MsiPath);
+            string upgradeCode = GetMsiProperty("UpgradeCode", update.MsiPath);
 
             return "{369C83BF-7965-4AEE-B1DD-329BEB92D719}" == upgradeCode;
         }
@@ -230,16 +231,16 @@ namespace RessurectIT.Msi.Installer.Installer
 
                     File.Delete(logPath);
 
-                    //Log.Information($"Machine: '{{MachineName}}' MSIEXEC LOG: {contents}");
+                    _logger.LogInformation($"Machine: '{{MachineName}}' MSIEXEC LOG: {contents}");
                 }
                 else
                 {
-                    //Log.Error("Failed to obtain msiexec log! No log found. Machine: '{MachineName}'");
+                    _logger.LogError("Failed to obtain msiexec log! No log found. Machine: '{MachineName}'");
                 }
             }
             catch (Exception e)
             {
-                //Log.Error(e, "Failed to obtain msiexec log! Machine: '{MachineName}'");
+                _logger.LogError(e, "Failed to obtain msiexec log! Machine: '{MachineName}'");
             }
         }
         #endregion

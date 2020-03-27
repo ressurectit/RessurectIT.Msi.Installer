@@ -12,6 +12,7 @@
     <PropertyGroup>
         <OutDir>bin</OutDir>
         <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <PublishTrimmed>true</PublishTrimmed>
         <InvariantGlobalization>true</InvariantGlobalization>

@@ -13,11 +13,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "installer", "installer", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RessurectIT.Msi.Installer", "src\RessurectIT.Msi.Installer\RessurectIT.Msi.Installer.csproj", "{86C10659-1E1D-450C-8755-08102D390061}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RessurectIT.Msi.Installer.Logic", "src\RessurectIT.Msi.Installer.Logic\RessurectIT.Msi.Installer.Logic.csproj", "{94C2F2E4-C045-4AA9-AA5E-0ABF29FC91CC}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RessurectIT.Msi.Installer.Installer.CustomActions", "installer\RessurectIT.Msi.Installer.Installer.CustomActions\RessurectIT.Msi.Installer.Installer.CustomActions.csproj", "{F3100F86-4CE7-4626-8D6B-DD37B6CF5AB0}"
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "RessurectIT.Msi.Installer.Installer", "installer\RessurectIT.Msi.Installer.Installer\RessurectIT.Msi.Installer.Installer.wixproj", "{8E164AED-E24A-43A5-A14F-AC1BBE699FA5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RessurectIT.Msi.Installer.Service", "src\RessurectIT.Msi.Installer.Service\RessurectIT.Msi.Installer.Service.csproj", "{94B82737-3F9D-4213-9B4E-C953EF78480C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,14 +35,6 @@ Global
 		{86C10659-1E1D-450C-8755-08102D390061}.Release|Any CPU.Build.0 = Release|Any CPU
 		{86C10659-1E1D-450C-8755-08102D390061}.Release|x86.ActiveCfg = Release|Any CPU
 		{86C10659-1E1D-450C-8755-08102D390061}.Release|x86.Build.0 = Release|Any CPU
-		{94C2F2E4-C045-4AA9-AA5E-0ABF29FC91CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{94C2F2E4-C045-4AA9-AA5E-0ABF29FC91CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{94C2F2E4-C045-4AA9-AA5E-0ABF29FC91CC}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{94C2F2E4-C045-4AA9-AA5E-0ABF29FC91CC}.Debug|x86.Build.0 = Debug|Any CPU
-		{94C2F2E4-C045-4AA9-AA5E-0ABF29FC91CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{94C2F2E4-C045-4AA9-AA5E-0ABF29FC91CC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{94C2F2E4-C045-4AA9-AA5E-0ABF29FC91CC}.Release|x86.ActiveCfg = Release|Any CPU
-		{94C2F2E4-C045-4AA9-AA5E-0ABF29FC91CC}.Release|x86.Build.0 = Release|Any CPU
 		{F3100F86-4CE7-4626-8D6B-DD37B6CF5AB0}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{F3100F86-4CE7-4626-8D6B-DD37B6CF5AB0}.Debug|x86.ActiveCfg = Debug|x86
 		{F3100F86-4CE7-4626-8D6B-DD37B6CF5AB0}.Debug|x86.Build.0 = Debug|x86
@@ -55,15 +47,23 @@ Global
 		{8E164AED-E24A-43A5-A14F-AC1BBE699FA5}.Release|Any CPU.ActiveCfg = Release|x86
 		{8E164AED-E24A-43A5-A14F-AC1BBE699FA5}.Release|x86.ActiveCfg = Release|x86
 		{8E164AED-E24A-43A5-A14F-AC1BBE699FA5}.Release|x86.Build.0 = Release|x86
+		{94B82737-3F9D-4213-9B4E-C953EF78480C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94B82737-3F9D-4213-9B4E-C953EF78480C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94B82737-3F9D-4213-9B4E-C953EF78480C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{94B82737-3F9D-4213-9B4E-C953EF78480C}.Debug|x86.Build.0 = Debug|Any CPU
+		{94B82737-3F9D-4213-9B4E-C953EF78480C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94B82737-3F9D-4213-9B4E-C953EF78480C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94B82737-3F9D-4213-9B4E-C953EF78480C}.Release|x86.ActiveCfg = Release|Any CPU
+		{94B82737-3F9D-4213-9B4E-C953EF78480C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{86C10659-1E1D-450C-8755-08102D390061} = {3BA3F6F0-825A-4945-9F28-466E61652CB7}
-		{94C2F2E4-C045-4AA9-AA5E-0ABF29FC91CC} = {3BA3F6F0-825A-4945-9F28-466E61652CB7}
 		{F3100F86-4CE7-4626-8D6B-DD37B6CF5AB0} = {59CE8CB4-69CC-42E5-8A83-3EE462ED78F8}
 		{8E164AED-E24A-43A5-A14F-AC1BBE699FA5} = {59CE8CB4-69CC-42E5-8A83-3EE462ED78F8}
+		{94B82737-3F9D-4213-9B4E-C953EF78480C} = {3BA3F6F0-825A-4945-9F28-466E61652CB7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F5A77FE3-29ED-4050-A6E9-BD137A1B6CC6}

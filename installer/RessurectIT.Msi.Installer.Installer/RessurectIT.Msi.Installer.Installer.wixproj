@@ -37,14 +37,6 @@
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\RessurectIT.Msi.Installer.Logic\RessurectIT.Msi.Installer.Logic.csproj">
-      <Name>RessurectIT.Msi.Installer.Logic</Name>
-      <Project>{94c2f2e4-c045-4aa9-aa5e-0abf29fc91cc}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
     <ProjectReference Include="..\RessurectIT.Msi.Installer.Installer.CustomActions\RessurectIT.Msi.Installer.Installer.CustomActions.csproj">
       <Name>RessurectIT.Msi.Installer.Installer.CustomActions</Name>
       <Project>{f3100f86-4ce7-4626-8d6b-dd37b6cf5ab0}</Project>

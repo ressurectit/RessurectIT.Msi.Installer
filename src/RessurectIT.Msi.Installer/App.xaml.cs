@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using RessurectIT.Msi.Installer.Configuration;
+using RessurectIT.Msi.Installer.Installer;
 using Serilog;
 using Serilog.Core;
 
@@ -22,35 +23,47 @@ namespace RessurectIT.Msi.Installer
     /// </summary>
     public partial class App
     {
-        #region protected methods - Overrides of Application
+        #region public static methods
 
-        /// <inheritdoc />
-        protected override void OnStartup(StartupEventArgs e)
+        /// <summary>
+        /// Sets current directory to directory where app files are located
+        /// </summary>
+        public static void SetCurrentDirectory()
         {
-            base.OnStartup(e);
-
-            //set current directory to directory where are app files located
             string codeBase = Assembly.GetExecutingAssembly().CodeBase;
             UriBuilder uri = new UriBuilder(codeBase);
             Environment.CurrentDirectory = Path.GetDirectoryName(Uri.UnescapeDataString(uri.Path));
+        }
 
-            //get configuration
-            IConfigurationRoot appConfig = new ConfigurationBuilder()
+        /// <summary>
+        /// Gets built configuration object
+        /// </summary>
+        /// <param name="args">Command line args</param>
+        /// <returns>Built configuration object</returns>
+        public static IConfigurationRoot GetConfiguration(string[] args)
+        {
+            return new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("config.json", false)
 #if DEBUG
                 .AddJsonFile("config.dev.json", true)
 #endif
                 .AddEnvironmentVariables("RIT_MSI_INSTALLER")
-                .AddCommandLine(e.Args)
+                .AddCommandLine(args)
                 .Build();
+        }
 
-            Config appConfigObj = new Config();
-            appConfig.Bind(appConfigObj);
-
+        /// <summary>
+        /// Gets built service provider
+        /// </summary>
+        /// <param name="appConfig">Current app configuration</param>
+        /// <param name="serviceBuilder">Callback used for adding custom providers</param>
+        /// <returns>Built service provider</returns>
+        public static IServiceProvider GetServiceProvider(IConfiguration appConfig, Action<IServiceCollection> serviceBuilder)
+        {
             //get ressurectit assemblies
             IEnumerable<Assembly> assemblies = AssemblyLoadContext.Default.Assemblies
-                .Where(assembly => assembly.GetName().Name.StartsWith("RessurectIT"));
+                .Where(assembly => assembly.GetName().Name?.StartsWith("RessurectIT") ?? false);
 
             //initialize DI
             IServiceCollection services = new ServiceCollection();
@@ -68,15 +81,43 @@ namespace RessurectIT.Msi.Installer
                 builder.AddSerilog(dispose: true);
             });
 
-            services.AddSingleton(provider => appConfigObj);
+            serviceBuilder(services);
 
             container.RegisterExports(assemblies);
             container = container.WithDependencyInjectionAdapter(services);
             container = container.WithMefAttributedModel();
 
-            IServiceProvider res = container;
-            Config cfg = res.GetService<Config>();
-            ILogger<App> logger = res.GetService<ILogger<App>>();
+            return container;
+        }
+
+        #endregion
+
+
+        #region protected methods - Overrides of Application
+
+        /// <inheritdoc />
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            SetCurrentDirectory();
+
+            //get configuration
+            IConfigurationRoot appConfig = GetConfiguration(e.Args);
+
+            Config appConfigObj = new Config();
+            appConfig.Bind(appConfigObj);
+
+            IServiceProvider provider = GetServiceProvider(appConfig,
+                                                           serviceCollection =>
+                                                           {
+                                                               serviceCollection.AddSingleton(serviceProvider => appConfigObj);
+                                                           });
+
+            
+            Config cfg = provider.GetService<Config>();
+            ILogger<App> logger = provider.GetService<ILogger<App>>();
+            WindowsInstaller installer = provider.GetService<WindowsInstaller>();
 
 
             //bool showHelp = false;
@@ -129,7 +170,6 @@ namespace RessurectIT.Msi.Installer
             //    Shutdown();
             //}
         }
-
         #endregion
     }
 }

@@ -120,7 +120,7 @@
                 {
                     "source": "RessurectIT.Msi.Installer",
                     "logName": "Application",
-                    "manageEventSource": true,
+                    "manageEventSource": false,
                     "restrictedToMinimumLevel": "Error"
                 }
             }

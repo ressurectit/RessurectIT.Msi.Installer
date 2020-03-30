@@ -22,7 +22,7 @@
         }
 
         /// <inheritdoc />
-        public string? ComputedHash
+        public string ComputedHash
         {
             get;
             set;

@@ -26,33 +26,13 @@
         }
 
         /// <summary>
-        /// Gets or sets url that is used for POSTing logs to centralized store
+        /// Gets or sets indication whether to automatically install update when discovered
         /// </summary>
-        public string? RemoteLogRestUrl
+        public bool AutoInstall
         {
             get;
             set;
         }
-
-        /// <summary>
-        /// Gets or sets indication whether is same version allowed to be reinstalled
-        /// </summary>
-        public bool AllowSameVersion
-        {
-            get;
-            set;
-        }
-
-#if DEBUG
-        /// <summary>
-        /// Gets or sets indication
-        /// </summary>
-        public bool Debugging
-        {
-            get;
-            set;
-        }
-#endif
         #endregion
     }
 }

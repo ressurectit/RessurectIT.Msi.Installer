@@ -10,7 +10,7 @@
         /// <summary>
         /// Gets or sets version of msi
         /// </summary>
-        string? Version
+        string Version
         {
             get;
         }
@@ -26,7 +26,7 @@
         /// <summary>
         /// Gets or sets computed hash of msi file
         /// </summary>
-        string? ComputedHash
+        string ComputedHash
         {
             get;
         }

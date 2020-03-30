@@ -9,6 +9,28 @@ namespace RessurectIT.Msi.Installer.Gatherer.Dto
     {
         #region public properties
 
+        /// <summary>
+        /// Gets or sets download url for MSI
+        /// </summary>
+        public string MsiDownloadUrl
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets indication whether to automatically install update when discovered
+        /// </summary>
+        public bool AutoInstall
+        {
+            get;
+            set;
+        }
+        #endregion
+
+
+        #region public properties - Implementation of IMsiUpdate
+
         /// <inheritdoc />
         public string Version
         {
@@ -32,15 +54,6 @@ namespace RessurectIT.Msi.Installer.Gatherer.Dto
 
         /// <inheritdoc />
         public string Id
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets download url for MSI
-        /// </summary>
-        public string MsiDownloadUrl
         {
             get;
             set;

@@ -53,7 +53,7 @@ namespace RessurectIT.Msi.Installer.Installer
             try
             {
                 //self update and same or older version
-                if (IsRessurectITMsiInstallerMsi(update) && Assembly.GetExecutingAssembly().GetName().Version >= new Version(update.Version!))
+                if (IsRessurectITMsiInstallerMsi(update) && Assembly.GetExecutingAssembly().GetName().Version >= new Version(update.Version))
                 {
                     return;
                 }

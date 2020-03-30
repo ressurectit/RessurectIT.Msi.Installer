@@ -1,15 +1,19 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Linq;
 using System.Timers;
+using DryIocAttributes;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using RessurectIT.Msi.Installer.Configuration;
 using RessurectIT.Msi.Installer.Gatherer;
-using RessurectIT.Msi.Installer.Gatherer.Dto;
+using RessurectIT.Msi.Installer.Installer.Dto;
+using MsiInstaller = RessurectIT.Msi.Installer.Installer.Installer;
 
 namespace RessurectIT.Msi.Installer.Checker
 {
     /// <summary>
     /// Class used for checking availability of updates
     /// </summary>
+    [ExportEx]
     internal class UpdateChecker : IDisposable
     {
         #region private fields
@@ -17,18 +21,17 @@ namespace RessurectIT.Msi.Installer.Checker
         /// <summary>
         /// Instance of timer used for checking for updates
         /// </summary>
-        private readonly Timer _timer = new Timer(10000);
-        //private readonly Timer _timer = new Timer(RessurectITMsiInstallerService.Config.CheckInterval);
+        private readonly Timer _timer;
 
         /// <summary>
-        /// Instance of http gatherer used for gathering info about available updates
+        /// Service provider used for obtaining dependencies
         /// </summary>
-        private readonly HttpGatherer _gatherer = new HttpGatherer();
+        private readonly IServiceProvider _serviceProvider;
 
         /// <summary>
-        /// Callback called when there is need to stop installer itself
+        /// Logger used for logging
         /// </summary>
-        private readonly Action _stopCallback;
+        private readonly ILogger<UpdateChecker> _logger;
         #endregion
 
 
@@ -37,10 +40,16 @@ namespace RessurectIT.Msi.Installer.Checker
         /// <summary>
         /// Creates instance of <see cref="UpdateChecker"/>
         /// </summary>
-        /// <param name="stopCallback">Callback called when there is need to stop installer itself</param>
-        public UpdateChecker(Action stopCallback)
+        /// <param name="serviceProvider">Service provider used for obtaining dependencies</param>
+        /// <param name="logger">Logger used for logging</param>
+        /// <param name="config">Service configuration</param>
+        public UpdateChecker(IServiceProvider serviceProvider,
+                             ILogger<UpdateChecker> logger,
+                             ServiceConfig config)
         {
-            _stopCallback = stopCallback;
+            _serviceProvider = serviceProvider;
+            _logger = logger;
+            _timer = new Timer(config.CheckInterval);
         }
         #endregion
 
@@ -52,10 +61,10 @@ namespace RessurectIT.Msi.Installer.Checker
         /// </summary>
         public void Start()
         {
-            _timer.Elapsed += DoCheck;
+            _timer.Elapsed += (sender, args) => DoCheck();
             _timer.AutoReset = true;
 
-            DoCheck(null, null);
+            DoCheck();
             _timer.Start();
         }
         #endregion
@@ -66,7 +75,6 @@ namespace RessurectIT.Msi.Installer.Checker
         /// <inheritdoc />
         public void Dispose()
         {
-            _gatherer.Dispose();
             _timer.Stop();
             _timer.Dispose();
         }
@@ -78,57 +86,17 @@ namespace RessurectIT.Msi.Installer.Checker
         /// <summary>
         /// Performs check of updates
         /// </summary>
-        /// <param name="sender">Event source</param>
-        /// <param name="e">Event object</param>
-        private void DoCheck(object sender, ElapsedEventArgs e)
+        private void DoCheck()
         {
-            //Log.Information("Checking for updates! Machine: '{MachineName}'");
+            _logger.LogDebug("Checking for updates! Machine: '{MachineName}'");
 
-            MsiUpdate[] newUpdates = _gatherer.CheckForUpdates();
+            using IServiceScope scope = _serviceProvider.CreateScope();
+            
+            HttpGatherer gatherer = scope.ServiceProvider.GetService<HttpGatherer>();
+            IMsiUpdate[] newUpdates = gatherer.CheckForUpdates();
 
-            foreach (MsiUpdate update in newUpdates)
-            {
-                bool @break = false;
-
-                //Log.Information($"Installing update for {update.Id}, version {update.Version}, from {Path.GetFileName(update.MsiPath)}. Machine: '{{MachineName}}'");
-
-                Installer.WindowsInstaller installer = new Installer.WindowsInstaller(update,
-                                                                                      () =>
-                                                                                      {
-                                                                                          @break = true;
-                                                                                          _stopCallback();
-                                                                                      });
-
-                try
-                {
-                    StopProcess(update);
-                    installer.Uninstall();
-                    installer.Install();
-
-                    if (@break)
-                    {
-                        break;
-                    }
-                }
-                //catch (InstallationException ex)
-                //{
-                //    Log.Error(ex, "Failed to install new update! Machine: '{MachineName}'");
-
-                //    continue;
-                //}
-                catch (Exception ex)
-                {
-                    //Log.Error(ex, "Failed to install new update! Machine: '{MachineName}'");
-
-                    continue;
-                }
-
-                update.UninstallProductCode = Installer.WindowsInstaller.GetProductCode(update.MsiPath);
-
-                _gatherer.SetInstalledUpdates(update);
-
-                //Log.Information($"Installation of update for '{update.Id}' version '{update.Version}' was successful. Machine: '{{MachineName}}'");
-            }
+            MsiInstaller installer = scope.ServiceProvider.GetService<MsiInstaller>();
+            installer.Install(newUpdates);
         }
         #endregion
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -66,7 +67,7 @@ namespace RessurectIT.Msi.Installer
 
             //initialize DI
             IServiceCollection services = new ServiceCollection();
-            IContainer container = new Container(rules => rules.WithDefaultReuse(Reuse.InCurrentScope)
+            IContainer container = new Container(rules => rules.WithDefaultReuse(Reuse.Singleton)
                                                                        .WithoutThrowOnRegisteringDisposableTransient()
                                                                        .WithoutImplicitCheckForReuseMatchingScope(),
                                                  AsyncExecutionFlowScopeContext.Default);
@@ -109,6 +110,8 @@ namespace RessurectIT.Msi.Installer
             AppConfig appConfigObj = new AppConfig();
             appConfig.Bind(appConfigObj);
 
+            LaunchDebugger(appConfigObj);
+
             IServiceProvider provider = GetServiceProvider(appConfig,
                                                            serviceCollection =>
                                                            {
@@ -116,6 +119,27 @@ namespace RessurectIT.Msi.Installer
                                                                serviceCollection.AddSingleton<ConfigBase>(serviceProvider => serviceProvider.GetService<AppConfig>());
                                                            },
                                                            appConfigObj);
+
+            Shutdown();
+        }
+        #endregion
+
+
+        #region private methods
+
+        /// <summary>
+        /// Launch debugger
+        /// </summary>
+        /// <param name="config">Current configuration</param>
+        [Conditional("DEBUG")]
+        private void LaunchDebugger(ConfigBase config)
+        {
+#if DEBUG
+            if (config.Debugging)
+            {
+                Debugger.Launch();
+            }
+#endif
         }
         #endregion
     }

@@ -1,36 +1,13 @@
 ﻿using System;
+using Microsoft.Extensions.Logging;
 
-namespace RessurectIT.Msi.Installer.Gatherer.Dto
+namespace RessurectIT.Msi.Installer.UpdatesDatabase.Dto
 {
     /// <summary>
     /// Information about installed update
     /// </summary>
-    internal class InstalledUpdateInfo
+    public class InstalledUpdateInfo
     {
-        #region internal properties
-
-        /// <summary>
-        /// Gets version as object representing version
-        /// </summary>
-        internal Version VersionObj
-        {
-            get
-            {
-                try
-                {
-                    return new Version(Version);
-                }
-                catch (Exception e)
-                {
-                    //Log.Warning(e,$"Version '{Version}' for '{ProductCode}' is in incorrect format!");
-
-                    return new Version("0.0.0.0");
-                }
-            }
-        }
-        #endregion
-
-
         #region public properties
 
         /// <summary>
@@ -58,6 +35,27 @@ namespace RessurectIT.Msi.Installer.Gatherer.Dto
         {
             get;
             set;
+        }
+        #endregion
+
+
+        #region public methods
+
+        /// <summary>
+        /// Gets version as object representing version
+        /// </summary>
+        public Version GetVersionObj<TLoggerType>(ILogger<TLoggerType> logger)
+        {
+            try
+            {
+                return new Version(Version);
+            }
+            catch (Exception e)
+            {
+                logger.LogWarning(e, $"Version '{Version}' for '{ProductCode}' is in incorrect format!");
+
+                return new Version("0.0.0.0");
+            }
         }
         #endregion
     }

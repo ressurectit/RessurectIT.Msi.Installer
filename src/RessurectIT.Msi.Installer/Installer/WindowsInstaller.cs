@@ -6,6 +6,7 @@ using System.Management.Automation;
 using System.Reflection;
 using DryIocAttributes;
 using Microsoft.Extensions.Logging;
+using RessurectIT.Msi.Installer.Installer.Dto;
 
 namespace RessurectIT.Msi.Installer.Installer
 {
@@ -52,7 +53,7 @@ namespace RessurectIT.Msi.Installer.Installer
             try
             {
                 //self update and same or older version
-                if (IsRessurectITMsiInstallerMsi(update) && Assembly.GetExecutingAssembly().GetName().Version >= new Version(update.Version))
+                if (IsRessurectITMsiInstallerMsi(update) && Assembly.GetExecutingAssembly().GetName().Version >= new Version(update.Version!))
                 {
                     return;
                 }

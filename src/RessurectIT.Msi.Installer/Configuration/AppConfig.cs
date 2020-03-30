@@ -10,7 +10,7 @@
         /// <summary>
         /// Gets or sets request uri containing encoded msi update request
         /// </summary>
-        public string Request
+        public string? Request
         {
             get;
             set;

@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using RessurectIT.Msi.Installer.Gatherer.Dto;
 using Newtonsoft.Json;
+using RessurectIT.Msi.Installer.UpdatesDatabase.Dto;
 
 namespace RessurectIT.Msi.Installer.Gatherer
 {

@@ -1,16 +1,14 @@
-﻿using RessurectIT.Msi.Installer.Installer.Dto;
-
-namespace RessurectIT.Msi.Installer.Gatherer.Dto
+﻿namespace RessurectIT.Msi.Installer.Installer.Dto
 {
     /// <summary>
-    /// Represents data for single update
+    /// Msi update object
     /// </summary>
     internal class MsiUpdate : IMsiUpdate
     {
-        #region public properties
+        #region public properties - Implementation of IMsiUpdate
 
         /// <inheritdoc />
-        public string Version
+        public string? Version
         {
             get;
             set;
@@ -24,7 +22,7 @@ namespace RessurectIT.Msi.Installer.Gatherer.Dto
         }
 
         /// <inheritdoc />
-        public string ComputedHash
+        public string? ComputedHash
         {
             get;
             set;
@@ -32,15 +30,6 @@ namespace RessurectIT.Msi.Installer.Gatherer.Dto
 
         /// <inheritdoc />
         public string Id
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets download url for MSI
-        /// </summary>
-        public string MsiDownloadUrl
         {
             get;
             set;

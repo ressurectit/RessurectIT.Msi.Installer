@@ -1,7 +1,12 @@
+using DryIoc;
+using DryIoc.Microsoft.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RessurectIT.Msi.Installer.Configuration;
+using RessurectIT.Msi.Installer.Services;
+using Serilog;
 using static RessurectIT.Msi.Installer.App;
 
 namespace RessurectIT.Msi.Installer
@@ -21,24 +26,42 @@ namespace RessurectIT.Msi.Installer
         {
             SetCurrentDirectory();
 
-            IConfigurationRoot appConfig = GetConfiguration(args);
-            ServiceConfig appConfigObj = new ServiceConfig();
-            appConfig.Bind(appConfigObj);
+            IConfigurationRoot serviceConfig = GetConfiguration(args);
+            ServiceConfig serviceConfigObj = new ServiceConfig();
+            serviceConfig.Bind(serviceConfigObj);
 
-            CreateHostBuilder(args).Build().Run();
-        }
+            ILogger logger = InitLogger(serviceConfig, serviceConfigObj);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="args"></param>
-        /// <returns></returns>
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+            IContainer container = GetServiceProvider(serviceConfig,
+                                                      serviceCollection =>
+                                                      {
+                                                          serviceCollection.AddSingleton(serviceProvider => serviceConfigObj);
+                                                          serviceCollection.AddSingleton<ConfigBase>(serviceProvider => serviceProvider.GetService<ServiceConfig>());
+                                                      },
+                                                      serviceConfigObj);
+
+            IHostBuilder hostBuilder = Host.CreateDefaultBuilder(args);
+
+            if (!serviceConfigObj.LocalServer)
+            {
+                hostBuilder.UseWindowsService();
+            }
+
+            hostBuilder
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
-                });
+                    webBuilder.UseStartup<Startup>()
+                        .UseConfiguration(serviceConfig);
+                })
+                .UseServiceProviderFactory(new DryIocServiceProviderFactory(container))
+                .ConfigureServices(services =>
+                {
+                    services.AddHostedService<UpdateCheckerHostService>();
+                })
+                .UseSerilog(logger, true)
+                .Build()
+                .Run();
+        }
         #endregion
     }
 }

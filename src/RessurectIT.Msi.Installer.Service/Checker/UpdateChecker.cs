@@ -14,7 +14,7 @@ namespace RessurectIT.Msi.Installer.Checker
     /// Class used for checking availability of updates
     /// </summary>
     [ExportEx]
-    internal class UpdateChecker : IDisposable
+    public class UpdateChecker : IDisposable
     {
         #region private fields
 
@@ -67,6 +67,14 @@ namespace RessurectIT.Msi.Installer.Checker
             DoCheck();
             _timer.Start();
         }
+
+        /// <summary>
+        /// Stops update checker that checks for updates
+        /// </summary>
+        public void Stop()
+        {
+            _timer.Stop();
+        }
         #endregion
 
 
@@ -75,7 +83,6 @@ namespace RessurectIT.Msi.Installer.Checker
         /// <inheritdoc />
         public void Dispose()
         {
-            _timer.Stop();
             _timer.Dispose();
         }
         #endregion

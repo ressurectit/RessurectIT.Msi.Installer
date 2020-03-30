@@ -3,7 +3,7 @@
     /// <summary>
     /// Configuration for service
     /// </summary>
-    internal class ServiceConfig : ConfigBase
+    public class ServiceConfig : ConfigBase
     {
         #region public properties
 
@@ -29,6 +29,15 @@
         /// Gets or sets indication whether to automatically install update when discovered
         /// </summary>
         public bool AutoInstall
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets indication whether run service as local not windows service
+        /// </summary>
+        public bool LocalServer
         {
             get;
             set;

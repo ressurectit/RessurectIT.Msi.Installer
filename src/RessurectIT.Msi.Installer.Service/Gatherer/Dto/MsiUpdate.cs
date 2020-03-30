@@ -93,6 +93,13 @@ namespace RessurectIT.Msi.Installer.Gatherer.Dto
             get;
             set;
         }
+
+        /// <inheritdoc />
+        public bool? AdminPrivilegesRequired
+        {
+            get;
+            set;
+        }
         #endregion
     }
 }

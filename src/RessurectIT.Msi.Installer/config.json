@@ -1,4 +1,5 @@
 ﻿{
+    "Urls": "http://localhost:8765",
     "UpdatesJsonUrl": "http://localhost/updates.json",
     "CheckInterval": 300000,
     "RemoteLogRestUrl": "http://localhost/api/log",

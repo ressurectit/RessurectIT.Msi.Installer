@@ -1,4 +1,6 @@
-﻿namespace RessurectIT.Msi.Installer.Configuration
+﻿//TODO - add install progress type
+
+namespace RessurectIT.Msi.Installer.Configuration
 {
     /// <summary>
     /// Base configuration for application

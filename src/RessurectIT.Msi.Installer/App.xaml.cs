@@ -58,15 +58,16 @@ namespace RessurectIT.Msi.Installer
         /// <param name="appConfig">Current app configuration</param>
         /// <param name="serviceBuilder">Callback used for adding custom providers</param>
         /// <param name="config">Application configuration instance</param>
+        /// <param name="servicesCollection">Collection of services, used for configuration</param>
         /// <returns>Built service provider</returns>
-        public static IServiceProvider GetServiceProvider(IConfiguration appConfig, Action<IServiceCollection> serviceBuilder, ConfigBase config)
+        public static IContainer GetServiceProvider(IConfiguration appConfig, Action<IServiceCollection> serviceBuilder, ConfigBase config, IServiceCollection servicesCollection = null)
         {
             //get ressurectit assemblies
             IEnumerable<Assembly> assemblies = AssemblyLoadContext.Default.Assemblies
                 .Where(assembly => assembly.GetName().Name?.StartsWith("RessurectIT") ?? false);
 
+            IServiceCollection services = servicesCollection ?? new ServiceCollection();
             //initialize DI
-            IServiceCollection services = new ServiceCollection();
             IContainer container = new Container(rules => rules.WithDefaultReuse(Reuse.Singleton)
                                                                        .WithoutThrowOnRegisteringDisposableTransient()
                                                                        .WithoutImplicitCheckForReuseMatchingScope(),
@@ -74,13 +75,7 @@ namespace RessurectIT.Msi.Installer
 
             services.AddLogging(builder =>
             {
-                if(!(Log.Logger is SerilogLogger))
-                {
-                    Log.Logger = new LoggerConfiguration()
-                        .ReadFrom.Configuration(appConfig)
-                        .WriteTo.RestLogger(config)
-                        .CreateLogger();
-                }
+                InitLogger(appConfig, config);
 
                 builder.AddSerilog(dispose: true);
             });
@@ -94,6 +89,23 @@ namespace RessurectIT.Msi.Installer
             return container;
         }
 
+        /// <summary>
+        /// Initialize serilog logger
+        /// </summary>
+        /// <param name="appConfig">Current app configuration</param>
+        /// <param name="config">Application configuration instance</param>
+        public static ILogger InitLogger(IConfiguration appConfig, ConfigBase config)
+        {
+            if (!(Log.Logger is SerilogLogger))
+            {
+                Log.Logger = new LoggerConfiguration()
+                    .ReadFrom.Configuration(appConfig)
+                    .WriteTo.RestLogger(config)
+                    .CreateLogger();
+            }
+
+            return Log.Logger;
+        }
         #endregion
 
 

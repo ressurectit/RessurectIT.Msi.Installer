@@ -79,6 +79,14 @@
         {
             get;
         }
+
+        /// <summary>
+        /// Gets or sets indication whether are admin privileges required
+        /// </summary>
+        bool? AdminPrivilegesRequired
+        {
+            get;
+        }
         #endregion
     }
 }

@@ -69,6 +69,13 @@
             get;
             set;
         }
+
+        /// <inheritdoc />
+        public bool? AdminPrivilegesRequired
+        {
+            get;
+            set;
+        }
         #endregion
     }
 }

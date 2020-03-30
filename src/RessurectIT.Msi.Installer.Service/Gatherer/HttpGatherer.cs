@@ -15,6 +15,8 @@ using RessurectIT.Msi.Installer.Installer.Dto;
 using RessurectIT.Msi.Installer.UpdatesDatabase;
 using RessurectIT.Msi.Installer.UpdatesDatabase.Dto;
 
+//TODO - think of some kind of caching for already downloaded and present new updates
+
 namespace RessurectIT.Msi.Installer.Gatherer
 {
     /// <summary>

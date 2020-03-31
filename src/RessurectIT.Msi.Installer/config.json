@@ -3,7 +3,6 @@
     "UpdatesJsonUrl": "http://localhost:8888/updates.json",
     "CheckInterval": 300000,
     "RemoteLogRestUrl": "http://localhost/api/log",
-    "Debugging": true, 
     "Serilog":
     {
         "Using":

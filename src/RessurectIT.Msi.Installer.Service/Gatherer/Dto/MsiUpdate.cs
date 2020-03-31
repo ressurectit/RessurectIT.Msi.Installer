@@ -95,6 +95,13 @@ namespace RessurectIT.Msi.Installer.Gatherer.Dto
         }
 
         /// <inheritdoc />
+        public string? StartProcessPath
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
         public bool? AdminPrivilegesRequired
         {
             get;

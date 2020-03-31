@@ -10,6 +10,7 @@ using RessurectIT.Msi.Installer.Configuration;
 using RessurectIT.Msi.Installer.Installer.Dto;
 using StopServiceClass = RessurectIT.Msi.Installer.StopService.StopService;
 using RessurectIT.Msi.Installer.UpdatesDatabase;
+using static RessurectIT.Msi.Installer.App;
 
 namespace RessurectIT.Msi.Installer.Installer
 {
@@ -151,6 +152,7 @@ namespace RessurectIT.Msi.Installer.Installer
                 if (config.Request.StartsWith("msiinstall://"))
                 {
                     config.Request = config.Request.Replace("msiinstall://", string.Empty);
+                    config.Request = config.Request.Trim('/');
                 }
 
                 IMsiUpdate msiUpdate;
@@ -166,6 +168,7 @@ namespace RessurectIT.Msi.Installer.Installer
                     return;
                 }
 
+                RestartWithAdminPrivileges(msiUpdate);
                 Install(msiUpdate);
             }
             else
@@ -218,6 +221,34 @@ namespace RessurectIT.Msi.Installer.Installer
                 {
                     _logger.LogWarning(e, $"Failed to stop process '{runningProcess.ProcessName}'!");
                 }
+            }
+        }
+
+        /// <summary>
+        /// Restarts application with admin privileges if required
+        /// </summary>
+        private void RestartWithAdminPrivileges(IMsiUpdate update)
+        {
+            if (update.AdminPrivilegesRequired.HasValue && update.AdminPrivilegesRequired.Value && IsAdministrator())
+            {
+                _logger.LogDebug("Restarting with admin privileges. . Machine: '{MachineName}'");
+
+                string[] args = Environment.GetCommandLineArgs();
+
+                ProcessStartInfo psi = new ProcessStartInfo
+                {
+                    FileName = args[0],
+                    //UseShellExecute = true,
+                    Verb = "runas"
+                };
+
+                foreach (string arg in args.Skip(1))
+                {
+                    psi.ArgumentList.Add(arg);
+                }
+
+                Process.Start(psi);
+                Environment.Exit(0);
             }
         }
         #endregion

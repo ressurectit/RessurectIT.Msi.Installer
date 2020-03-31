@@ -212,7 +212,18 @@ namespace RessurectIT.Msi.Installer.Installer
             if ($Record) 
             {{
                 Write-Output (Get-Property $Record StringData 1)
-            }}").Invoke();
+            }}
+
+            [System.Runtime.InteropServices.Marshal]::ReleaseComObject([System.__ComObject]$Database) | Out-Null
+            [System.GC]::Collect()
+
+            $Database = $null
+            $View = $null
+            $Record = $null
+
+            [System.Runtime.InteropServices.Marshal]::ReleaseComObject($Installer) | Out-Null
+            [System.GC]::Collect()
+            [System.GC]::WaitForPendingFinalizers()").Invoke();
 
             return result[1].ToString();
         }

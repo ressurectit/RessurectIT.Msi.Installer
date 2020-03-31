@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
+using System.Security.Principal;
 using System.Windows;
 using DryIoc;
 using DryIoc.MefAttributedModel;
@@ -106,6 +107,33 @@ namespace RessurectIT.Msi.Installer
 
             return Log.Logger;
         }
+
+        /// <summary>
+        /// Launch debugger
+        /// </summary>
+        /// <param name="config">Current configuration</param>
+        [Conditional("DEBUG")]
+        public static void LaunchDebugger(ConfigBase config)
+        {
+#if DEBUG
+            if (config.Debugging)
+            {
+                Debugger.Launch();
+            }
+#endif
+        }
+
+        /// <summary>
+        /// Tests whether application is running with administrator privileges
+        /// </summary>
+        /// <returns>True if app is running with administrator privileges context</returns>
+        public static bool IsAdministrator()
+        {
+            WindowsIdentity identity = WindowsIdentity.GetCurrent();
+            WindowsPrincipal principal = new WindowsPrincipal(identity);
+
+            return principal.IsInRole(WindowsBuiltInRole.Administrator);
+        }
         #endregion
 
 
@@ -129,29 +157,16 @@ namespace RessurectIT.Msi.Installer
                                                            {
                                                                serviceCollection.AddSingleton(serviceProvider => appConfigObj);
                                                                serviceCollection.AddSingleton<ConfigBase>(serviceProvider => serviceProvider.GetService<AppConfig>());
+                                                               serviceCollection.AddSingleton<StopService.StopService>();
                                                            },
                                                            appConfigObj);
 
-            Shutdown();
-        }
-        #endregion
-
-
-        #region private methods
-
-        /// <summary>
-        /// Launch debugger
-        /// </summary>
-        /// <param name="config">Current configuration</param>
-        [Conditional("DEBUG")]
-        private void LaunchDebugger(ConfigBase config)
-        {
-#if DEBUG
-            if (config.Debugging)
+            using (IServiceScope scope = provider.CreateScope())
             {
-                Debugger.Launch();
+                scope.ServiceProvider.GetService<Installer.Installer>().InstallFromProtocol();
             }
-#endif
+
+            Shutdown();
         }
         #endregion
     }

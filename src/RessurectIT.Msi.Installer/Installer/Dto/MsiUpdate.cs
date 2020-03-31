@@ -71,6 +71,13 @@
         }
 
         /// <inheritdoc />
+        public string? StartProcessPath
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
         public bool? AdminPrivilegesRequired
         {
             get;

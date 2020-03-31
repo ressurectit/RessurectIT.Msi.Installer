@@ -24,7 +24,7 @@ namespace RessurectIT.Msi.Installer.Gatherer
     /// </summary>
     [ExportEx]
     [CurrentScopeReuse]
-    internal class HttpGatherer : IDisposable
+    public class HttpGatherer : IDisposable
     {
         #region private fields
        
@@ -161,7 +161,7 @@ namespace RessurectIT.Msi.Installer.Gatherer
                     join installedUpdateIdJoin in installedUpdates.Keys on update.Id equals installedUpdateIdJoin into installedUpdatesIds
                     from installedUpdateId in installedUpdatesIds.DefaultIfEmpty()
                     let updateVersion = new Version(update.Version)
-                    let installedVersion = installedUpdates[installedUpdateId].GetVersionObj(_logger)
+                    let installedVersion = installedUpdateId != null ? installedUpdates[installedUpdateId].GetVersionObj(_logger) : null
                     where !string.IsNullOrEmpty(update.MsiPath) && 
                           (installedUpdateId == null || installedVersion < updateVersion) ||
                           (_config.AllowSameVersion && installedVersion == updateVersion && update.ComputedHash != installedUpdates[installedUpdateId].Hash)
@@ -177,7 +177,9 @@ namespace RessurectIT.Msi.Installer.Gatherer
                         UninstallParameters = update.UninstallParameters,
                         UninstallProductCode = update.UninstallProductCode ?? (installedUpdateId != null ? installedUpdates[installedUpdateId].ProductCode : null),
                         WaitForProcessNameEnd = update.WaitForProcessNameEnd,
-                        AutoInstall = update.AutoInstall
+                        AutoInstall = update.AutoInstall,
+                        AdminPrivilegesRequired = update.AdminPrivilegesRequired,
+                        StartProcessPath = update.StartProcessPath
                     }).ToArray();
         }
         #endregion

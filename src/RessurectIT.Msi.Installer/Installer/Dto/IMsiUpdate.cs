@@ -81,6 +81,14 @@
         }
 
         /// <summary>
+        /// Gets or sets path to process which should be start after installation
+        /// </summary>
+        string? StartProcessPath
+        {
+            get;
+        }
+
+        /// <summary>
         /// Gets or sets indication whether are admin privileges required
         /// </summary>
         bool? AdminPrivilegesRequired

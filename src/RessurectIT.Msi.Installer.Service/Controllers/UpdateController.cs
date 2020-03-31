@@ -1,0 +1,109 @@
+﻿using System;
+using System.Linq;
+using System.Text;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using RessurectIT.Msi.Installer.Gatherer;
+using RessurectIT.Msi.Installer.Gatherer.Dto;
+using RessurectIT.Msi.Installer.Installer.Dto;
+
+namespace RessurectIT.Msi.Installer.Controllers
+{
+    /// <summary>
+    /// Controller used for obtaining available updates
+    /// </summary>
+    [ApiController]
+    [Route("[controller]")]
+    public class UpdateController : ControllerBase
+    {
+        #region private fields
+
+        /// <summary>
+        /// Logger used for logging
+        /// </summary>
+        private readonly ILogger<UpdateController> _logger;
+
+        /// <summary>
+        /// Http gatherer used for obtaining available updates
+        /// </summary>
+        private readonly HttpGatherer _gatherer;
+
+        /// <summary>
+        /// Serializer settings used for serialization data to response
+        /// </summary>
+        private readonly JsonSerializerSettings _jsonSerializerSettings;
+        #endregion
+
+
+        #region constructor
+
+        /// <summary>
+        /// Creates instance of <see cref="UpdateController"/>
+        /// </summary>
+        /// <param name="logger">Logger used for logging</param>
+        /// <param name="gatherer">Http gatherer used for obtaining available updates</param>
+        public UpdateController(ILogger<UpdateController> logger,
+                                HttpGatherer gatherer)
+        {
+            _logger = logger;
+            _gatherer = gatherer;
+
+            DefaultContractResolver contractResolver = new DefaultContractResolver
+            {
+                NamingStrategy = new CamelCaseNamingStrategy()
+            };
+
+            _jsonSerializerSettings = new JsonSerializerSettings
+            {
+                ContractResolver = contractResolver,
+                Formatting = Formatting.None,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+        }
+        #endregion
+
+
+        #region public methods
+
+        /// <summary>
+        /// Gets available update for specified id as installation URL
+        /// </summary>
+        /// <returns>Found <see cref="IMsiUpdate"/> as install msiinstall:// uri or 404</returns>
+        [HttpGet("{id}")]
+        public ActionResult<string> Get([FromRoute] string id)
+        {
+            _logger.LogDebug("Getting update for '{id}'. Machine: '{MachineName}'", id);
+
+            IMsiUpdate? result = _gatherer.CheckForUpdates()
+                .Where(update => update.Id == id)
+                .OrderByDescending(update => new Version(update.Version))
+                .Select(update => new MsiUpdate
+                {
+                    WaitForProcessNameEnd = update.WaitForProcessNameEnd,
+                    AdminPrivilegesRequired = update.AdminPrivilegesRequired,
+                    ComputedHash = update.ComputedHash,
+                    Id = update.Id,
+                    InstallParameters = update.InstallParameters,
+                    MsiPath = update.MsiPath,
+                    StartProcessPath = update.StartProcessPath,
+                    StopProcessName = update.StopProcessName,
+                    UninstallParameters = update.UninstallParameters,
+                    UninstallProductCode = update.UninstallProductCode,
+                    Version = update.Version
+                })
+                .FirstOrDefault();
+
+            if (result != null)
+            {
+                _logger.LogDebug("Found update for '{id}' is {@update}. Machine: '{MachineName}'", id, result);
+
+                return Content($"msiinstall://{Convert.ToBase64String(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(result, _jsonSerializerSettings)))}");
+            }
+
+            return NotFound();
+        }
+        #endregion
+    }
+}

@@ -36,6 +36,15 @@ namespace RessurectIT.Msi.Installer.Configuration
             set;
         }
 
+        /// <summary>
+        /// Gets or sets setting for displaying install progress
+        /// </summary>
+        public string? Progress
+        {
+            get;
+            set;
+        }
+
 #if DEBUG
         /// <summary>
         /// Gets or sets indication
@@ -46,6 +55,31 @@ namespace RessurectIT.Msi.Installer.Configuration
             set;
         }
 #endif
+        #endregion
+
+
+        #region internal properties
+
+        /// <summary>
+        /// Gets setting for displaying install progress
+        /// </summary>
+        internal ProgressType ProgressType
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(Progress))
+                {
+                    return ProgressType.MsiExec;
+                }
+
+                return Progress switch
+                {
+                    nameof(ProgressType.None) => ProgressType.None,
+                    nameof(ProgressType.App) => ProgressType.App,
+                    _ => ProgressType.MsiExec
+                };
+            }
+        }
         #endregion
 
 

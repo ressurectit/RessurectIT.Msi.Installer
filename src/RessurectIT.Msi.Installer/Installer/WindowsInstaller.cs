@@ -6,6 +6,7 @@ using System.Management.Automation;
 using System.Reflection;
 using DryIocAttributes;
 using Microsoft.Extensions.Logging;
+using RessurectIT.Msi.Installer.Configuration;
 using RessurectIT.Msi.Installer.Installer.Dto;
 
 namespace RessurectIT.Msi.Installer.Installer
@@ -22,7 +23,12 @@ namespace RessurectIT.Msi.Installer.Installer
         /// <summary>
         /// Logger used for logging
         /// </summary>
-        private readonly ILogger<WindowsInstaller> _logger;        
+        private readonly ILogger<WindowsInstaller> _logger;
+
+        /// <summary>
+        /// Application configuration
+        /// </summary>
+        private readonly ConfigBase _config;
         #endregion
         
 
@@ -32,9 +38,12 @@ namespace RessurectIT.Msi.Installer.Installer
         /// Creates instance of <see cref="WindowsInstaller"/>
         /// </summary>
         /// <param name="logger">Logger used for logging</param>
-        public WindowsInstaller(ILogger<WindowsInstaller> logger)
+        /// <param name="config">Application configuration</param>
+        public WindowsInstaller(ILogger<WindowsInstaller> logger,
+                                ConfigBase config)
         {
             _logger = logger;
+            _config = config;
         }
         #endregion
 
@@ -63,7 +72,7 @@ namespace RessurectIT.Msi.Installer.Installer
                     StartInfo =
                     {
                         FileName = "msiexec",
-                        Arguments = $" /q /i {update.MsiPath} /L*V \"{logPath}\" {update.InstallParameters}"
+                        Arguments = $" /q{(_config.ProgressType == ProgressType.MsiExec ? "b!-" : string.Empty)} /i {update.MsiPath} /L*V \"{logPath}\" {update.InstallParameters}"
                     }
                 };
 
@@ -119,7 +128,7 @@ namespace RessurectIT.Msi.Installer.Installer
                     StartInfo =
                     {
                         FileName = "msiexec",
-                        Arguments = $" /q /x {update.UninstallProductCode} /L*V \"{logPath}\" {update.UninstallParameters}"
+                        Arguments = $" /q{(_config.ProgressType == ProgressType.MsiExec ? "b!-" : string.Empty)} /x {update.UninstallProductCode} /L*V \"{logPath}\" {update.UninstallParameters}"
                     }
                 };
 

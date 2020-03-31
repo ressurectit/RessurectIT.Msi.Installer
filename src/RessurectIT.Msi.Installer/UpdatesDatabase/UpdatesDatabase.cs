@@ -80,7 +80,8 @@ namespace RessurectIT.Msi.Installer.UpdatesDatabase
             {
                 Version = update.Version,
                 ProductCode = update.UninstallProductCode!,
-                Hash = update.ComputedHash
+                Hash = update.ComputedHash,
+                InstallParameters = update.InstallParameters
             };
 
             try

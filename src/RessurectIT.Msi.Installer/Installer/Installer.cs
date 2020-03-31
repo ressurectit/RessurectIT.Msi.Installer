@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using DryIocAttributes;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -229,7 +230,7 @@ namespace RessurectIT.Msi.Installer.Installer
         /// </summary>
         private void RestartWithAdminPrivileges(IMsiUpdate update)
         {
-            if (update.AdminPrivilegesRequired.HasValue && update.AdminPrivilegesRequired.Value && IsAdministrator())
+            if (update.AdminPrivilegesRequired.HasValue && update.AdminPrivilegesRequired.Value && !IsAdministrator())
             {
                 _logger.LogDebug("Restarting with admin privileges. . Machine: '{MachineName}'");
 
@@ -237,8 +238,8 @@ namespace RessurectIT.Msi.Installer.Installer
 
                 ProcessStartInfo psi = new ProcessStartInfo
                 {
-                    FileName = args[0],
-                    //UseShellExecute = true,
+                    FileName = Regex.Replace(args[0], @"\.dll$", ".exe"),
+                    UseShellExecute = true,
                     Verb = "runas"
                 };
 

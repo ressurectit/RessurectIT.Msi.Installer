@@ -15,7 +15,7 @@ using RessurectIT.Msi.Installer.Installer.Dto;
 using RessurectIT.Msi.Installer.UpdatesDatabase;
 using RessurectIT.Msi.Installer.UpdatesDatabase.Dto;
 
-//TODO - think of some kind of caching for already downloaded and present new updates
+//TODO - primitive way of caching is done, improve it with storing hash of MSI
 
 namespace RessurectIT.Msi.Installer.Gatherer
 {
@@ -91,13 +91,13 @@ namespace RessurectIT.Msi.Installer.Gatherer
                 return new IMsiUpdate[0];
             }
 
-            MsiInstallerUpdates updates;
+            Dictionary<string, MsiUpdate> updates;
 
             if (result.StatusCode == HttpStatusCode.OK)
             {
                 try
                 {
-                    updates = JsonConvert.DeserializeObject<MsiInstallerUpdates>(result.Content.ReadAsStringAsync().Result);
+                    updates = JsonConvert.DeserializeObject<Dictionary<string, MsiUpdate>>(result.Content.ReadAsStringAsync().Result) ?? new Dictionary<string, MsiUpdate>();
                 }
                 catch (Exception e)
                 {
@@ -113,51 +113,57 @@ namespace RessurectIT.Msi.Installer.Gatherer
                 return new IMsiUpdate[0];
             }
 
-            updates.Updates = updates.Updates.Where(update =>
-            {
-                if (string.IsNullOrEmpty(update.Id))
+            Dictionary<string, InstalledUpdateInfo> installedUpdates = _updatesDatabase.GetInstalledUpdates();
+            MsiUpdate[] newUpdates = updates
+                .Keys
+                .Select(updateId =>
                 {
-                    _logger.LogError("Update is missing ID! Machine: '{MachineName}'");
+                    MsiUpdate newUpdate = updates[updateId];
 
-                    return false;
-                }
+                    newUpdate.Id = updateId;
 
-                if (string.IsNullOrEmpty(update.MsiDownloadUrl))
+                    return newUpdate;
+                })
+                .Where(update =>
                 {
-                    _logger.LogError("Update is missing MSI download URL! Machine: '{MachineName}'");
-
-                    return false;
-                }
-
-                try
-                {
-                    HttpResponseMessage msiResult = _httpClient.GetAsync(update.MsiDownloadUrl).Result;
-                    // ReSharper disable once AssignNullToNotNullAttribute
-                    string tempPath = Path.Combine(Path.GetTempPath(), Path.GetFileName(update.MsiDownloadUrl));
-
-                    using (Stream contentStream = msiResult.Content.ReadAsStreamAsync().Result)
-                    using (Stream fileStream = File.Create(tempPath))
+                    if (string.IsNullOrEmpty(update.MsiDownloadUrl))
                     {
-                        contentStream.CopyTo(fileStream);
+                        _logger.LogError("Update is missing MSI download URL! Machine: '{MachineName}'");
+
+                        return false;
                     }
 
-                    update.MsiPath = tempPath;
-                    update.Version = WindowsInstaller.GetMsiVersion(tempPath);
-                    update.ComputedHash = ComputeHash(tempPath)!;
-                }
-                catch (Exception e)
-                {
-                    _logger.LogWarning(e, $"Unable to obtain msi for '{update.Id}' with url '{update.MsiDownloadUrl}'!");
+                    try
+                    {
+                        string tempPath = Path.Combine(Path.GetTempPath(), Path.GetFileName(update.MsiDownloadUrl));
 
-                    return false;
-                }
+                        //local msi does not exists
+                        if (!File.Exists(tempPath))
+                        {
+                            HttpResponseMessage msiResult = _httpClient.GetAsync(update.MsiDownloadUrl).Result;
 
-                return true;
-            }).ToArray();
+                            using (Stream contentStream = msiResult.Content.ReadAsStreamAsync().Result)
+                            using (Stream fileStream = File.Create(tempPath))
+                            {
+                                contentStream.CopyTo(fileStream);
+                            }
+                        }
 
-            Dictionary<string, InstalledUpdateInfo> installedUpdates = _updatesDatabase.GetInstalledUpdates();
+                        update.MsiPath = tempPath;
+                        update.Version = WindowsInstaller.GetMsiVersion(tempPath);
+                        update.ComputedHash = ComputeHash(tempPath)!;
+                    }
+                    catch (Exception e)
+                    {
+                        _logger.LogWarning(e, $"Unable to obtain msi for '{update.Id}' with url '{update.MsiDownloadUrl}'!");
 
-            return (from update in updates.Updates
+                        return false;
+                    }
+
+                    return true;
+                }).ToArray();
+
+            return (from update in newUpdates
                     join installedUpdateIdJoin in installedUpdates.Keys on update.Id equals installedUpdateIdJoin into installedUpdatesIds
                     from installedUpdateId in installedUpdatesIds.DefaultIfEmpty()
                     let updateVersion = new Version(update.Version)
@@ -174,7 +180,7 @@ namespace RessurectIT.Msi.Installer.Gatherer
                         MsiDownloadUrl = update.MsiDownloadUrl,
                         MsiPath = update.MsiPath,
                         StopProcessName = update.StopProcessName,
-                        UninstallParameters = update.UninstallParameters,
+                        UninstallParameters = update.UninstallParameters ?? (installedUpdateId != null ? installedUpdates[installedUpdateId].InstallParameters : null),
                         UninstallProductCode = update.UninstallProductCode ?? (installedUpdateId != null ? installedUpdates[installedUpdateId].ProductCode : null),
                         WaitForProcessNameEnd = update.WaitForProcessNameEnd,
                         AutoInstall = update.AutoInstall,

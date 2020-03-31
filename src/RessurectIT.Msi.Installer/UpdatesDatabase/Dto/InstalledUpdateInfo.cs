@@ -36,6 +36,15 @@ namespace RessurectIT.Msi.Installer.UpdatesDatabase.Dto
             get;
             set;
         }
+
+        /// <summary>
+        /// Gets or sets parameters used for installation of msi, later used for uninstalling of msi
+        /// </summary>
+        public string? InstallParameters
+        {
+            get;
+            set;
+        }
         #endregion
 
 

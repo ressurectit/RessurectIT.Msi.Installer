@@ -1,6 +1,4 @@
-﻿//TODO - add install progress type
-
-namespace RessurectIT.Msi.Installer.Configuration
+﻿namespace RessurectIT.Msi.Installer.Configuration
 {
     /// <summary>
     /// Base configuration for application
@@ -28,13 +26,22 @@ namespace RessurectIT.Msi.Installer.Configuration
         }
 
         /// <summary>
-        /// Gets or sets indication whether is rest logger enabled
+        /// Gets or sets timeout for install, uninstall msi in milliseconds
         /// </summary>
-        public bool RestLoggerEnabled
+        public int MsiInstallTimeout
         {
             get;
             set;
-        }
+        } = 90000;
+
+        /// <summary>
+        /// Gets or sets timeout for waiting of process end in milliseconds
+        /// </summary>
+        public int WaitForProcessEnd
+        {
+            get;
+            set;
+        } = 15000;
 
         /// <summary>
         /// Gets or sets setting for displaying install progress
@@ -79,18 +86,6 @@ namespace RessurectIT.Msi.Installer.Configuration
                     _ => ProgressType.MsiExec
                 };
             }
-        }
-        #endregion
-
-
-        #region constructors
-
-        /// <summary>
-        /// Creates instance of <see cref="ConfigBase"/>
-        /// </summary>
-        public ConfigBase()
-        {
-            RestLoggerEnabled = true;
         }
         #endregion
     }

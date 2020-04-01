@@ -23,6 +23,20 @@ namespace RessurectIT.Msi.Installer
     /// </summary>
     public partial class App
     {
+        #region public properties
+
+        /// <summary>
+        /// Gets or sets configuration, use only for rest logger
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "CS8618:Non-nullable property is uninitialized. Consider declaring as nullable.", Justification = "<Pending>")]
+        public static ConfigBase Config
+        {
+            get;
+            set;
+        }
+        #endregion
+
+
         #region public static methods
 
         /// <summary>
@@ -58,10 +72,9 @@ namespace RessurectIT.Msi.Installer
         /// </summary>
         /// <param name="appConfig">Current app configuration</param>
         /// <param name="serviceBuilder">Callback used for adding custom providers</param>
-        /// <param name="config">Application configuration instance</param>
         /// <param name="servicesCollection">Collection of services, used for configuration</param>
         /// <returns>Built service provider</returns>
-        public static IContainer GetServiceProvider(IConfiguration appConfig, Action<IServiceCollection> serviceBuilder, ConfigBase config, IServiceCollection servicesCollection = null)
+        public static IContainer GetServiceProvider(IConfiguration appConfig, Action<IServiceCollection> serviceBuilder, IServiceCollection servicesCollection = null)
         {
             //get ressurectit assemblies
             IEnumerable<Assembly> assemblies = AssemblyLoadContext.Default.Assemblies
@@ -76,7 +89,7 @@ namespace RessurectIT.Msi.Installer
 
             services.AddLogging(builder =>
             {
-                InitLogger(appConfig, config);
+                InitLogger(appConfig);
 
                 builder.AddSerilog(dispose: true);
             });
@@ -94,14 +107,12 @@ namespace RessurectIT.Msi.Installer
         /// Initialize serilog logger
         /// </summary>
         /// <param name="appConfig">Current app configuration</param>
-        /// <param name="config">Application configuration instance</param>
-        public static ILogger InitLogger(IConfiguration appConfig, ConfigBase config)
+        public static ILogger InitLogger(IConfiguration appConfig)
         {
             if (!(Log.Logger is SerilogLogger))
             {
                 Log.Logger = new LoggerConfiguration()
                     .ReadFrom.Configuration(appConfig)
-                    .WriteTo.RestLogger(config)
                     .CreateLogger();
             }
 
@@ -140,7 +151,7 @@ namespace RessurectIT.Msi.Installer
         #region protected methods - Overrides of Application
 
         /// <inheritdoc />
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
@@ -150,6 +161,8 @@ namespace RessurectIT.Msi.Installer
             AppConfig appConfigObj = new AppConfig();
             appConfig.Bind(appConfigObj);
 
+            Config = appConfigObj;
+
             LaunchDebugger(appConfigObj);
 
             IServiceProvider provider = GetServiceProvider(appConfig,
@@ -158,12 +171,11 @@ namespace RessurectIT.Msi.Installer
                                                                serviceCollection.AddSingleton(serviceProvider => appConfigObj);
                                                                serviceCollection.AddSingleton<ConfigBase>(serviceProvider => serviceProvider.GetService<AppConfig>());
                                                                serviceCollection.AddSingleton<StopService.StopService>();
-                                                           },
-                                                           appConfigObj);
+                                                           });
 
             using (IServiceScope scope = provider.CreateScope())
             {
-                scope.ServiceProvider.GetService<Installer.Installer>().InstallFromProtocol();
+                await scope.ServiceProvider.GetService<Installer.Installer>().InstallFromProtocol();
             }
 
             Shutdown();

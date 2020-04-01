@@ -1,0 +1,39 @@
+﻿<Window x:Class="RessurectIT.Msi.Installer.Progress.ProgressWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RessurectIT.Msi.Installer.Progress"
+        mc:Ignorable="d"
+        Title="MSI Installer"
+        Height="60"
+        Width="350"
+        Visibility="Visible"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo Description="MSI Installer"></TaskbarItemInfo>
+    </Window.TaskbarItemInfo>
+
+    <Grid Margin="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="27"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding TitleText, RelativeSource={RelativeSource AncestorType={x:Type local:ProgressWindow}}}"
+                   FontSize="14"
+                   Background="#B9B9B9"
+                   Padding="8, 4"
+                   TextAlignment="Center"
+                   FontWeight="Bold"></TextBlock>
+
+        <TextBlock Grid.Row="1"
+                   Text="{Binding Message, RelativeSource={RelativeSource AncestorType={x:Type local:ProgressWindow}}}"
+                   VerticalAlignment="Center"
+                   TextAlignment="Center"
+                   Padding="6, 10"
+                   Background="#E0E0E0"/>
+    </Grid>
+</Window>

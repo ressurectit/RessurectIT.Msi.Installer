@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Management.Automation;
 using System.Reflection;
+using System.Threading.Tasks;
 using DryIocAttributes;
 using Microsoft.Extensions.Logging;
 using RessurectIT.Msi.Installer.Configuration;
@@ -55,7 +56,7 @@ namespace RessurectIT.Msi.Installer.Installer
         /// </summary>
         /// <param name="update">Information about update that should be installed</param>
         /// <param name="stopCallback">Callback called when there is need to stop installer itself</param>
-        public void Install(IMsiUpdate update, Action stopCallback)
+        public async Task Install(IMsiUpdate update, Action stopCallback)
         {
             string logPath = Path.Combine(Directory.GetCurrentDirectory(), "msiexec-install.log");
 
@@ -85,7 +86,7 @@ namespace RessurectIT.Msi.Installer.Installer
                     Process.GetCurrentProcess().Kill();
                 }
 
-                process.WaitForExit(90000);
+                await Task.Factory.StartNew(() => process.WaitForExit(_config.MsiInstallTimeout));
 
                 if (process.ExitCode != 0)
                 {
@@ -110,7 +111,7 @@ namespace RessurectIT.Msi.Installer.Installer
         /// Uninstalls ProductCode that is specified by this <see cref="WindowsInstaller"/>, if no product code was specified, does nothing
         /// </summary>
         /// <param name="update">Information about update that should be installed</param>
-        public void Uninstall(IMsiUpdate update)
+        public async Task Uninstall(IMsiUpdate update)
         {
             if (string.IsNullOrEmpty(update.UninstallProductCode))
             {
@@ -133,7 +134,8 @@ namespace RessurectIT.Msi.Installer.Installer
                 };
 
                 process.Start();
-                process.WaitForExit(90000);
+                
+                await Task.Factory.StartNew(() => process.WaitForExit(_config.MsiInstallTimeout));
 
                 if (process.ExitCode != 0)
                 {

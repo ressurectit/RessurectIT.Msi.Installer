@@ -30,9 +30,11 @@ namespace RessurectIT.Msi.Installer
             ServiceConfig serviceConfigObj = new ServiceConfig();
             serviceConfig.Bind(serviceConfigObj);
 
+            Config = serviceConfigObj;
+
             LaunchDebugger(serviceConfigObj);
 
-            ILogger logger = InitLogger(serviceConfig, serviceConfigObj);
+            ILogger logger = InitLogger(serviceConfig);
 
             IContainer container = GetServiceProvider(serviceConfig,
                                                       serviceCollection =>
@@ -40,8 +42,7 @@ namespace RessurectIT.Msi.Installer
                                                           serviceCollection.AddSingleton(serviceProvider => serviceConfigObj);
                                                           serviceCollection.AddSingleton<ConfigBase>(serviceProvider => serviceProvider.GetService<ServiceConfig>());
                                                           //serviceCollection.AddSingleton<StopService.StopService>();
-                                                      },
-                                                      serviceConfigObj);
+                                                      });
 
             IHostBuilder hostBuilder = Host.CreateDefaultBuilder(args);
 

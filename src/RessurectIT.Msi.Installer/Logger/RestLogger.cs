@@ -33,15 +33,14 @@ namespace RessurectIT.Msi.Installer.Logger
         /// Creates instance of <see cref="RestLogger"/>
         /// </summary>
         /// <param name="formatProvider">Format provider used for providing format for various types</param>
-        /// <param name="config">Configuration containing remote log rest url</param>
-        public RestLogger(IFormatProvider formatProvider, ConfigBase config)
+        public RestLogger(IFormatProvider formatProvider)
         {
             _formatProvider = formatProvider;
-            _config = config;
+            _config = App.Config;
         }
         #endregion
 
-
+            
         #region public methods - Implementation of ILogEventSink
 
         /// <inheritdoc />

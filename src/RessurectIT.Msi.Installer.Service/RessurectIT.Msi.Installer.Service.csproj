@@ -17,6 +17,7 @@
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.2" />
         <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="3.1.2" />
         <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
+        <PackageReference Include="RessurectIT.Git.Version" Version="$(RessurectITGitVersion)" PrivateAssets="All" />
     </ItemGroup>
 
     <!-- PROJECT DEPENDENCIES -->

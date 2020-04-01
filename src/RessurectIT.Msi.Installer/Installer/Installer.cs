@@ -4,11 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using DryIocAttributes;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using RessurectIT.Msi.Installer.Configuration;
 using RessurectIT.Msi.Installer.Installer.Dto;
+using RessurectIT.Msi.Installer.Progress;
 using StopServiceClass = RessurectIT.Msi.Installer.StopService.StopService;
 using RessurectIT.Msi.Installer.UpdatesDatabase;
 using static RessurectIT.Msi.Installer.App;
@@ -48,6 +50,11 @@ namespace RessurectIT.Msi.Installer.Installer
         /// Used for managing installed updates
         /// </summary>
         private readonly IUpdatesDatabase _updatesDatabase;
+
+        /// <summary>
+        /// Service used for displaying app progress indicator
+        /// </summary>
+        private readonly IProgressService _progressService;
         #endregion
 
 
@@ -61,17 +68,20 @@ namespace RessurectIT.Msi.Installer.Installer
         /// <param name="stopService">Service used for stopping windows service</param>
         /// <param name="msiInstaller">MSI installer instance</param>
         /// <param name="updatesDatabase">Used for managing installed updates</param>
+        /// <param name="progressService">Service used for displaying app progress indicator</param>
         public Installer(ConfigBase config,
                          ILogger<Installer> logger,
                          StopServiceClass stopService,
                          WindowsInstaller msiInstaller,
-                         IUpdatesDatabase updatesDatabase)
+                         IUpdatesDatabase updatesDatabase,
+                         IProgressService progressService)
         {
             _config = config;
             _logger = logger;
             _stopService = stopService;
             _msiInstaller = msiInstaller;
             _updatesDatabase = updatesDatabase;
+            _progressService = progressService;
         }
         #endregion
 
@@ -82,7 +92,7 @@ namespace RessurectIT.Msi.Installer.Installer
         /// Installs msi updates
         /// </summary>
         /// <param name="updates">MSI updates to be installed</param>
-        public void Install(params IMsiUpdate[] updates)
+        public async Task Install(params IMsiUpdate[] updates)
         {
             _logger.LogDebug("Installing updates {@updates} Machine: '{MachineName}'", (object)updates);
 
@@ -94,15 +104,17 @@ namespace RessurectIT.Msi.Installer.Installer
 
                 try
                 {
-                    StopProcess(update);
-                    _msiInstaller.Uninstall(update);
-                    _msiInstaller.Install(update,
-                                          () =>
-                                          {
-                                              @break = true;
+                    await StopProcess(update);
+                    _progressService.ShowProgressMessage("Uninstalling previous version", update.Id);
+                    await _msiInstaller.Uninstall(update);
+                    _progressService.ShowProgressMessage("Installing new version", update.Id);
+                    await _msiInstaller.Install(update,
+                                                () =>
+                                                {
+                                                    @break = true;
 
-                                              _stopService.StopCallback?.Invoke();
-                                          });
+                                                    _stopService.StopCallback?.Invoke();
+                                                });
 
                     if (@break)
                     {
@@ -138,7 +150,7 @@ namespace RessurectIT.Msi.Installer.Installer
         /// <summary>
         /// Installs msi from protocol
         /// </summary>
-        internal void InstallFromProtocol()
+        internal async Task InstallFromProtocol()
         {
             if (_config is AppConfig config)
             {
@@ -169,8 +181,10 @@ namespace RessurectIT.Msi.Installer.Installer
                     return;
                 }
 
+                _progressService.ShowProgressMessage("Starting installation", msiUpdate.Id);
+
                 RestartWithAdminPrivileges(msiUpdate);
-                Install(msiUpdate);
+                await Install(msiUpdate);
             }
             else
             {
@@ -186,7 +200,7 @@ namespace RessurectIT.Msi.Installer.Installer
         /// Stops process specified by update
         /// </summary>
         /// <param name="update">Update that contains information which process should be stopped</param>
-        private void StopProcess(IMsiUpdate update)
+        private async Task StopProcess(IMsiUpdate update)
         {
             if (string.IsNullOrEmpty(update.StopProcessName) || string.IsNullOrEmpty(update.WaitForProcessNameEnd))
             {
@@ -202,15 +216,19 @@ namespace RessurectIT.Msi.Installer.Installer
                 //wait for process to end
                 if (string.IsNullOrEmpty(update.WaitForProcessNameEnd))
                 {
+                    _progressService.ShowProgressMessage("Waiting for end of application", update.Id);
+
                     _logger.LogInformation($"Waiting for process end for process'{runningProcess.Id}' with name '{runningProcess.ProcessName}'. Machine: '{{MachineName}}'");
 
-                    runningProcess.WaitForExit(15000);
+                    await Task.Factory.StartNew(() => runningProcess.WaitForExit(_config.WaitForProcessEnd));
 
                     if (runningProcess.HasExited)
                     {
                         return;
                     }
                 }
+
+                _progressService.ShowProgressMessage("Forcibly stopping application", update.Id);
 
                 _logger.LogInformation($"Stopping process '{runningProcess.Id}' with name '{runningProcess.ProcessName}'. Machine: '{{MachineName}}'");
 

@@ -68,6 +68,13 @@
         }
 
         /// <inheritdoc />
+        public bool? ForceStop
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
         public string? WaitForProcessNameEnd
         {
             get;

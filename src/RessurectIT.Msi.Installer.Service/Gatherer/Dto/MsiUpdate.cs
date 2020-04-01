@@ -93,6 +93,13 @@ namespace RessurectIT.Msi.Installer.Gatherer.Dto
         }
 
         /// <inheritdoc />
+        public bool? ForceStop
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
         public string? WaitForProcessNameEnd
         {
             get;

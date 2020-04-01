@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 using DryIocAttributes;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -104,10 +105,16 @@ namespace RessurectIT.Msi.Installer.Installer
 
                 try
                 {
-                    await StopProcess(update);
+                    bool canProcess = await StopProcess(update);
+
+                    if (!canProcess)
+                    {
+                        continue;
+                    }
+
                     await _progressService.ShowProgressMessage("Uninstalling previous version", update.Id);
                     await _msiInstaller.Uninstall(update);
-                    await _progressService.ShowProgressMessage("Installing new version", update.Id);
+                    await _progressService.ShowProgressMessage($"Installing new version '{update.Version}'", update.Id);
                     await _msiInstaller.Install(update,
                                                 () =>
                                                 {
@@ -231,11 +238,11 @@ namespace RessurectIT.Msi.Installer.Installer
         /// Stops process specified by update
         /// </summary>
         /// <param name="update">Update that contains information which process should be stopped</param>
-        private async Task StopProcess(IMsiUpdate update)
+        private async Task<bool> StopProcess(IMsiUpdate update)
         {
             if (string.IsNullOrEmpty(update.StopProcessName) && string.IsNullOrEmpty(update.WaitForProcessNameEnd))
             {
-                return;
+                return true;
             }
 
             _logger.LogDebug($"Looking for process with name '{update.StopProcessName}'.");
@@ -255,7 +262,21 @@ namespace RessurectIT.Msi.Installer.Installer
 
                     if (runningProcess.HasExited)
                     {
-                        return;
+                        return true;
+                    }
+                }
+
+                if (!update.ForceStop.HasValue || update.ForceStop.Value)
+                {
+                    MessageBoxResult result = MessageBox.Show($"Application '{update.Id}' update '{update.Version}' is about to be installed. '{runningProcess.ProcessName}' will be stopped, do you want to continue? ",
+                                                              "Force stop",
+                                                              MessageBoxButton.YesNo,
+                                                              MessageBoxImage.Question,
+                                                              MessageBoxResult.Yes);
+
+                    if (result == MessageBoxResult.No)
+                    {
+                        return false;
                     }
                 }
 
@@ -272,6 +293,8 @@ namespace RessurectIT.Msi.Installer.Installer
                     _logger.LogWarning(e, $"Failed to stop process '{runningProcess.ProcessName}'!");
                 }
             }
+
+            return true;
         }
 
         /// <summary>

@@ -187,7 +187,8 @@ namespace RessurectIT.Msi.Installer.Gatherer
                         WaitForProcessNameEnd = update.WaitForProcessNameEnd,
                         AutoInstall = update.AutoInstall,
                         AdminPrivilegesRequired = update.AdminPrivilegesRequired,
-                        StartProcessPath = update.StartProcessPath
+                        StartProcessPath = update.StartProcessPath,
+                        ForceStop = update.ForceStop
                     }).ToArray();
         }
         #endregion

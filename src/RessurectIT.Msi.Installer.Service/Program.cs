@@ -43,7 +43,8 @@ namespace RessurectIT.Msi.Installer
                                                                                                            StopProcessName = update.StopProcessName,
                                                                                                            UninstallParameters = update.UninstallParameters,
                                                                                                            UninstallProductCode = update.UninstallProductCode,
-                                                                                                           Version = update.Version
+                                                                                                           Version = update.Version,
+                                                                                                           ForceStop = update.ForceStop
                                                                                                        },
                                                                                                        jsonSerializerSettings)));
         }

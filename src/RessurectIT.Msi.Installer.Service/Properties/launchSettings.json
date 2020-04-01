@@ -7,7 +7,8 @@
       "launchUrl": "weatherforecast",
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "RIT_MSI_INSTALLER_LOCALSERVER": "true" 
       }
     }
   }

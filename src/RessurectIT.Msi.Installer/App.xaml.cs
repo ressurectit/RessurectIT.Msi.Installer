@@ -62,7 +62,7 @@ namespace RessurectIT.Msi.Installer
 #if DEBUG
                 .AddJsonFile("config.dev.json", true)
 #endif
-                .AddEnvironmentVariables("RIT_MSI_INSTALLER")
+                .AddEnvironmentVariables("RIT_MSI_INSTALLER_")
                 .AddCommandLine(args)
                 .Build();
         }

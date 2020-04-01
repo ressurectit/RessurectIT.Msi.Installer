@@ -73,6 +73,14 @@
         }
 
         /// <summary>
+        /// Gets or sets indication whether force stop
+        /// </summary>
+        bool? ForceStop
+        {
+            get;
+        }
+
+        /// <summary>
         /// Gets or sets name of process to be waited for
         /// </summary>
         string? WaitForProcessNameEnd

@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Timers;
 using DryIocAttributes;
 using Microsoft.Extensions.DependencyInjection;
@@ -122,7 +123,7 @@ namespace RessurectIT.Msi.Installer.Checker
         /// <summary>
         /// Performs check of updates
         /// </summary>
-        private void DoCheck()
+        private async void DoCheck()
         {
             _logger.LogDebug("Checking for updates! Machine: '{MachineName}'");
 
@@ -135,7 +136,7 @@ namespace RessurectIT.Msi.Installer.Checker
             {
                 if (_config.LocalServer)
                 {
-                    Install(update);
+                    await Install(update);
                 }
                 else
                 {
@@ -227,8 +228,20 @@ namespace RessurectIT.Msi.Installer.Checker
         /// Installs update as current user
         /// </summary>
         /// <param name="update">Update to be installed</param>
-        private void Install(IMsiUpdate update)
+        private async Task Install(IMsiUpdate update)
         {
+            Process process = new Process
+            {
+                StartInfo =
+                {
+                    FileName = Path.Combine(Directory.GetCurrentDirectory(), "RessurectIT.Msi.Installer.exe"),
+                    Arguments = $@"--request ""{SerializeUpdate(update, _jsonSerializerSettings)}"""
+                }
+            };
+
+            process.Start();
+            
+            await Task.Factory.StartNew(() => process.WaitForExit(_config.MsiInstallTimeout));
         }
         #endregion
     }

@@ -105,9 +105,9 @@ namespace RessurectIT.Msi.Installer.Installer
                 try
                 {
                     await StopProcess(update);
-                    _progressService.ShowProgressMessage("Uninstalling previous version", update.Id);
+                    await _progressService.ShowProgressMessage("Uninstalling previous version", update.Id);
                     await _msiInstaller.Uninstall(update);
-                    _progressService.ShowProgressMessage("Installing new version", update.Id);
+                    await _progressService.ShowProgressMessage("Installing new version", update.Id);
                     await _msiInstaller.Install(update,
                                                 () =>
                                                 {
@@ -181,7 +181,7 @@ namespace RessurectIT.Msi.Installer.Installer
                     return;
                 }
 
-                _progressService.ShowProgressMessage("Starting installation", msiUpdate.Id);
+                await _progressService.ShowProgressMessage("Starting installation", msiUpdate.Id);
 
                 RestartWithAdminPrivileges(msiUpdate);
                 await Install(msiUpdate);
@@ -202,21 +202,21 @@ namespace RessurectIT.Msi.Installer.Installer
         /// <param name="update">Update that contains information which process should be stopped</param>
         private async Task StopProcess(IMsiUpdate update)
         {
-            if (string.IsNullOrEmpty(update.StopProcessName) || string.IsNullOrEmpty(update.WaitForProcessNameEnd))
+            if (string.IsNullOrEmpty(update.StopProcessName) && string.IsNullOrEmpty(update.WaitForProcessNameEnd))
             {
                 return;
             }
 
             _logger.LogDebug($"Looking for process with name '{update.StopProcessName}'.");
 
-            Process runningProcess = Process.GetProcesses().SingleOrDefault(process => process.ProcessName == (string.IsNullOrEmpty(update.WaitForProcessNameEnd) ? update.WaitForProcessNameEnd : update.StopProcessName));
+            Process runningProcess = Process.GetProcesses().SingleOrDefault(process => process.ProcessName == (string.IsNullOrEmpty(update.WaitForProcessNameEnd) ? update.StopProcessName : update.WaitForProcessNameEnd));
 
             if (runningProcess != null)
             {
                 //wait for process to end
-                if (string.IsNullOrEmpty(update.WaitForProcessNameEnd))
+                if (!string.IsNullOrEmpty(update.WaitForProcessNameEnd))
                 {
-                    _progressService.ShowProgressMessage("Waiting for end of application", update.Id);
+                    await _progressService.ShowProgressMessage("Waiting for end of application", update.Id);
 
                     _logger.LogInformation($"Waiting for process end for process'{runningProcess.Id}' with name '{runningProcess.ProcessName}'. Machine: '{{MachineName}}'");
 
@@ -228,7 +228,7 @@ namespace RessurectIT.Msi.Installer.Installer
                     }
                 }
 
-                _progressService.ShowProgressMessage("Forcibly stopping application", update.Id);
+                await _progressService.ShowProgressMessage("Forcibly stopping application", update.Id);
 
                 _logger.LogInformation($"Stopping process '{runningProcess.Id}' with name '{runningProcess.ProcessName}'. Machine: '{{MachineName}}'");
 

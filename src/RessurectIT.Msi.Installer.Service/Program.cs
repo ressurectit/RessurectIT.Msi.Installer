@@ -48,6 +48,7 @@ namespace RessurectIT.Msi.Installer
 
             if (!serviceConfigObj.LocalServer)
             {
+                logger.Debug("Running as Windows Service");
                 hostBuilder.UseWindowsService();
             }
 

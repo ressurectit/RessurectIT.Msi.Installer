@@ -1,4 +1,6 @@
-﻿namespace RessurectIT.Msi.Installer.Progress
+﻿using System.Threading.Tasks;
+
+namespace RessurectIT.Msi.Installer.Progress
 {
     /// <summary>
     /// Used for displaying progress indicator
@@ -12,7 +14,7 @@
         /// </summary>
         /// <param name="message">Message to be displayed</param>
         /// <param name="updateId">Id of update that is being updated</param>
-        void ShowProgressMessage(string message, string updateId);
+        Task ShowProgressMessage(string message, string updateId);
         #endregion
     }
 }

@@ -26,7 +26,6 @@
                    FontSize="14"
                    Background="#B9B9B9"
                    Padding="8, 4"
-                   TextAlignment="Center"
                    FontWeight="Bold"></TextBlock>
 
         <TextBlock Grid.Row="1"

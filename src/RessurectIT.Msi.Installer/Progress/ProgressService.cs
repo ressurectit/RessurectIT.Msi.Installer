@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using DryIocAttributes;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -54,7 +55,7 @@ namespace RessurectIT.Msi.Installer.Progress
         #region public methods - Implementation of IProgressService
 
         /// <inheritdoc />
-        public void ShowProgressMessage(string message, string updateId)
+        public async Task ShowProgressMessage(string message, string updateId)
         {
             if (!Environment.UserInteractive)
             {
@@ -70,8 +71,10 @@ namespace RessurectIT.Msi.Installer.Progress
             }
 
             IProgressWindow progressWindow = _serviceProvider.GetService<IProgressWindow>();
-
             progressWindow.ShowProgressMessage(message, updateId);
+
+            //Hack forcing switching of threads
+            await Task.Delay(3);
         }
         #endregion
     }

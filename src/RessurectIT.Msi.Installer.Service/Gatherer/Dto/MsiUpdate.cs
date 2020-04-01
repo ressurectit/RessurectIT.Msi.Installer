@@ -12,6 +12,7 @@ namespace RessurectIT.Msi.Installer.Gatherer.Dto
         /// <summary>
         /// Gets or sets download url for MSI
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "CS8618:Non-nullable property is uninitialized. Consider declaring as nullable.", Justification = "<Pending>")]
         public string MsiDownloadUrl
         {
             get;
@@ -21,7 +22,7 @@ namespace RessurectIT.Msi.Installer.Gatherer.Dto
         /// <summary>
         /// Gets or sets indication whether to automatically install update when discovered
         /// </summary>
-        public bool AutoInstall
+        public bool? AutoInstall
         {
             get;
             set;
@@ -32,6 +33,7 @@ namespace RessurectIT.Msi.Installer.Gatherer.Dto
         #region public properties - Implementation of IMsiUpdate
 
         /// <inheritdoc />
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "CS8618:Non-nullable property is uninitialized. Consider declaring as nullable.", Justification = "<Pending>")]
         public string Version
         {
             get;
@@ -39,6 +41,7 @@ namespace RessurectIT.Msi.Installer.Gatherer.Dto
         }
 
         /// <inheritdoc />
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "CS8618:Non-nullable property is uninitialized. Consider declaring as nullable.", Justification = "<Pending>")]
         public string MsiPath
         {
             get;
@@ -46,6 +49,7 @@ namespace RessurectIT.Msi.Installer.Gatherer.Dto
         }
 
         /// <inheritdoc />
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "CS8618:Non-nullable property is uninitialized. Consider declaring as nullable.", Justification = "<Pending>")]
         public string ComputedHash
         {
             get;
@@ -53,6 +57,7 @@ namespace RessurectIT.Msi.Installer.Gatherer.Dto
         }
 
         /// <inheritdoc />
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "CS8618:Non-nullable property is uninitialized. Consider declaring as nullable.", Justification = "<Pending>")]
         public string Id
         {
             get;

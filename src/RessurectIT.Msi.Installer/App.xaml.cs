@@ -74,7 +74,7 @@ namespace RessurectIT.Msi.Installer
         /// <param name="serviceBuilder">Callback used for adding custom providers</param>
         /// <param name="servicesCollection">Collection of services, used for configuration</param>
         /// <returns>Built service provider</returns>
-        public static IContainer GetServiceProvider(IConfiguration appConfig, Action<IServiceCollection> serviceBuilder, IServiceCollection servicesCollection = null)
+        public static IContainer GetServiceProvider(IConfiguration appConfig, Action<IServiceCollection> serviceBuilder, IServiceCollection? servicesCollection = null)
         {
             //get ressurectit assemblies
             IEnumerable<Assembly> assemblies = AssemblyLoadContext.Default.Assemblies
@@ -161,9 +161,14 @@ namespace RessurectIT.Msi.Installer
             AppConfig appConfigObj = new AppConfig();
             appConfig.Bind(appConfigObj);
 
-            Config = appConfigObj;
-
             LaunchDebugger(appConfigObj);
+
+            DispatcherUnhandledException += (sender, args) =>
+            {
+                //TODO - do write to file as log
+            };
+
+            Config = appConfigObj;
 
             IServiceProvider provider = GetServiceProvider(appConfig,
                                                            serviceCollection =>

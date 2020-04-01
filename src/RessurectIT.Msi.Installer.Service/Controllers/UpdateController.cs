@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Linq;
-using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using RessurectIT.Msi.Installer.Gatherer;
-using RessurectIT.Msi.Installer.Gatherer.Dto;
 using RessurectIT.Msi.Installer.Installer.Dto;
+using static RessurectIT.Msi.Installer.Program;
 
 namespace RessurectIT.Msi.Installer.Controllers
 {
@@ -79,27 +78,13 @@ namespace RessurectIT.Msi.Installer.Controllers
             IMsiUpdate? result = _gatherer.CheckForUpdates()
                 .Where(update => update.Id == id)
                 .OrderByDescending(update => new Version(update.Version))
-                .Select(update => new MsiUpdate
-                {
-                    WaitForProcessNameEnd = update.WaitForProcessNameEnd,
-                    AdminPrivilegesRequired = update.AdminPrivilegesRequired,
-                    ComputedHash = update.ComputedHash,
-                    Id = update.Id,
-                    InstallParameters = update.InstallParameters,
-                    MsiPath = update.MsiPath,
-                    StartProcessPath = update.StartProcessPath,
-                    StopProcessName = update.StopProcessName,
-                    UninstallParameters = update.UninstallParameters,
-                    UninstallProductCode = update.UninstallProductCode,
-                    Version = update.Version
-                })
                 .FirstOrDefault();
 
             if (result != null)
             {
                 _logger.LogDebug("Found update for '{id}' is {@update}. Machine: '{MachineName}'", id, result);
 
-                return Content($"msiinstall://{Convert.ToBase64String(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(result, _jsonSerializerSettings)))}");
+                return Content($"msiinstall://{SerializeUpdate(result, _jsonSerializerSettings)}");
             }
 
             return NotFound();

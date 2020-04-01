@@ -116,6 +116,8 @@ namespace RessurectIT.Msi.Installer.Installer
                                                     _stopService.StopCallback?.Invoke();
                                                 });
 
+                    await StartProcess(update);
+
                     if (@break)
                     {
                         break;
@@ -197,6 +199,35 @@ namespace RessurectIT.Msi.Installer.Installer
         #region private methods
 
         /// <summary>
+        /// Starts new process after install
+        /// </summary>
+        /// <param name="update">Update that contains information which process should be started</param>
+        private async Task StartProcess(IMsiUpdate update)
+        {
+            if (string.IsNullOrEmpty(update.StartProcessPath))
+            {
+                return;
+            }
+
+            if (!File.Exists(update.StartProcessPath))
+            {
+                return;
+            }
+
+            _logger.LogDebug($"Starting new process '{update.StartProcessPath}'.");
+
+            await _progressService.ShowProgressMessage("Starting application", update.Id);
+
+            ProcessStartInfo processStartInfo = new ProcessStartInfo
+            {
+                FileName = update.StartProcessPath,
+                UseShellExecute = true
+            };
+
+            Process.Start(processStartInfo);
+        }
+
+        /// <summary>
         /// Stops process specified by update
         /// </summary>
         /// <param name="update">Update that contains information which process should be stopped</param>
@@ -254,7 +285,7 @@ namespace RessurectIT.Msi.Installer.Installer
 
                 string[] args = Environment.GetCommandLineArgs();
 
-                ProcessStartInfo psi = new ProcessStartInfo
+                ProcessStartInfo processStartInfo = new ProcessStartInfo
                 {
                     FileName = Regex.Replace(args[0], @"\.dll$", ".exe"),
                     UseShellExecute = true,
@@ -263,10 +294,10 @@ namespace RessurectIT.Msi.Installer.Installer
 
                 foreach (string arg in args.Skip(1))
                 {
-                    psi.ArgumentList.Add(arg);
+                    processStartInfo.ArgumentList.Add(arg);
                 }
 
-                Process.Start(psi);
+                Process.Start(processStartInfo);
                 Environment.Exit(0);
             }
         }

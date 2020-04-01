@@ -13,6 +13,7 @@ namespace RessurectIT.Msi.Installer.UpdatesDatabase.Dto
         /// <summary>
         /// Gets or sets last installed version
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "CS8618:Non-nullable property is uninitialized. Consider declaring as nullable.", Justification = "<Pending>")]
         public string Version
         {
             get;
@@ -22,6 +23,7 @@ namespace RessurectIT.Msi.Installer.UpdatesDatabase.Dto
         /// <summary>
         /// Gets or sets product code of last installed version
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "CS8618:Non-nullable property is uninitialized. Consider declaring as nullable.", Justification = "<Pending>")]
         public string ProductCode
         {
             get;
@@ -31,6 +33,7 @@ namespace RessurectIT.Msi.Installer.UpdatesDatabase.Dto
         /// <summary>
         /// Gets or sets hash of installed msi file
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "CS8618:Non-nullable property is uninitialized. Consider declaring as nullable.", Justification = "<Pending>")]
         public string Hash
         {
             get;

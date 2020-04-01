@@ -14,6 +14,15 @@
         {
             get;
             set;
+        } = "http://localhost:8888/updates.json";
+
+        /// <summary>
+        /// Gets or sets indication whether is same version allowed to be reinstalled
+        /// </summary>
+        public bool AllowSameVersion
+        {
+            get;
+            set;
         }
 
         /// <summary>
@@ -23,7 +32,7 @@
         {
             get;
             set;
-        }
+        } = 300000;
 
         /// <summary>
         /// Gets or sets indication whether to automatically install update when discovered

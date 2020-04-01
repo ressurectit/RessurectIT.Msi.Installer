@@ -73,7 +73,7 @@ namespace RessurectIT.Msi.Installer.Progress
             IProgressWindow progressWindow = _serviceProvider.GetService<IProgressWindow>();
             progressWindow.ShowProgressMessage(message, updateId);
 
-            //Hack forcing switching of threads
+            //forcing switching of threads
             await Task.Delay(3);
         }
         #endregion

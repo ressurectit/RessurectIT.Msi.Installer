@@ -3,9 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using RessurectIT.Msi.Installer.Checker;
-using RessurectIT.Msi.Installer.Configuration;
-
-//TODO - changed auto install way of working
 
 namespace RessurectIT.Msi.Installer.Services
 {
@@ -20,11 +17,6 @@ namespace RessurectIT.Msi.Installer.Services
         /// Service used for checking of new updates
         /// </summary>
         private readonly UpdateChecker _updateChecker;
-
-        /// <summary>
-        /// Service configuration
-        /// </summary>
-        private readonly ServiceConfig _config;
         #endregion
 
 
@@ -34,12 +26,9 @@ namespace RessurectIT.Msi.Installer.Services
         /// Creates instance of <see cref="UpdateCheckerHostService"/>
         /// </summary>
         /// <param name="updateChecker">Service used for checking of new updates</param>
-        /// <param name="config">Service configuration</param>
-        public UpdateCheckerHostService(UpdateChecker updateChecker,
-                                        ServiceConfig config)
+        public UpdateCheckerHostService(UpdateChecker updateChecker)
         {
             _updateChecker = updateChecker;
-            _config = config;
         }
         #endregion
 
@@ -49,10 +38,7 @@ namespace RessurectIT.Msi.Installer.Services
         /// <inheritdoc />
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            if (_config.AutoInstall)
-            {
-                _updateChecker.Start();
-            }
+            _updateChecker.Start();
 
             return Task.CompletedTask;
         }
@@ -60,10 +46,7 @@ namespace RessurectIT.Msi.Installer.Services
         /// <inheritdoc />
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            if (_config.AutoInstall)
-            {
-                _updateChecker.Stop();
-            }
+            _updateChecker.Stop();
 
             return Task.CompletedTask;
         }

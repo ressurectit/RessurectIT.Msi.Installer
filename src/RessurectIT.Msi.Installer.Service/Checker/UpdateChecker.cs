@@ -1,12 +1,18 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices;
 using System.Timers;
 using DryIocAttributes;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using RessurectIT.Msi.Installer.Configuration;
 using RessurectIT.Msi.Installer.Gatherer;
 using RessurectIT.Msi.Installer.Installer.Dto;
-using MsiInstaller = RessurectIT.Msi.Installer.Installer.Installer;
+using static RessurectIT.Msi.Installer.Program;
 
 namespace RessurectIT.Msi.Installer.Checker
 {
@@ -32,6 +38,16 @@ namespace RessurectIT.Msi.Installer.Checker
         /// Logger used for logging
         /// </summary>
         private readonly ILogger<UpdateChecker> _logger;
+
+        /// <summary>
+        /// Service configuration
+        /// </summary>
+        private readonly ServiceConfig _config;
+
+        /// <summary>
+        /// Serializer settings used for serialization data to response
+        /// </summary>
+        private readonly JsonSerializerSettings _jsonSerializerSettings;
         #endregion
 
 
@@ -50,6 +66,19 @@ namespace RessurectIT.Msi.Installer.Checker
             _serviceProvider = serviceProvider;
             _logger = logger;
             _timer = new Timer(config.CheckInterval);
+            _config = config;
+
+            DefaultContractResolver contractResolver = new DefaultContractResolver
+            {
+                NamingStrategy = new CamelCaseNamingStrategy()
+            };
+
+            _jsonSerializerSettings = new JsonSerializerSettings
+            {
+                ContractResolver = contractResolver,
+                Formatting = Formatting.None,
+                NullValueHandling = NullValueHandling.Ignore
+            };
         }
         #endregion
 
@@ -98,12 +127,108 @@ namespace RessurectIT.Msi.Installer.Checker
             _logger.LogDebug("Checking for updates! Machine: '{MachineName}'");
 
             using IServiceScope scope = _serviceProvider.CreateScope();
-            
-            HttpGatherer gatherer = scope.ServiceProvider.GetService<HttpGatherer>();
-            IMsiUpdate[] newUpdates = gatherer.CheckForUpdates();
 
-            MsiInstaller installer = scope.ServiceProvider.GetService<MsiInstaller>();
-            installer.Install(newUpdates);
+            HttpGatherer gatherer = scope.ServiceProvider.GetService<HttpGatherer>();
+            IMsiUpdate[] newUpdates = gatherer.CheckForUpdates(true);
+
+            foreach (IMsiUpdate update in newUpdates)
+            {
+                if (_config.LocalServer)
+                {
+                    Install(update);
+                }
+                else
+                {
+                    InstallAsLoggedUser(update);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Installs update as logged user
+        /// </summary>
+        /// <param name="update">Update to be installed</param>
+        private void InstallAsLoggedUser(IMsiUpdate update)
+        {
+            SECURITY_ATTRIBUTES sa = new SECURITY_ATTRIBUTES();
+            sa.nLength = Marshal.SizeOf(sa);
+
+            STARTUPINFO si = new STARTUPINFO();
+
+            si.cb = Marshal.SizeOf(si);
+            si.lpDesktop = string.Empty;
+
+            Process runningProcess = Process.GetProcesses().SingleOrDefault(process => process.ProcessName == "explorer");
+
+            if (runningProcess == null)
+            {
+                _logger.LogWarning("There is no available user logged in for '{updateId}' update", update.Id);
+
+                return;
+            }
+
+            bool result = WinApi.OpenProcessToken(runningProcess.Handle, WinApi.TOKEN_ALL_ACCESS, out IntPtr token);
+
+            if (!result)
+            {
+                _logger.LogError("Failed to obtain user token, error code '{code}'", WinApi.GetLastError());
+
+                return;
+            }
+
+            string cmdLine = Path.Combine(Directory.GetCurrentDirectory(), @$"RessurectIT.Msi.Installer.exe --request ""{SerializeUpdate(update, _jsonSerializerSettings)}""");
+
+            result = WinApi.CreateProcessAsUser(token,
+                                                null,
+                                                cmdLine,
+                                                ref sa,
+                                                ref sa,
+                                                false,
+                                                0,
+                                                IntPtr.Zero,
+                                                null,
+                                                ref si,
+                                                out PROCESS_INFORMATION pi);
+
+            if (!result)
+            {
+                _logger.LogError("Failed to create process as user, error code '{code}'", WinApi.GetLastError());
+
+                return;
+            }
+
+            result = WinApi.CloseHandle(token);
+
+            if (!result)
+            {
+                _logger.LogError("Failed to close handle for user token, error code '{code}'", WinApi.GetLastError());
+
+                return;
+            }
+
+            result = WinApi.CloseHandle(pi.hThread);
+
+            if (!result)
+            {
+                _logger.LogError("Failed to close handle for pi, error code '{code}'", WinApi.GetLastError());
+
+                return;
+            }
+
+            result = WinApi.CloseHandle(pi.hProcess);
+
+            if (!result)
+            {
+                _logger.LogError("Failed to close handle for pi, error code '{code}'", WinApi.GetLastError());
+            }
+        }
+
+        /// <summary>
+        /// Installs update as current user
+        /// </summary>
+        /// <param name="update">Update to be installed</param>
+        private void Install(IMsiUpdate update)
+        {
         }
         #endregion
     }

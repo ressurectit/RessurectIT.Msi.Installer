@@ -2,8 +2,7 @@
     "Urls": "http://localhost:8765",
     "UpdatesJsonUrl": "http://localhost:8888/updates.json",
     "CheckInterval": 300000,
-    "RemoteLogRestUrl": "http://localhost/api/log",
-    "Progress":  "App", 
+    "Progress": "App",
     "Serilog":
     {
         "Using":
@@ -109,7 +108,7 @@
                                 "Name": "ByExcluding",
                                 "Args":
                                 {
-                                    "expression": "@Level = 'Error' or Contains(@MessageTemplate, 'MSIEXEC LOG:')"
+                                    "expression": "@Level = 'Error'"
                                 }
                             }
                         ]

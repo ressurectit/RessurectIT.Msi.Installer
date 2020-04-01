@@ -17,15 +17,6 @@
         }
 
         /// <summary>
-        /// Gets or sets indication whether is same version allowed to be reinstalled
-        /// </summary>
-        public bool AllowSameVersion
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// Gets or sets timeout for install, uninstall msi in milliseconds
         /// </summary>
         public int MsiInstallTimeout

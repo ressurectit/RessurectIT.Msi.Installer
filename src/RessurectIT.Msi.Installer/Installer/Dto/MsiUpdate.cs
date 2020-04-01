@@ -8,7 +8,8 @@
         #region public properties - Implementation of IMsiUpdate
 
         /// <inheritdoc />
-        public string? Version
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "CS8618:Non-nullable property is uninitialized. Consider declaring as nullable.", Justification = "<Pending>")]
+        public string Version
         {
             get;
             set;

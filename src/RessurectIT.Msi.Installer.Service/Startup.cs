@@ -17,8 +17,9 @@ namespace RessurectIT.Msi.Installer
         /// <summary>
         /// Service configuration
         /// </summary>
-        public IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
         #endregion
+
 
         #region constructors
         

@@ -75,8 +75,9 @@ namespace RessurectIT.Msi.Installer.Gatherer
         /// <summary>
         /// Checks for updates and returns array of updates to install
         /// </summary>
+        /// <param name="autoInstallFilter">When true applies auto install filter, otherwise no</param>
         /// <returns>Array of updates that should be installed</returns>
-        public IMsiUpdate[] CheckForUpdates()
+        public IMsiUpdate[] CheckForUpdates(bool autoInstallFilter = false)
         {
             HttpResponseMessage result;
 
@@ -169,8 +170,9 @@ namespace RessurectIT.Msi.Installer.Gatherer
                     let updateVersion = new Version(update.Version)
                     let installedVersion = installedUpdateId != null ? installedUpdates[installedUpdateId].GetVersionObj(_logger) : null
                     where !string.IsNullOrEmpty(update.MsiPath) && 
-                          (installedUpdateId == null || installedVersion < updateVersion) ||
-                          (_config.AllowSameVersion && installedVersion == updateVersion && update.ComputedHash != installedUpdates[installedUpdateId].Hash)
+                          (!autoInstallFilter || _config.AutoInstall || (update.AutoInstall.HasValue && update.AutoInstall.Value)) &&
+                          ((installedUpdateId == null || installedVersion < updateVersion) ||
+                           (_config.AllowSameVersion && installedVersion == updateVersion && update.ComputedHash != installedUpdates[installedUpdateId].Hash))
                     select (IMsiUpdate) new MsiUpdate
                     {
                         Id = update.Id,

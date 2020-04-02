@@ -15,7 +15,7 @@
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <PublishTrimmed>true</PublishTrimmed>
+        <PublishTrimmed>false</PublishTrimmed>
         <InvariantGlobalization>true</InvariantGlobalization>
         <SignAssembly>true</SignAssembly>
         <AssemblyOriginatorKeyFile>..\..\.include\RessurectIT.snk</AssemblyOriginatorKeyFile>

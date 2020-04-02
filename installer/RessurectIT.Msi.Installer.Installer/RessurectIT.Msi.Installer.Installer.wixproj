@@ -75,6 +75,8 @@
       <Output TaskParameter="ConsoleOutput" PropertyName="AppVersion" />
     </Exec>
 
+    <Exec Command="powershell -ExecutionPolicy Bypass -File &quot;./updateInstaller.ps1&quot;" WorkingDirectory="$(ProjectDir)..\..\.utils"/>
+
     <PropertyGroup>
       <TargetName>$(TargetName)-$(AppVersion)</TargetName>
     </PropertyGroup>

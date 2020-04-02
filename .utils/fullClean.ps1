@@ -1,1 +1,1 @@
-Get-Item */*/bin,*/*/obj -Exclude node_modules | ForEach-Object{Write-Host $_; Remove-Item $_ -Force -Recurse -ErrorAction SilentlyContinue}
+Get-Item */*/bin,*/*/obj,*/*/out -Exclude node_modules | ForEach-Object{Write-Host $_; Remove-Item $_ -Force -Recurse -ErrorAction SilentlyContinue}

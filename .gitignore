@@ -5,6 +5,7 @@ out/
 .include
 .vs
 .utils/*.wxs
+.utils/*.wxi
 version.txt
 *~
 *.log

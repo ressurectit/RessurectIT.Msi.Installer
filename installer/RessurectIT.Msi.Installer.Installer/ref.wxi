@@ -1,607 +1,607 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Include>
     <ComponentGroup Id="refFiles" Directory="ref">
-        <Component Id="Microsoft.CSharp.dll_1" Guid="B0FA616E-D8C2-4963-B20C-C662E7AA580C">
+        <Component Id="Microsoft.CSharp.dll_1" Guid="8C5F3E26-458D-48FA-87CD-377D9E2BA624">
             <File Id="Microsoft.CSharp.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\Microsoft.CSharp.dll" Name="Microsoft.CSharp.dll" />
         </Component>
 
-        <Component Id="Microsoft.VisualBasic.Core.dll" Guid="0942B5D3-4F7A-4740-9D59-6736FD756911">
-            <File Id="Microsoft.VisualBasic.Core.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\Microsoft.VisualBasic.Core.dll" Name="Microsoft.VisualBasic.Core.dll" />
+        <Component Id="Microsoft.VisualBasic.Core.dll_1" Guid="7B82ADB2-DD8D-43F6-8CA6-335FE174FCB7">
+            <File Id="Microsoft.VisualBasic.Core.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\Microsoft.VisualBasic.Core.dll" Name="Microsoft.VisualBasic.Core.dll" />
         </Component>
 
-        <Component Id="Microsoft.VisualBasic.dll" Guid="069E781A-4634-4365-87CC-BE0A55FA3BDF">
-            <File Id="Microsoft.VisualBasic.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\Microsoft.VisualBasic.dll" Name="Microsoft.VisualBasic.dll" />
+        <Component Id="Microsoft.VisualBasic.dll_1" Guid="35844572-24FC-4419-81AE-569890C5ED4A">
+            <File Id="Microsoft.VisualBasic.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\Microsoft.VisualBasic.dll" Name="Microsoft.VisualBasic.dll" />
         </Component>
 
-        <Component Id="Microsoft.Win32.Primitives.dll_1" Guid="2434DE31-C07B-4541-850F-01058A3C4EAB">
+        <Component Id="Microsoft.Win32.Primitives.dll_1" Guid="1373BF98-F0AD-4846-B44F-19FAF6DE3D41">
             <File Id="Microsoft.Win32.Primitives.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\Microsoft.Win32.Primitives.dll" Name="Microsoft.Win32.Primitives.dll" />
         </Component>
 
-        <Component Id="mscorlib.dll_1" Guid="B187A6E7-695B-4983-9465-66F94B29C65A">
+        <Component Id="mscorlib.dll_1" Guid="6CCAC8DE-1589-424F-8442-CA0B2988D878">
             <File Id="mscorlib.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\mscorlib.dll" Name="mscorlib.dll" />
         </Component>
 
-        <Component Id="netstandard.dll_1" Guid="2E0F3794-F9E9-4BF4-BE96-E8BAB8BC446C">
+        <Component Id="netstandard.dll_1" Guid="DEC29144-9A38-44C5-B1B4-3B5F54990C2A">
             <File Id="netstandard.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\netstandard.dll" Name="netstandard.dll" />
         </Component>
 
-        <Component Id="System.AppContext.dll" Guid="44E28136-B5B5-4582-B0AA-73DAE2480B50">
-            <File Id="System.AppContext.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.AppContext.dll" Name="System.AppContext.dll" />
+        <Component Id="System.AppContext.dll_1" Guid="42A46D99-7F8A-4E6C-822B-10A28DD0A1A3">
+            <File Id="System.AppContext.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.AppContext.dll" Name="System.AppContext.dll" />
         </Component>
 
-        <Component Id="System.Buffers.dll" Guid="39723C15-0B27-4A4B-A4BE-068ABA390E40">
-            <File Id="System.Buffers.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Buffers.dll" Name="System.Buffers.dll" />
+        <Component Id="System.Buffers.dll_1" Guid="C9D47D8C-6A75-454F-A064-678CA9430832">
+            <File Id="System.Buffers.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Buffers.dll" Name="System.Buffers.dll" />
         </Component>
 
-        <Component Id="System.Collections.Concurrent.dll_1" Guid="49138234-5641-45BC-9521-2A407B38BE85">
+        <Component Id="System.Collections.Concurrent.dll_1" Guid="05CA6B1B-CE93-4EB3-B516-0EA5268FA00A">
             <File Id="System.Collections.Concurrent.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Collections.Concurrent.dll" Name="System.Collections.Concurrent.dll" />
         </Component>
 
-        <Component Id="System.Collections.dll_1" Guid="52C70482-9918-4163-9392-1CA2B294A572">
+        <Component Id="System.Collections.dll_1" Guid="84C032DF-BC82-46DC-AA89-2DACD25C18A2">
             <File Id="System.Collections.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Collections.dll" Name="System.Collections.dll" />
         </Component>
 
-        <Component Id="System.Collections.Immutable.dll_1" Guid="E30D945E-5D49-411E-87CD-F0C41CE35DC7">
+        <Component Id="System.Collections.Immutable.dll_1" Guid="A32DC0C4-DF13-40A1-9D77-2B9B0BBB68FE">
             <File Id="System.Collections.Immutable.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Collections.Immutable.dll" Name="System.Collections.Immutable.dll" />
         </Component>
 
-        <Component Id="System.Collections.NonGeneric.dll_1" Guid="D530BB24-2968-43F5-8110-3B07CDEB97FC">
+        <Component Id="System.Collections.NonGeneric.dll_1" Guid="AB5CA768-BA73-4B3B-9091-92B3F5D278D5">
             <File Id="System.Collections.NonGeneric.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Collections.NonGeneric.dll" Name="System.Collections.NonGeneric.dll" />
         </Component>
 
-        <Component Id="System.Collections.Specialized.dll_1" Guid="DDB5318E-3CDD-45A4-B7D7-AAA2C12C4D15">
+        <Component Id="System.Collections.Specialized.dll_1" Guid="AB4D28C8-0FDF-4C80-9820-5B92BD1F1557">
             <File Id="System.Collections.Specialized.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Collections.Specialized.dll" Name="System.Collections.Specialized.dll" />
         </Component>
 
-        <Component Id="System.ComponentModel.Annotations.dll_1" Guid="05B7E630-6DBC-4D87-8177-4B527B10311A">
+        <Component Id="System.ComponentModel.Annotations.dll_1" Guid="274EE09E-8AA9-40F5-AEF1-5011AEE9ADF1">
             <File Id="System.ComponentModel.Annotations.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.ComponentModel.Annotations.dll" Name="System.ComponentModel.Annotations.dll" />
         </Component>
 
-        <Component Id="System.ComponentModel.DataAnnotations.dll" Guid="8A5658C2-0A6A-4B41-BD06-81EBB26C07B4">
-            <File Id="System.ComponentModel.DataAnnotations.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.ComponentModel.DataAnnotations.dll" Name="System.ComponentModel.DataAnnotations.dll" />
+        <Component Id="System.ComponentModel.DataAnnotations.dll_1" Guid="A9A427A0-227D-4688-932C-7CA2CA66DC9D">
+            <File Id="System.ComponentModel.DataAnnotations.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.ComponentModel.DataAnnotations.dll" Name="System.ComponentModel.DataAnnotations.dll" />
         </Component>
 
-        <Component Id="System.ComponentModel.dll_1" Guid="6EF3A122-1C68-4D73-816A-6DDE799382BD">
+        <Component Id="System.ComponentModel.dll_1" Guid="A704E850-BD1F-49C5-BC26-87744C8D32CD">
             <File Id="System.ComponentModel.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.ComponentModel.dll" Name="System.ComponentModel.dll" />
         </Component>
 
-        <Component Id="System.ComponentModel.EventBasedAsync.dll_1" Guid="57B68003-858C-4B07-B56C-EFC857ABDA64">
+        <Component Id="System.ComponentModel.EventBasedAsync.dll_1" Guid="25361F93-E02E-4374-B91F-13B6A6F798CA">
             <File Id="System.ComponentModel.EventBasedAsync.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.ComponentModel.EventBasedAsync.dll" Name="System.ComponentModel.EventBasedAsync.dll" />
         </Component>
 
-        <Component Id="System.ComponentModel.Primitives.dll_1" Guid="AE57AC18-E9B4-4E7A-A2E9-8889DBBE0F22">
+        <Component Id="System.ComponentModel.Primitives.dll_1" Guid="C02A82D3-8545-4915-8551-FC567E877516">
             <File Id="System.ComponentModel.Primitives.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.ComponentModel.Primitives.dll" Name="System.ComponentModel.Primitives.dll" />
         </Component>
 
-        <Component Id="System.ComponentModel.TypeConverter.dll_1" Guid="553A4320-9B6C-4F3A-90D8-06D8F4A8A9F8">
+        <Component Id="System.ComponentModel.TypeConverter.dll_1" Guid="33971E29-D178-4947-BDEA-2926E517FBA8">
             <File Id="System.ComponentModel.TypeConverter.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.ComponentModel.TypeConverter.dll" Name="System.ComponentModel.TypeConverter.dll" />
         </Component>
 
-        <Component Id="System.Configuration.dll" Guid="4CEB1509-A5E6-4198-8169-2D0578CC8AE3">
-            <File Id="System.Configuration.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Configuration.dll" Name="System.Configuration.dll" />
+        <Component Id="System.Configuration.dll_1" Guid="3D66BC5D-4F4F-42E3-9576-C6385C84C5C0">
+            <File Id="System.Configuration.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Configuration.dll" Name="System.Configuration.dll" />
         </Component>
 
-        <Component Id="System.Console.dll_1" Guid="37381343-55DE-4BE8-B0DC-045E8ED98843">
+        <Component Id="System.Console.dll_1" Guid="7E3CA143-802D-4845-9C44-55010D9D38B0">
             <File Id="System.Console.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Console.dll" Name="System.Console.dll" />
         </Component>
 
-        <Component Id="System.Core.dll" Guid="9AD4F5ED-4F96-4B2E-A46E-D8909A07386D">
-            <File Id="System.Core.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Core.dll" Name="System.Core.dll" />
+        <Component Id="System.Core.dll_1" Guid="09D7661E-ECFC-4718-A86B-CFFADE462E45">
+            <File Id="System.Core.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Core.dll" Name="System.Core.dll" />
         </Component>
 
-        <Component Id="System.Data.Common.dll_1" Guid="85C9873C-042E-4A14-923C-DCDE21475EFE">
+        <Component Id="System.Data.Common.dll_1" Guid="05977FF0-2691-4295-BFB8-A02EB236B56A">
             <File Id="System.Data.Common.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Data.Common.dll" Name="System.Data.Common.dll" />
         </Component>
 
-        <Component Id="System.Data.DataSetExtensions.dll" Guid="B70D8E45-F1D1-4264-A5F2-E5336C23E637">
-            <File Id="System.Data.DataSetExtensions.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Data.DataSetExtensions.dll" Name="System.Data.DataSetExtensions.dll" />
+        <Component Id="System.Data.DataSetExtensions.dll_1" Guid="803D6142-2E98-4720-8E84-720F5951259E">
+            <File Id="System.Data.DataSetExtensions.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Data.DataSetExtensions.dll" Name="System.Data.DataSetExtensions.dll" />
         </Component>
 
-        <Component Id="System.Data.dll" Guid="0B9F4407-6BCE-4E4E-9F76-ACFFE78BF53B">
-            <File Id="System.Data.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Data.dll" Name="System.Data.dll" />
+        <Component Id="System.Data.dll_1" Guid="B25D33E1-2E65-4363-A9F5-1205596CBB26">
+            <File Id="System.Data.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Data.dll" Name="System.Data.dll" />
         </Component>
 
-        <Component Id="System.Diagnostics.Contracts.dll" Guid="EFDCA9D5-0266-40C9-B74A-60BF710A1D72">
-            <File Id="System.Diagnostics.Contracts.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Diagnostics.Contracts.dll" Name="System.Diagnostics.Contracts.dll" />
+        <Component Id="System.Diagnostics.Contracts.dll_1" Guid="55ECD662-7FC0-438D-B34A-79128B261FE8">
+            <File Id="System.Diagnostics.Contracts.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Diagnostics.Contracts.dll" Name="System.Diagnostics.Contracts.dll" />
         </Component>
 
-        <Component Id="System.Diagnostics.Debug.dll_1" Guid="080E945D-73EB-4A14-BFCD-CF84CD18B365">
+        <Component Id="System.Diagnostics.Debug.dll_1" Guid="B559B2AD-CA5C-45DB-996C-C13B7F27CB03">
             <File Id="System.Diagnostics.Debug.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Diagnostics.Debug.dll" Name="System.Diagnostics.Debug.dll" />
         </Component>
 
-        <Component Id="System.Diagnostics.DiagnosticSource.dll_1" Guid="22A0CB2A-0714-4FB5-BE70-1E7E985F030A">
+        <Component Id="System.Diagnostics.DiagnosticSource.dll_1" Guid="540207E7-425D-410C-82C6-CC53FB1842D3">
             <File Id="System.Diagnostics.DiagnosticSource.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Diagnostics.DiagnosticSource.dll" Name="System.Diagnostics.DiagnosticSource.dll" />
         </Component>
 
-        <Component Id="System.Diagnostics.FileVersionInfo.dll_1" Guid="66454D86-F4D4-4880-8BDD-32C5CB064971">
+        <Component Id="System.Diagnostics.FileVersionInfo.dll_1" Guid="6318D602-0DA1-4141-8AA3-5C31479845DD">
             <File Id="System.Diagnostics.FileVersionInfo.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Diagnostics.FileVersionInfo.dll" Name="System.Diagnostics.FileVersionInfo.dll" />
         </Component>
 
-        <Component Id="System.Diagnostics.Process.dll_1" Guid="9DBFCF8F-B49E-4784-AE87-9CB69C63CF1A">
+        <Component Id="System.Diagnostics.Process.dll_1" Guid="DC87AE43-0314-401C-995C-CB553895C629">
             <File Id="System.Diagnostics.Process.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Diagnostics.Process.dll" Name="System.Diagnostics.Process.dll" />
         </Component>
 
-        <Component Id="System.Diagnostics.StackTrace.dll_1" Guid="9C647625-D5D6-442B-B8D4-F6210D77D968">
+        <Component Id="System.Diagnostics.StackTrace.dll_1" Guid="B8A0D1D1-D8D6-431D-A7EA-5A37AE23F047">
             <File Id="System.Diagnostics.StackTrace.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Diagnostics.StackTrace.dll" Name="System.Diagnostics.StackTrace.dll" />
         </Component>
 
-        <Component Id="System.Diagnostics.TextWriterTraceListener.dll_1" Guid="6923D7FD-F191-4665-A08B-BAA934DBB577">
+        <Component Id="System.Diagnostics.TextWriterTraceListener.dll_1" Guid="9CD56F49-77CE-401F-B9E9-97938585153A">
             <File Id="System.Diagnostics.TextWriterTraceListener.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Diagnostics.TextWriterTraceListener.dll" Name="System.Diagnostics.TextWriterTraceListener.dll" />
         </Component>
 
-        <Component Id="System.Diagnostics.Tools.dll_1" Guid="23D561E3-D722-4AD8-AC08-38911B7E12F1">
+        <Component Id="System.Diagnostics.Tools.dll_1" Guid="AA6EFBF1-B70C-4D92-8DF7-63C4A4DB5033">
             <File Id="System.Diagnostics.Tools.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Diagnostics.Tools.dll" Name="System.Diagnostics.Tools.dll" />
         </Component>
 
-        <Component Id="System.Diagnostics.TraceSource.dll_1" Guid="82D3A053-E47E-4EC1-A51F-B4A2296C63B7">
+        <Component Id="System.Diagnostics.TraceSource.dll_1" Guid="724670F3-E4DD-45BB-A992-7FF779998AF1">
             <File Id="System.Diagnostics.TraceSource.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Diagnostics.TraceSource.dll" Name="System.Diagnostics.TraceSource.dll" />
         </Component>
 
-        <Component Id="System.Diagnostics.Tracing.dll" Guid="4A01EAFC-1CB8-45BE-A954-400880BB779E">
-            <File Id="System.Diagnostics.Tracing.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Diagnostics.Tracing.dll" Name="System.Diagnostics.Tracing.dll" />
+        <Component Id="System.Diagnostics.Tracing.dll_1" Guid="01AEEE02-BE99-48F1-8F60-CD0B5CB9E7E4">
+            <File Id="System.Diagnostics.Tracing.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Diagnostics.Tracing.dll" Name="System.Diagnostics.Tracing.dll" />
         </Component>
 
-        <Component Id="System.dll" Guid="07E39D63-9EF0-4B00-BA59-C1AA083BBEDA">
-            <File Id="System.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.dll" Name="System.dll" />
+        <Component Id="System.dll_1" Guid="3B8D6C65-D5D7-4E77-BE6E-E7466A257FD8">
+            <File Id="System.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.dll" Name="System.dll" />
         </Component>
 
-        <Component Id="System.Drawing.dll_1" Guid="BA74AFE2-2D56-4410-893F-9663D0AC6760">
+        <Component Id="System.Drawing.dll_1" Guid="4F55C9FA-9F7A-4E66-A55A-037FD4DCF4E6">
             <File Id="System.Drawing.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Drawing.dll" Name="System.Drawing.dll" />
         </Component>
 
-        <Component Id="System.Drawing.Primitives.dll_1" Guid="315F28B4-2E8D-4311-9039-29132202D96A">
+        <Component Id="System.Drawing.Primitives.dll_1" Guid="9D1E9216-1490-4210-885A-8B8FAF7E889A">
             <File Id="System.Drawing.Primitives.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Drawing.Primitives.dll" Name="System.Drawing.Primitives.dll" />
         </Component>
 
-        <Component Id="System.Dynamic.Runtime.dll" Guid="0E7A1E56-3F5F-454A-81D7-35734C857400">
-            <File Id="System.Dynamic.Runtime.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Dynamic.Runtime.dll" Name="System.Dynamic.Runtime.dll" />
+        <Component Id="System.Dynamic.Runtime.dll_1" Guid="811A9769-E4B2-45F8-9EB5-195A429F01ED">
+            <File Id="System.Dynamic.Runtime.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Dynamic.Runtime.dll" Name="System.Dynamic.Runtime.dll" />
         </Component>
 
-        <Component Id="System.Globalization.Calendars.dll" Guid="B1F8A2B6-3AA2-415F-9E03-DF7602AF811F">
-            <File Id="System.Globalization.Calendars.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Globalization.Calendars.dll" Name="System.Globalization.Calendars.dll" />
+        <Component Id="System.Globalization.Calendars.dll_1" Guid="B539C428-96CD-48A2-A581-FD2E77A070F5">
+            <File Id="System.Globalization.Calendars.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Globalization.Calendars.dll" Name="System.Globalization.Calendars.dll" />
         </Component>
 
-        <Component Id="System.Globalization.dll" Guid="A9396173-3C46-4187-AC4F-A74F4F1E3A16">
-            <File Id="System.Globalization.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Globalization.dll" Name="System.Globalization.dll" />
+        <Component Id="System.Globalization.dll_1" Guid="2C2B914D-0E74-4888-B0CE-A78686B66E4A">
+            <File Id="System.Globalization.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Globalization.dll" Name="System.Globalization.dll" />
         </Component>
 
-        <Component Id="System.Globalization.Extensions.dll" Guid="BBD4A2CA-0651-4CC0-8077-847F10798459">
-            <File Id="System.Globalization.Extensions.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Globalization.Extensions.dll" Name="System.Globalization.Extensions.dll" />
+        <Component Id="System.Globalization.Extensions.dll_1" Guid="C48A35D2-CFCC-4F5A-9DED-05D4597DE6CE">
+            <File Id="System.Globalization.Extensions.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Globalization.Extensions.dll" Name="System.Globalization.Extensions.dll" />
         </Component>
 
-        <Component Id="System.IO.Compression.Brotli.dll_1" Guid="15FE8EB9-EC3D-4F2D-9FD8-E1DE670E31F3">
+        <Component Id="System.IO.Compression.Brotli.dll_1" Guid="8EA3A4E9-DF36-445E-BEF3-66CB5D832642">
             <File Id="System.IO.Compression.Brotli.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.IO.Compression.Brotli.dll" Name="System.IO.Compression.Brotli.dll" />
         </Component>
 
-        <Component Id="System.IO.Compression.dll_1" Guid="8E185E45-BE7A-4829-A5CE-DCB8EE3A6649">
+        <Component Id="System.IO.Compression.dll_1" Guid="8DA9808A-3025-47A3-9826-7C11939A1B18">
             <File Id="System.IO.Compression.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.IO.Compression.dll" Name="System.IO.Compression.dll" />
         </Component>
 
-        <Component Id="System.IO.Compression.FileSystem.dll" Guid="D946950C-EC67-4D3C-BA73-3E16260FED8C">
-            <File Id="System.IO.Compression.FileSystem.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.IO.Compression.FileSystem.dll" Name="System.IO.Compression.FileSystem.dll" />
+        <Component Id="System.IO.Compression.FileSystem.dll_1" Guid="D74F7BD4-C354-4FF0-9D75-80D2EE0CF406">
+            <File Id="System.IO.Compression.FileSystem.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.IO.Compression.FileSystem.dll" Name="System.IO.Compression.FileSystem.dll" />
         </Component>
 
-        <Component Id="System.IO.Compression.ZipFile.dll" Guid="705DB5DA-900D-453E-B7A3-404C576B25C7">
-            <File Id="System.IO.Compression.ZipFile.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.IO.Compression.ZipFile.dll" Name="System.IO.Compression.ZipFile.dll" />
+        <Component Id="System.IO.Compression.ZipFile.dll_1" Guid="ACEA5E61-B596-4394-A624-3FB87919F0A0">
+            <File Id="System.IO.Compression.ZipFile.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.IO.Compression.ZipFile.dll" Name="System.IO.Compression.ZipFile.dll" />
         </Component>
 
-        <Component Id="System.IO.dll" Guid="3DF09F79-162A-4F7C-9EAB-B28BA1DADBAC">
-            <File Id="System.IO.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.IO.dll" Name="System.IO.dll" />
+        <Component Id="System.IO.dll_1" Guid="16D46CCF-3FEB-4547-8909-8BA56EC6B9E7">
+            <File Id="System.IO.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.IO.dll" Name="System.IO.dll" />
         </Component>
 
-        <Component Id="System.IO.FileSystem.dll_1" Guid="48BAD394-97F7-4C44-88DC-F46B1ACB6DCA">
+        <Component Id="System.IO.FileSystem.dll_1" Guid="DA87D446-BF98-4182-AC75-43F01A8396F2">
             <File Id="System.IO.FileSystem.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.IO.FileSystem.dll" Name="System.IO.FileSystem.dll" />
         </Component>
 
-        <Component Id="System.IO.FileSystem.DriveInfo.dll_1" Guid="D3266337-E662-4E6B-96EF-628DC5737657">
+        <Component Id="System.IO.FileSystem.DriveInfo.dll_1" Guid="A57C1400-DD50-46A1-8B26-0E74BAD165EB">
             <File Id="System.IO.FileSystem.DriveInfo.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.IO.FileSystem.DriveInfo.dll" Name="System.IO.FileSystem.DriveInfo.dll" />
         </Component>
 
-        <Component Id="System.IO.FileSystem.Primitives.dll" Guid="16028E7D-58FD-4B10-86E4-6C6D868E62FA">
-            <File Id="System.IO.FileSystem.Primitives.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.IO.FileSystem.Primitives.dll" Name="System.IO.FileSystem.Primitives.dll" />
+        <Component Id="System.IO.FileSystem.Primitives.dll_1" Guid="AA80EF4D-287D-481D-888D-D67765514D8C">
+            <File Id="System.IO.FileSystem.Primitives.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.IO.FileSystem.Primitives.dll" Name="System.IO.FileSystem.Primitives.dll" />
         </Component>
 
-        <Component Id="System.IO.FileSystem.Watcher.dll_1" Guid="98C3BB3F-BF3A-452B-B437-8F2DDAAA1EAC">
+        <Component Id="System.IO.FileSystem.Watcher.dll_1" Guid="E0E17761-E535-4CC8-866B-16888BCA4033">
             <File Id="System.IO.FileSystem.Watcher.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.IO.FileSystem.Watcher.dll" Name="System.IO.FileSystem.Watcher.dll" />
         </Component>
 
-        <Component Id="System.IO.IsolatedStorage.dll_1" Guid="7D025740-03B9-4B2C-B216-806F9F90EEBD">
+        <Component Id="System.IO.IsolatedStorage.dll_1" Guid="231291A9-8703-47A0-815E-234659478480">
             <File Id="System.IO.IsolatedStorage.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.IO.IsolatedStorage.dll" Name="System.IO.IsolatedStorage.dll" />
         </Component>
 
-        <Component Id="System.IO.MemoryMappedFiles.dll_1" Guid="FD64B70D-2F7F-4346-86D7-8E403708DE30">
+        <Component Id="System.IO.MemoryMappedFiles.dll_1" Guid="9FF39D65-A4A4-490B-9A5A-25A0CBA609BD">
             <File Id="System.IO.MemoryMappedFiles.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.IO.MemoryMappedFiles.dll" Name="System.IO.MemoryMappedFiles.dll" />
         </Component>
 
-        <Component Id="System.IO.Pipes.dll_1" Guid="938B1247-33E5-4088-9B42-E35FB5F8DCDA">
+        <Component Id="System.IO.Pipes.dll_1" Guid="9305438A-B7F0-40F8-ACD1-2657516A31B0">
             <File Id="System.IO.Pipes.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.IO.Pipes.dll" Name="System.IO.Pipes.dll" />
         </Component>
 
-        <Component Id="System.IO.UnmanagedMemoryStream.dll" Guid="03711D89-BEE4-4862-B503-C0E4FB840638">
-            <File Id="System.IO.UnmanagedMemoryStream.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.IO.UnmanagedMemoryStream.dll" Name="System.IO.UnmanagedMemoryStream.dll" />
+        <Component Id="System.IO.UnmanagedMemoryStream.dll_1" Guid="32A6213F-7DDF-4EBE-8D8B-F9242ABF6DC7">
+            <File Id="System.IO.UnmanagedMemoryStream.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.IO.UnmanagedMemoryStream.dll" Name="System.IO.UnmanagedMemoryStream.dll" />
         </Component>
 
-        <Component Id="System.Linq.dll_1" Guid="4B8BAF89-5493-4D20-843E-4A5DD190E706">
+        <Component Id="System.Linq.dll_1" Guid="0FA94633-0090-42E6-99F9-BCAA31F8C666">
             <File Id="System.Linq.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Linq.dll" Name="System.Linq.dll" />
         </Component>
 
-        <Component Id="System.Linq.Expressions.dll_1" Guid="761812D8-9563-43BC-8EB9-4E8941C12444">
+        <Component Id="System.Linq.Expressions.dll_1" Guid="E78C7E09-C1BB-40AA-9ABA-258886E4A772">
             <File Id="System.Linq.Expressions.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Linq.Expressions.dll" Name="System.Linq.Expressions.dll" />
         </Component>
 
-        <Component Id="System.Linq.Parallel.dll" Guid="AE7B0764-B99D-4283-801E-15F31F5F787E">
-            <File Id="System.Linq.Parallel.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Linq.Parallel.dll" Name="System.Linq.Parallel.dll" />
+        <Component Id="System.Linq.Parallel.dll_1" Guid="85BE08A8-56C3-4E6A-AD2B-FCC8CF78716C">
+            <File Id="System.Linq.Parallel.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Linq.Parallel.dll" Name="System.Linq.Parallel.dll" />
         </Component>
 
-        <Component Id="System.Linq.Queryable.dll_1" Guid="0E693342-BEFC-45DC-A2D5-367274008D10">
+        <Component Id="System.Linq.Queryable.dll_1" Guid="53ED5B08-49B1-4682-BE42-7DC3CE023700">
             <File Id="System.Linq.Queryable.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Linq.Queryable.dll" Name="System.Linq.Queryable.dll" />
         </Component>
 
-        <Component Id="System.Memory.dll_1" Guid="1E2A2094-CB37-4E60-B801-4381E30A608D">
+        <Component Id="System.Memory.dll_1" Guid="3E67DF4F-78FF-471E-ABCC-B50786153E81">
             <File Id="System.Memory.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Memory.dll" Name="System.Memory.dll" />
         </Component>
 
-        <Component Id="System.Net.dll" Guid="B4402FE9-A854-447F-9C12-086BE9C73102">
-            <File Id="System.Net.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Net.dll" Name="System.Net.dll" />
+        <Component Id="System.Net.dll_1" Guid="9090FF29-05BC-4695-8B08-3389859A739C">
+            <File Id="System.Net.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Net.dll" Name="System.Net.dll" />
         </Component>
 
-        <Component Id="System.Net.Http.dll_1" Guid="FC02C99F-CBF8-4D4E-9835-2C71C3232069">
+        <Component Id="System.Net.Http.dll_1" Guid="11D5A607-BA47-45EF-8B82-200A311C85D4">
             <File Id="System.Net.Http.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Net.Http.dll" Name="System.Net.Http.dll" />
         </Component>
 
-        <Component Id="System.Net.HttpListener.dll" Guid="1A189604-D02E-47B6-AC66-BA3303CFDEE1">
-            <File Id="System.Net.HttpListener.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Net.HttpListener.dll" Name="System.Net.HttpListener.dll" />
+        <Component Id="System.Net.HttpListener.dll_1" Guid="65B7A3FC-F172-452B-B92F-BAEB64376BFE">
+            <File Id="System.Net.HttpListener.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Net.HttpListener.dll" Name="System.Net.HttpListener.dll" />
         </Component>
 
-        <Component Id="System.Net.Mail.dll_1" Guid="C05A22FB-E875-4012-9812-FAAC4CA1BC5B">
+        <Component Id="System.Net.Mail.dll_1" Guid="031230C9-33EA-4663-A2B8-47098C9B4E42">
             <File Id="System.Net.Mail.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Net.Mail.dll" Name="System.Net.Mail.dll" />
         </Component>
 
-        <Component Id="System.Net.NameResolution.dll_1" Guid="E0891112-C59F-48AA-AAE7-D425F4E3EEB3">
+        <Component Id="System.Net.NameResolution.dll_1" Guid="FF92884C-2975-455C-B943-3953B2E0A417">
             <File Id="System.Net.NameResolution.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Net.NameResolution.dll" Name="System.Net.NameResolution.dll" />
         </Component>
 
-        <Component Id="System.Net.NetworkInformation.dll_1" Guid="33374EB3-28FC-478B-B8C7-A934BCFC7D9E">
+        <Component Id="System.Net.NetworkInformation.dll_1" Guid="CBFCDC4D-5E60-4092-BA31-634EBB0AC3F5">
             <File Id="System.Net.NetworkInformation.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Net.NetworkInformation.dll" Name="System.Net.NetworkInformation.dll" />
         </Component>
 
-        <Component Id="System.Net.Ping.dll_1" Guid="41AF484B-0B37-4FC4-B800-1DF5272F7FD3">
+        <Component Id="System.Net.Ping.dll_1" Guid="B6B3E03A-84B5-451F-8DC0-984592A17253">
             <File Id="System.Net.Ping.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Net.Ping.dll" Name="System.Net.Ping.dll" />
         </Component>
 
-        <Component Id="System.Net.Primitives.dll_1" Guid="6F611AE9-135A-4E6B-B958-1AE1A4C1BD42">
+        <Component Id="System.Net.Primitives.dll_1" Guid="87F942B9-E78F-452B-97FD-DE8C8E12B510">
             <File Id="System.Net.Primitives.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Net.Primitives.dll" Name="System.Net.Primitives.dll" />
         </Component>
 
-        <Component Id="System.Net.Requests.dll_1" Guid="79582456-7838-4E96-A9B4-2848DB0381AD">
+        <Component Id="System.Net.Requests.dll_1" Guid="B672C36D-A5D3-417A-B439-8A114B84911A">
             <File Id="System.Net.Requests.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Net.Requests.dll" Name="System.Net.Requests.dll" />
         </Component>
 
-        <Component Id="System.Net.Security.dll_1" Guid="B3B67875-5917-42BF-886E-54AC705D6852">
+        <Component Id="System.Net.Security.dll_1" Guid="EB1BF80F-3D59-427D-ACC2-A8B6B40B7282">
             <File Id="System.Net.Security.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Net.Security.dll" Name="System.Net.Security.dll" />
         </Component>
 
-        <Component Id="System.Net.ServicePoint.dll_1" Guid="83FC0F43-D466-4DF1-957C-B9E78284E2AB">
+        <Component Id="System.Net.ServicePoint.dll_1" Guid="6346941D-23D5-4CD0-B517-F494516D31E2">
             <File Id="System.Net.ServicePoint.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Net.ServicePoint.dll" Name="System.Net.ServicePoint.dll" />
         </Component>
 
-        <Component Id="System.Net.Sockets.dll_1" Guid="416148D4-A105-4DF4-868D-B63629FF48B2">
+        <Component Id="System.Net.Sockets.dll_1" Guid="B8CCE29F-04EF-496F-B017-FBC431E91B83">
             <File Id="System.Net.Sockets.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Net.Sockets.dll" Name="System.Net.Sockets.dll" />
         </Component>
 
-        <Component Id="System.Net.WebClient.dll_1" Guid="72467708-521A-441D-8641-A63028D5B9A5">
+        <Component Id="System.Net.WebClient.dll_1" Guid="CF262C4B-BBF5-4D6B-8E78-FE0629B0EDA8">
             <File Id="System.Net.WebClient.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Net.WebClient.dll" Name="System.Net.WebClient.dll" />
         </Component>
 
-        <Component Id="System.Net.WebHeaderCollection.dll_1" Guid="3D1B90F5-821A-436A-BE21-DDDD9CD7F41A">
+        <Component Id="System.Net.WebHeaderCollection.dll_1" Guid="1BC89AFA-5E8B-49DC-96B2-C9DFC71C79F5">
             <File Id="System.Net.WebHeaderCollection.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Net.WebHeaderCollection.dll" Name="System.Net.WebHeaderCollection.dll" />
         </Component>
 
-        <Component Id="System.Net.WebProxy.dll_1" Guid="DDBD0500-A5C6-4665-B817-FEFD4BB55652">
+        <Component Id="System.Net.WebProxy.dll_1" Guid="29B8A361-6A2E-4BF3-A6F2-0A01A47C41FE">
             <File Id="System.Net.WebProxy.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Net.WebProxy.dll" Name="System.Net.WebProxy.dll" />
         </Component>
 
-        <Component Id="System.Net.WebSockets.Client.dll_1" Guid="F5498A0D-4440-4B3C-A668-DE06EFC48800">
+        <Component Id="System.Net.WebSockets.Client.dll_1" Guid="C15E3871-BC7F-4580-85E4-F79AA8C21717">
             <File Id="System.Net.WebSockets.Client.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Net.WebSockets.Client.dll" Name="System.Net.WebSockets.Client.dll" />
         </Component>
 
-        <Component Id="System.Net.WebSockets.dll_1" Guid="307B6E0D-7DAA-46CA-AD23-DD57CC7F017B">
+        <Component Id="System.Net.WebSockets.dll_1" Guid="9E687CCD-3597-4413-8046-BB5EC98E6535">
             <File Id="System.Net.WebSockets.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Net.WebSockets.dll" Name="System.Net.WebSockets.dll" />
         </Component>
 
-        <Component Id="System.Numerics.dll" Guid="B610884C-8959-4AE2-8C9C-9574A7CB15D4">
-            <File Id="System.Numerics.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Numerics.dll" Name="System.Numerics.dll" />
+        <Component Id="System.Numerics.dll_1" Guid="E9BAD7C7-53B3-4205-9A23-EF49FB210960">
+            <File Id="System.Numerics.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Numerics.dll" Name="System.Numerics.dll" />
         </Component>
 
-        <Component Id="System.Numerics.Vectors.dll" Guid="FEDC85C9-26C9-42D8-AEEF-F0F69AEB1F24">
-            <File Id="System.Numerics.Vectors.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Numerics.Vectors.dll" Name="System.Numerics.Vectors.dll" />
+        <Component Id="System.Numerics.Vectors.dll_1" Guid="17A156CA-50B3-4700-B92F-CBC570DCAFDC">
+            <File Id="System.Numerics.Vectors.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Numerics.Vectors.dll" Name="System.Numerics.Vectors.dll" />
         </Component>
 
-        <Component Id="System.ObjectModel.dll_1" Guid="50FAA66B-DE68-4DDC-8C97-569B9D38F007">
+        <Component Id="System.ObjectModel.dll_1" Guid="2777360D-91F5-41F6-AB11-FBC759D41BB9">
             <File Id="System.ObjectModel.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.ObjectModel.dll" Name="System.ObjectModel.dll" />
         </Component>
 
-        <Component Id="System.Reflection.DispatchProxy.dll_1" Guid="44C51682-776C-490F-AFE1-E1CAAF56A1B3">
+        <Component Id="System.Reflection.DispatchProxy.dll_1" Guid="CEF75498-3543-4CE8-9966-C54A898442EF">
             <File Id="System.Reflection.DispatchProxy.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Reflection.DispatchProxy.dll" Name="System.Reflection.DispatchProxy.dll" />
         </Component>
 
-        <Component Id="System.Reflection.dll" Guid="E4283CE8-7535-4A7F-BB48-0C6E6A2DC543">
-            <File Id="System.Reflection.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Reflection.dll" Name="System.Reflection.dll" />
+        <Component Id="System.Reflection.dll_1" Guid="42C2E683-C774-41FF-983F-129248A1668D">
+            <File Id="System.Reflection.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Reflection.dll" Name="System.Reflection.dll" />
         </Component>
 
-        <Component Id="System.Reflection.Emit.dll" Guid="459AD6BF-63B4-4AFE-AE91-83BA07FE8554">
-            <File Id="System.Reflection.Emit.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Reflection.Emit.dll" Name="System.Reflection.Emit.dll" />
+        <Component Id="System.Reflection.Emit.dll_1" Guid="6A084C49-029A-4CC0-A774-D6935E3332C7">
+            <File Id="System.Reflection.Emit.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Reflection.Emit.dll" Name="System.Reflection.Emit.dll" />
         </Component>
 
-        <Component Id="System.Reflection.Emit.ILGeneration.dll" Guid="D8A9161E-62A1-4436-85BE-68734E8C3FA4">
-            <File Id="System.Reflection.Emit.ILGeneration.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Reflection.Emit.ILGeneration.dll" Name="System.Reflection.Emit.ILGeneration.dll" />
+        <Component Id="System.Reflection.Emit.ILGeneration.dll_1" Guid="B75BA1AB-8872-4FD8-96C3-14F6FFABCEC5">
+            <File Id="System.Reflection.Emit.ILGeneration.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Reflection.Emit.ILGeneration.dll" Name="System.Reflection.Emit.ILGeneration.dll" />
         </Component>
 
-        <Component Id="System.Reflection.Emit.Lightweight.dll" Guid="75FEDABD-E8CE-48C8-97E1-BF199D811BB2">
-            <File Id="System.Reflection.Emit.Lightweight.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Reflection.Emit.Lightweight.dll" Name="System.Reflection.Emit.Lightweight.dll" />
+        <Component Id="System.Reflection.Emit.Lightweight.dll_1" Guid="2F3906B8-92D4-44A7-B1A0-D10D49EF60B8">
+            <File Id="System.Reflection.Emit.Lightweight.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Reflection.Emit.Lightweight.dll" Name="System.Reflection.Emit.Lightweight.dll" />
         </Component>
 
-        <Component Id="System.Reflection.Extensions.dll" Guid="03FFEB14-EDC2-4A38-9F31-678E53B2877F">
-            <File Id="System.Reflection.Extensions.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Reflection.Extensions.dll" Name="System.Reflection.Extensions.dll" />
+        <Component Id="System.Reflection.Extensions.dll_1" Guid="3C3BDFA0-2675-4A47-A3DC-5FDA032AD495">
+            <File Id="System.Reflection.Extensions.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Reflection.Extensions.dll" Name="System.Reflection.Extensions.dll" />
         </Component>
 
-        <Component Id="System.Reflection.Metadata.dll_1" Guid="A13DF837-FA1B-47DD-89E9-D869F65A4714">
+        <Component Id="System.Reflection.Metadata.dll_1" Guid="ACA8C400-571A-4557-A600-07A62B163189">
             <File Id="System.Reflection.Metadata.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Reflection.Metadata.dll" Name="System.Reflection.Metadata.dll" />
         </Component>
 
-        <Component Id="System.Reflection.Primitives.dll" Guid="112EBFCD-92A3-4E7E-97B6-D93AA8E561E1">
-            <File Id="System.Reflection.Primitives.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Reflection.Primitives.dll" Name="System.Reflection.Primitives.dll" />
+        <Component Id="System.Reflection.Primitives.dll_1" Guid="D627669F-6B31-4298-82C3-B7F9A5B00CD0">
+            <File Id="System.Reflection.Primitives.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Reflection.Primitives.dll" Name="System.Reflection.Primitives.dll" />
         </Component>
 
-        <Component Id="System.Reflection.TypeExtensions.dll" Guid="F3C762A2-26E5-4232-9B93-932A99979105">
-            <File Id="System.Reflection.TypeExtensions.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Reflection.TypeExtensions.dll" Name="System.Reflection.TypeExtensions.dll" />
+        <Component Id="System.Reflection.TypeExtensions.dll_1" Guid="6E91C69A-84B0-4D08-9361-87A820186466">
+            <File Id="System.Reflection.TypeExtensions.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Reflection.TypeExtensions.dll" Name="System.Reflection.TypeExtensions.dll" />
         </Component>
 
-        <Component Id="System.Resources.Reader.dll" Guid="F3C7FE66-C8D1-43B1-92B2-F91E6FDEE40A">
-            <File Id="System.Resources.Reader.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Resources.Reader.dll" Name="System.Resources.Reader.dll" />
+        <Component Id="System.Resources.Reader.dll_1" Guid="E8E9FB4D-3637-4811-A531-29460E0C791F">
+            <File Id="System.Resources.Reader.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Resources.Reader.dll" Name="System.Resources.Reader.dll" />
         </Component>
 
-        <Component Id="System.Resources.ResourceManager.dll" Guid="CC2D6CD6-C859-4DF7-8C73-3C6ACAA9A04D">
-            <File Id="System.Resources.ResourceManager.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Resources.ResourceManager.dll" Name="System.Resources.ResourceManager.dll" />
+        <Component Id="System.Resources.ResourceManager.dll_1" Guid="82DAEF5F-8370-400F-86D8-98921BBC26DB">
+            <File Id="System.Resources.ResourceManager.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Resources.ResourceManager.dll" Name="System.Resources.ResourceManager.dll" />
         </Component>
 
-        <Component Id="System.Resources.Writer.dll_1" Guid="DC209F38-1CCE-468B-8450-9AE31B774878">
+        <Component Id="System.Resources.Writer.dll_1" Guid="81C1588A-8EBE-4BDB-90CA-A1025BA094F8">
             <File Id="System.Resources.Writer.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Resources.Writer.dll" Name="System.Resources.Writer.dll" />
         </Component>
 
-        <Component Id="System.Runtime.CompilerServices.Unsafe.dll_1" Guid="4FC3C460-83B8-4440-BDE9-BF52C0335B3F">
+        <Component Id="System.Runtime.CompilerServices.Unsafe.dll_1" Guid="F59D1F4B-31AD-427E-A8BC-096F4E0959E5">
             <File Id="System.Runtime.CompilerServices.Unsafe.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Runtime.CompilerServices.Unsafe.dll" Name="System.Runtime.CompilerServices.Unsafe.dll" />
         </Component>
 
-        <Component Id="System.Runtime.CompilerServices.VisualC.dll_1" Guid="0FA98A35-9EDE-4D3E-9028-1B1B48ED3C4E">
+        <Component Id="System.Runtime.CompilerServices.VisualC.dll_1" Guid="7F98C6BF-68C7-4DE8-9B9D-38DFF04510DE">
             <File Id="System.Runtime.CompilerServices.VisualC.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Runtime.CompilerServices.VisualC.dll" Name="System.Runtime.CompilerServices.VisualC.dll" />
         </Component>
 
-        <Component Id="System.Runtime.dll_1" Guid="2E0E860D-9E28-4FE8-9C76-5F28E94B6A15">
+        <Component Id="System.Runtime.dll_1" Guid="7CFCA656-BB8D-44FE-AC4B-6D5620A216EF">
             <File Id="System.Runtime.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Runtime.dll" Name="System.Runtime.dll" />
         </Component>
 
-        <Component Id="System.Runtime.Extensions.dll_1" Guid="7246E96D-4CB4-428D-91B6-C60BAACC2175">
+        <Component Id="System.Runtime.Extensions.dll_1" Guid="9FF86189-668C-4E65-8C8F-69E2C8CB644F">
             <File Id="System.Runtime.Extensions.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Runtime.Extensions.dll" Name="System.Runtime.Extensions.dll" />
         </Component>
 
-        <Component Id="System.Runtime.Handles.dll" Guid="5CDEE328-03DB-431C-907B-F32578DE4142">
-            <File Id="System.Runtime.Handles.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Runtime.Handles.dll" Name="System.Runtime.Handles.dll" />
+        <Component Id="System.Runtime.Handles.dll_1" Guid="BECEA48E-2EC6-49A0-A882-584E238B1948">
+            <File Id="System.Runtime.Handles.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Runtime.Handles.dll" Name="System.Runtime.Handles.dll" />
         </Component>
 
-        <Component Id="System.Runtime.InteropServices.dll_1" Guid="D1FE35F2-3C5D-4095-8EB7-28C7E2604559">
+        <Component Id="System.Runtime.InteropServices.dll_1" Guid="F30B26C7-5008-46F1-9141-795F7F266BA1">
             <File Id="System.Runtime.InteropServices.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Runtime.InteropServices.dll" Name="System.Runtime.InteropServices.dll" />
         </Component>
 
-        <Component Id="System.Runtime.InteropServices.RuntimeInformation.dll_1" Guid="B9FF7089-52F9-43B8-8EED-D7997A926440">
+        <Component Id="System.Runtime.InteropServices.RuntimeInformation.dll_1" Guid="F11FBD9F-8DB1-452F-A3BB-E284D557E621">
             <File Id="System.Runtime.InteropServices.RuntimeInformation.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Runtime.InteropServices.RuntimeInformation.dll" Name="System.Runtime.InteropServices.RuntimeInformation.dll" />
         </Component>
 
-        <Component Id="System.Runtime.InteropServices.WindowsRuntime.dll" Guid="0A6ABEFA-E51E-451E-95E2-B742ED5C4031">
-            <File Id="System.Runtime.InteropServices.WindowsRuntime.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Runtime.InteropServices.WindowsRuntime.dll" Name="System.Runtime.InteropServices.WindowsRuntime.dll" />
+        <Component Id="System.Runtime.InteropServices.WindowsRuntime.dll_1" Guid="1E223552-CFA7-4814-AAE7-5619EEBA87ED">
+            <File Id="System.Runtime.InteropServices.WindowsRuntime.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Runtime.InteropServices.WindowsRuntime.dll" Name="System.Runtime.InteropServices.WindowsRuntime.dll" />
         </Component>
 
-        <Component Id="System.Runtime.Intrinsics.dll" Guid="840B7AFA-0C10-4F4F-96F9-FDA182A5497A">
-            <File Id="System.Runtime.Intrinsics.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Runtime.Intrinsics.dll" Name="System.Runtime.Intrinsics.dll" />
+        <Component Id="System.Runtime.Intrinsics.dll_1" Guid="67E38F4C-56B3-472B-9F96-8E4A7E60656C">
+            <File Id="System.Runtime.Intrinsics.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Runtime.Intrinsics.dll" Name="System.Runtime.Intrinsics.dll" />
         </Component>
 
-        <Component Id="System.Runtime.Loader.dll" Guid="B84CB3E5-9876-4246-9C36-C52835EA5542">
-            <File Id="System.Runtime.Loader.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Runtime.Loader.dll" Name="System.Runtime.Loader.dll" />
+        <Component Id="System.Runtime.Loader.dll_1" Guid="C3D6EB03-6DAA-4C7F-9A7B-1583E14D7335">
+            <File Id="System.Runtime.Loader.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Runtime.Loader.dll" Name="System.Runtime.Loader.dll" />
         </Component>
 
-        <Component Id="System.Runtime.Numerics.dll_1" Guid="BBC4BDD2-6460-4829-8C5D-B696D8C35ED9">
+        <Component Id="System.Runtime.Numerics.dll_1" Guid="BF29C055-B1CC-427B-971D-C42902BC3ED4">
             <File Id="System.Runtime.Numerics.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Runtime.Numerics.dll" Name="System.Runtime.Numerics.dll" />
         </Component>
 
-        <Component Id="System.Runtime.Serialization.dll" Guid="ABE001A9-3F06-4087-9D6C-B97E1C6E6E27">
-            <File Id="System.Runtime.Serialization.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Runtime.Serialization.dll" Name="System.Runtime.Serialization.dll" />
+        <Component Id="System.Runtime.Serialization.dll_1" Guid="6CB285E7-F64A-4960-B57F-196140BB0CDE">
+            <File Id="System.Runtime.Serialization.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Runtime.Serialization.dll" Name="System.Runtime.Serialization.dll" />
         </Component>
 
-        <Component Id="System.Runtime.Serialization.Formatters.dll_1" Guid="2DC16B01-7C26-44CA-8764-5824C1A58654">
+        <Component Id="System.Runtime.Serialization.Formatters.dll_1" Guid="9728CD92-BED6-4C86-81DB-6D5C4C7424F5">
             <File Id="System.Runtime.Serialization.Formatters.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Runtime.Serialization.Formatters.dll" Name="System.Runtime.Serialization.Formatters.dll" />
         </Component>
 
-        <Component Id="System.Runtime.Serialization.Json.dll" Guid="DBD2F619-91B5-445F-B88A-C00AEC3E2920">
-            <File Id="System.Runtime.Serialization.Json.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Runtime.Serialization.Json.dll" Name="System.Runtime.Serialization.Json.dll" />
+        <Component Id="System.Runtime.Serialization.Json.dll_1" Guid="8CFC20D7-ACD6-4D65-813E-D59F60DE720D">
+            <File Id="System.Runtime.Serialization.Json.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Runtime.Serialization.Json.dll" Name="System.Runtime.Serialization.Json.dll" />
         </Component>
 
-        <Component Id="System.Runtime.Serialization.Primitives.dll_1" Guid="F09C2E3E-AF23-48F5-BF0E-3585F3970ACE">
+        <Component Id="System.Runtime.Serialization.Primitives.dll_1" Guid="B2212DF0-FFAF-434C-A7DE-674711C13922">
             <File Id="System.Runtime.Serialization.Primitives.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Runtime.Serialization.Primitives.dll" Name="System.Runtime.Serialization.Primitives.dll" />
         </Component>
 
-        <Component Id="System.Runtime.Serialization.Xml.dll" Guid="CFE0BE8C-2BDA-4F66-A1CB-1460D824D097">
-            <File Id="System.Runtime.Serialization.Xml.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Runtime.Serialization.Xml.dll" Name="System.Runtime.Serialization.Xml.dll" />
+        <Component Id="System.Runtime.Serialization.Xml.dll_1" Guid="E466B58D-730E-43B9-985C-4855E3B0F50C">
+            <File Id="System.Runtime.Serialization.Xml.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Runtime.Serialization.Xml.dll" Name="System.Runtime.Serialization.Xml.dll" />
         </Component>
 
-        <Component Id="System.Security.Claims.dll_1" Guid="33981DFC-2E73-43D0-A549-D4A9441806BC">
+        <Component Id="System.Security.Claims.dll_1" Guid="32C360F6-B17D-4BC1-BAB2-05E68CF69624">
             <File Id="System.Security.Claims.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Security.Claims.dll" Name="System.Security.Claims.dll" />
         </Component>
 
-        <Component Id="System.Security.Cryptography.Algorithms.dll_1" Guid="B31BB55E-8741-4320-A6DE-7CDB7E9B3D33">
+        <Component Id="System.Security.Cryptography.Algorithms.dll_1" Guid="11EB905C-9CC2-4156-8515-72E140024889">
             <File Id="System.Security.Cryptography.Algorithms.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Security.Cryptography.Algorithms.dll" Name="System.Security.Cryptography.Algorithms.dll" />
         </Component>
 
-        <Component Id="System.Security.Cryptography.Csp.dll_1" Guid="E2574CCB-7029-4BC2-B7E0-D43A49EBD936">
+        <Component Id="System.Security.Cryptography.Csp.dll_1" Guid="64181027-52EC-4FA6-AAB7-09BBA5075A72">
             <File Id="System.Security.Cryptography.Csp.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Security.Cryptography.Csp.dll" Name="System.Security.Cryptography.Csp.dll" />
         </Component>
 
-        <Component Id="System.Security.Cryptography.Encoding.dll_1" Guid="C1DC7BFA-CB10-41DD-9865-2332DCA8E979">
+        <Component Id="System.Security.Cryptography.Encoding.dll_1" Guid="95306901-9FC1-4D44-86BF-873E61319769">
             <File Id="System.Security.Cryptography.Encoding.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Security.Cryptography.Encoding.dll" Name="System.Security.Cryptography.Encoding.dll" />
         </Component>
 
-        <Component Id="System.Security.Cryptography.Primitives.dll_1" Guid="24875965-21C1-43CE-A23F-3D5C8E30AD53">
+        <Component Id="System.Security.Cryptography.Primitives.dll_1" Guid="5FC7F8E4-D1A4-455C-8AE6-FDAD61A7FA73">
             <File Id="System.Security.Cryptography.Primitives.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Security.Cryptography.Primitives.dll" Name="System.Security.Cryptography.Primitives.dll" />
         </Component>
 
-        <Component Id="System.Security.Cryptography.X509Certificates.dll_1" Guid="2BD5CF15-B3EA-4972-90CF-A2AE4BED7D2F">
+        <Component Id="System.Security.Cryptography.X509Certificates.dll_1" Guid="9087690D-C754-4CB4-AE86-029CDC9840E8">
             <File Id="System.Security.Cryptography.X509Certificates.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Security.Cryptography.X509Certificates.dll" Name="System.Security.Cryptography.X509Certificates.dll" />
         </Component>
 
-        <Component Id="System.Security.dll" Guid="831BDBF2-8A1B-446F-B4F1-21AB513F9805">
-            <File Id="System.Security.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Security.dll" Name="System.Security.dll" />
+        <Component Id="System.Security.dll_1" Guid="1E6076F8-055D-435A-B8AE-7BDC05FB2AAD">
+            <File Id="System.Security.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Security.dll" Name="System.Security.dll" />
         </Component>
 
-        <Component Id="System.Security.Principal.dll_1" Guid="44186754-30C6-4711-AB72-09737100DA8C">
+        <Component Id="System.Security.Principal.dll_1" Guid="7221A4B5-FF3A-419F-9AC1-80F2AD2593CE">
             <File Id="System.Security.Principal.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Security.Principal.dll" Name="System.Security.Principal.dll" />
         </Component>
 
-        <Component Id="System.Security.SecureString.dll" Guid="69824FE5-D32D-4432-8BAF-804A4998A685">
-            <File Id="System.Security.SecureString.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Security.SecureString.dll" Name="System.Security.SecureString.dll" />
+        <Component Id="System.Security.SecureString.dll_1" Guid="4B30F49F-5380-43EE-9D24-D01161DC802A">
+            <File Id="System.Security.SecureString.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Security.SecureString.dll" Name="System.Security.SecureString.dll" />
         </Component>
 
-        <Component Id="System.ServiceModel.Web.dll" Guid="90B576E0-D2AF-410F-BB09-347FEBF4EB16">
-            <File Id="System.ServiceModel.Web.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.ServiceModel.Web.dll" Name="System.ServiceModel.Web.dll" />
+        <Component Id="System.ServiceModel.Web.dll_1" Guid="07837C0D-88F2-48C6-AC10-E86EA761AC31">
+            <File Id="System.ServiceModel.Web.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.ServiceModel.Web.dll" Name="System.ServiceModel.Web.dll" />
         </Component>
 
-        <Component Id="System.ServiceProcess.dll" Guid="8CB5CDD5-ECF6-4055-A9C4-8AA3EB8CA1CD">
-            <File Id="System.ServiceProcess.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.ServiceProcess.dll" Name="System.ServiceProcess.dll" />
+        <Component Id="System.ServiceProcess.dll_1" Guid="3411934E-E940-490D-8D7A-C30A226E9466">
+            <File Id="System.ServiceProcess.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.ServiceProcess.dll" Name="System.ServiceProcess.dll" />
         </Component>
 
-        <Component Id="System.Text.Encoding.CodePages.dll_1" Guid="C09F8885-1913-4F12-907C-5553FD419E6F">
+        <Component Id="System.Text.Encoding.CodePages.dll_1" Guid="42CA38FA-6EA6-4ECE-9D1F-282E1627F393">
             <File Id="System.Text.Encoding.CodePages.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Text.Encoding.CodePages.dll" Name="System.Text.Encoding.CodePages.dll" />
         </Component>
 
-        <Component Id="System.Text.Encoding.dll" Guid="7DCC340C-EC47-404E-B377-E0505AC9C816">
-            <File Id="System.Text.Encoding.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Text.Encoding.dll" Name="System.Text.Encoding.dll" />
+        <Component Id="System.Text.Encoding.dll_1" Guid="51C70455-085B-4548-A72B-E143A8F3BA1F">
+            <File Id="System.Text.Encoding.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Text.Encoding.dll" Name="System.Text.Encoding.dll" />
         </Component>
 
-        <Component Id="System.Text.Encoding.Extensions.dll" Guid="FC11482E-D56C-4C5A-A9B9-15F93153C299">
-            <File Id="System.Text.Encoding.Extensions.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Text.Encoding.Extensions.dll" Name="System.Text.Encoding.Extensions.dll" />
+        <Component Id="System.Text.Encoding.Extensions.dll_1" Guid="23B69549-AB6F-47D6-8EB4-F049CF54F290">
+            <File Id="System.Text.Encoding.Extensions.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Text.Encoding.Extensions.dll" Name="System.Text.Encoding.Extensions.dll" />
         </Component>
 
-        <Component Id="System.Text.Encodings.Web.dll_1" Guid="31CFFB5D-8566-4CDE-A1B2-3CE948FB19FB">
+        <Component Id="System.Text.Encodings.Web.dll_1" Guid="26EA735A-049A-4468-8B3E-5AFCC4BC24F1">
             <File Id="System.Text.Encodings.Web.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Text.Encodings.Web.dll" Name="System.Text.Encodings.Web.dll" />
         </Component>
 
-        <Component Id="System.Text.Json.dll_1" Guid="7A2BBFF3-667D-4EB3-A11F-9154CF8BB34B">
+        <Component Id="System.Text.Json.dll_1" Guid="958B11EE-B9F5-4D79-A50D-87AA9529780F">
             <File Id="System.Text.Json.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Text.Json.dll" Name="System.Text.Json.dll" />
         </Component>
 
-        <Component Id="System.Text.RegularExpressions.dll_1" Guid="AB05D824-F4C5-47DC-B2ED-4432E639374D">
+        <Component Id="System.Text.RegularExpressions.dll_1" Guid="6DB07EAC-D03F-444F-850B-44427C25621C">
             <File Id="System.Text.RegularExpressions.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Text.RegularExpressions.dll" Name="System.Text.RegularExpressions.dll" />
         </Component>
 
-        <Component Id="System.Threading.Channels.dll_1" Guid="4FBD87B0-7C7C-4022-99EC-1DBB8DFFFDAB">
+        <Component Id="System.Threading.Channels.dll_1" Guid="43243047-37C7-498E-A0E1-0115A396AAA0">
             <File Id="System.Threading.Channels.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Threading.Channels.dll" Name="System.Threading.Channels.dll" />
         </Component>
 
-        <Component Id="System.Threading.dll_1" Guid="FD24217A-42EA-407B-BE32-4DC344240AF2">
+        <Component Id="System.Threading.dll_1" Guid="B6140C3E-E7E5-4320-8693-F5A0034EFF60">
             <File Id="System.Threading.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Threading.dll" Name="System.Threading.dll" />
         </Component>
 
-        <Component Id="System.Threading.Overlapped.dll" Guid="0D390F38-0FCB-4340-A48B-02CC2B217D5A">
-            <File Id="System.Threading.Overlapped.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Threading.Overlapped.dll" Name="System.Threading.Overlapped.dll" />
+        <Component Id="System.Threading.Overlapped.dll_1" Guid="940DF077-F8E6-49D7-B6C0-08E8730E3462">
+            <File Id="System.Threading.Overlapped.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Threading.Overlapped.dll" Name="System.Threading.Overlapped.dll" />
         </Component>
 
-        <Component Id="System.Threading.Tasks.Dataflow.dll" Guid="15B9C390-05A1-4413-A85B-258FCD995EB1">
-            <File Id="System.Threading.Tasks.Dataflow.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Threading.Tasks.Dataflow.dll" Name="System.Threading.Tasks.Dataflow.dll" />
+        <Component Id="System.Threading.Tasks.Dataflow.dll_1" Guid="39BB3B2A-9BAA-4889-875D-7179ADCB7EB1">
+            <File Id="System.Threading.Tasks.Dataflow.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Threading.Tasks.Dataflow.dll" Name="System.Threading.Tasks.Dataflow.dll" />
         </Component>
 
-        <Component Id="System.Threading.Tasks.dll" Guid="8A89F380-18C4-49C7-A530-6C8B99FD55CA">
-            <File Id="System.Threading.Tasks.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Threading.Tasks.dll" Name="System.Threading.Tasks.dll" />
+        <Component Id="System.Threading.Tasks.dll_1" Guid="FB9E40EC-B2DF-4D19-8E9A-B721E939249F">
+            <File Id="System.Threading.Tasks.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Threading.Tasks.dll" Name="System.Threading.Tasks.dll" />
         </Component>
 
-        <Component Id="System.Threading.Tasks.Extensions.dll" Guid="AC85DDBD-E4EC-424B-803A-CABA53D4CBAF">
-            <File Id="System.Threading.Tasks.Extensions.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Threading.Tasks.Extensions.dll" Name="System.Threading.Tasks.Extensions.dll" />
+        <Component Id="System.Threading.Tasks.Extensions.dll_1" Guid="186B074C-F89C-4B80-948D-DFA68F2C75AF">
+            <File Id="System.Threading.Tasks.Extensions.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Threading.Tasks.Extensions.dll" Name="System.Threading.Tasks.Extensions.dll" />
         </Component>
 
-        <Component Id="System.Threading.Tasks.Parallel.dll_1" Guid="1EDF8F85-F130-458E-8375-802BF2D3DDB1">
+        <Component Id="System.Threading.Tasks.Parallel.dll_1" Guid="C3F0233B-CD0E-4F04-B89E-99A34F6759B7">
             <File Id="System.Threading.Tasks.Parallel.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Threading.Tasks.Parallel.dll" Name="System.Threading.Tasks.Parallel.dll" />
         </Component>
 
-        <Component Id="System.Threading.Thread.dll_1" Guid="78047010-E011-4510-B9A1-FAD539D779C5">
+        <Component Id="System.Threading.Thread.dll_1" Guid="5C68B30F-019B-4FD8-94A9-70822B3C2E0F">
             <File Id="System.Threading.Thread.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Threading.Thread.dll" Name="System.Threading.Thread.dll" />
         </Component>
 
-        <Component Id="System.Threading.ThreadPool.dll" Guid="9AF82B7E-A573-4679-982D-E807DA1BD647">
-            <File Id="System.Threading.ThreadPool.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Threading.ThreadPool.dll" Name="System.Threading.ThreadPool.dll" />
+        <Component Id="System.Threading.ThreadPool.dll_1" Guid="D9B132FC-B915-4516-A4E2-453BCB78DB5D">
+            <File Id="System.Threading.ThreadPool.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Threading.ThreadPool.dll" Name="System.Threading.ThreadPool.dll" />
         </Component>
 
-        <Component Id="System.Threading.Timer.dll" Guid="7E5E9689-733D-4F40-BFA0-547518C32845">
-            <File Id="System.Threading.Timer.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Threading.Timer.dll" Name="System.Threading.Timer.dll" />
+        <Component Id="System.Threading.Timer.dll_1" Guid="8AE1D957-66F2-4236-BF63-E606FB05494E">
+            <File Id="System.Threading.Timer.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Threading.Timer.dll" Name="System.Threading.Timer.dll" />
         </Component>
 
-        <Component Id="System.Transactions.dll" Guid="ADC1F738-1460-416D-B854-B946536779F8">
-            <File Id="System.Transactions.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Transactions.dll" Name="System.Transactions.dll" />
+        <Component Id="System.Transactions.dll_1" Guid="ECE6D507-C052-4077-BD4A-C06DA973E2F4">
+            <File Id="System.Transactions.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Transactions.dll" Name="System.Transactions.dll" />
         </Component>
 
-        <Component Id="System.Transactions.Local.dll_1" Guid="DA2D9BB6-7080-4636-AE50-D2CBDEE91C6A">
+        <Component Id="System.Transactions.Local.dll_1" Guid="1536D095-92DD-4C9A-8900-4BD9E7D553C8">
             <File Id="System.Transactions.Local.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Transactions.Local.dll" Name="System.Transactions.Local.dll" />
         </Component>
 
-        <Component Id="System.ValueTuple.dll" Guid="75214DFF-37A6-4D0E-9D27-7F95389BF6FC">
-            <File Id="System.ValueTuple.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.ValueTuple.dll" Name="System.ValueTuple.dll" />
+        <Component Id="System.ValueTuple.dll_1" Guid="7E6E2DC2-EF7D-48F5-BABF-3E55600F813F">
+            <File Id="System.ValueTuple.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.ValueTuple.dll" Name="System.ValueTuple.dll" />
         </Component>
 
-        <Component Id="System.Web.dll" Guid="CC94DFAF-9C95-42B7-8690-561883AD502F">
-            <File Id="System.Web.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Web.dll" Name="System.Web.dll" />
+        <Component Id="System.Web.dll_1" Guid="5084416F-431C-4041-98B8-B880DB27B486">
+            <File Id="System.Web.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Web.dll" Name="System.Web.dll" />
         </Component>
 
-        <Component Id="System.Web.HttpUtility.dll" Guid="2EFCB26A-7128-4B95-BDBA-957E47F4ED2B">
-            <File Id="System.Web.HttpUtility.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Web.HttpUtility.dll" Name="System.Web.HttpUtility.dll" />
+        <Component Id="System.Web.HttpUtility.dll_1" Guid="4CC58F7E-8DC5-48F8-BBA5-7FE0ABD5C485">
+            <File Id="System.Web.HttpUtility.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Web.HttpUtility.dll" Name="System.Web.HttpUtility.dll" />
         </Component>
 
-        <Component Id="System.Windows.dll" Guid="65951D50-1168-40BD-B46C-287B44E9562D">
-            <File Id="System.Windows.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Windows.dll" Name="System.Windows.dll" />
+        <Component Id="System.Windows.dll_1" Guid="5C2658BA-CB0D-46D2-821A-658BB9ACA4C9">
+            <File Id="System.Windows.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Windows.dll" Name="System.Windows.dll" />
         </Component>
 
-        <Component Id="System.Xml.dll" Guid="1F1EC280-1B2B-4C96-9D20-5F1345914B0A">
-            <File Id="System.Xml.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Xml.dll" Name="System.Xml.dll" />
+        <Component Id="System.Xml.dll_1" Guid="91FEB214-EC31-432E-8B2A-47E222FE4270">
+            <File Id="System.Xml.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Xml.dll" Name="System.Xml.dll" />
         </Component>
 
-        <Component Id="System.Xml.Linq.dll" Guid="C3AA75FF-5475-455C-A772-5EC01CC9D564">
-            <File Id="System.Xml.Linq.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Xml.Linq.dll" Name="System.Xml.Linq.dll" />
+        <Component Id="System.Xml.Linq.dll_1" Guid="108CEB31-E721-4A34-AE2B-239CB43CAE60">
+            <File Id="System.Xml.Linq.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Xml.Linq.dll" Name="System.Xml.Linq.dll" />
         </Component>
 
-        <Component Id="System.Xml.ReaderWriter.dll" Guid="EA2E6373-6237-41A3-A45F-BEDFEBB90B3B">
-            <File Id="System.Xml.ReaderWriter.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Xml.ReaderWriter.dll" Name="System.Xml.ReaderWriter.dll" />
+        <Component Id="System.Xml.ReaderWriter.dll_1" Guid="57A70A29-418E-41C9-8658-918CB47A7BAA">
+            <File Id="System.Xml.ReaderWriter.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Xml.ReaderWriter.dll" Name="System.Xml.ReaderWriter.dll" />
         </Component>
 
-        <Component Id="System.Xml.Serialization.dll" Guid="292FF9E2-D2AB-41E3-BF51-25F45F887803">
-            <File Id="System.Xml.Serialization.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Xml.Serialization.dll" Name="System.Xml.Serialization.dll" />
+        <Component Id="System.Xml.Serialization.dll_1" Guid="231F9A14-7FEB-48EC-B190-801A85F0DCA0">
+            <File Id="System.Xml.Serialization.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Xml.Serialization.dll" Name="System.Xml.Serialization.dll" />
         </Component>
 
-        <Component Id="System.Xml.XDocument.dll" Guid="EA02B5FE-5190-41B4-90AD-FBED01D777FD">
-            <File Id="System.Xml.XDocument.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Xml.XDocument.dll" Name="System.Xml.XDocument.dll" />
+        <Component Id="System.Xml.XDocument.dll_1" Guid="A3112B81-61EF-4874-BC43-8577D847AEB3">
+            <File Id="System.Xml.XDocument.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Xml.XDocument.dll" Name="System.Xml.XDocument.dll" />
         </Component>
 
-        <Component Id="System.Xml.XmlDocument.dll" Guid="0BA69809-5999-44A2-BE8D-9A431D208EEF">
-            <File Id="System.Xml.XmlDocument.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Xml.XmlDocument.dll" Name="System.Xml.XmlDocument.dll" />
+        <Component Id="System.Xml.XmlDocument.dll_1" Guid="DB8C0084-EA9A-4923-9BCC-943245BBE0E2">
+            <File Id="System.Xml.XmlDocument.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Xml.XmlDocument.dll" Name="System.Xml.XmlDocument.dll" />
         </Component>
 
-        <Component Id="System.Xml.XmlSerializer.dll" Guid="A280A2B5-585F-4BC4-B444-45020FC9FA09">
-            <File Id="System.Xml.XmlSerializer.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Xml.XmlSerializer.dll" Name="System.Xml.XmlSerializer.dll" />
+        <Component Id="System.Xml.XmlSerializer.dll_1" Guid="92683954-8889-4EB6-933E-592519C59820">
+            <File Id="System.Xml.XmlSerializer.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Xml.XmlSerializer.dll" Name="System.Xml.XmlSerializer.dll" />
         </Component>
 
-        <Component Id="System.Xml.XPath.dll" Guid="F8CB8772-D6B0-46FA-9A0C-C11D98359C1D">
-            <File Id="System.Xml.XPath.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Xml.XPath.dll" Name="System.Xml.XPath.dll" />
+        <Component Id="System.Xml.XPath.dll_1" Guid="872CC162-8E53-4654-A844-CB2B3A5578F3">
+            <File Id="System.Xml.XPath.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Xml.XPath.dll" Name="System.Xml.XPath.dll" />
         </Component>
 
-        <Component Id="System.Xml.XPath.XDocument.dll" Guid="6F77E744-C555-45F0-A018-455D9EC99985">
-            <File Id="System.Xml.XPath.XDocument.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Xml.XPath.XDocument.dll" Name="System.Xml.XPath.XDocument.dll" />
+        <Component Id="System.Xml.XPath.XDocument.dll_1" Guid="742E1CF0-6D1C-49B8-B976-3253E06CD131">
+            <File Id="System.Xml.XPath.XDocument.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\System.Xml.XPath.XDocument.dll" Name="System.Xml.XPath.XDocument.dll" />
         </Component>
 
-        <Component Id="WindowsBase.dll_1" Guid="5A77C60D-8B07-4124-AFD9-C4ECC0A84E14">
+        <Component Id="WindowsBase.dll_1" Guid="5AC99B3D-C98E-43C8-8956-6D3337495708">
             <File Id="WindowsBase.dll_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\ref\WindowsBase.dll" Name="WindowsBase.dll" />
         </Component>
     </ComponentGroup>

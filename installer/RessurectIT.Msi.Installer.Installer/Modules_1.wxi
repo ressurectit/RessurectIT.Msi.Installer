@@ -1,69 +1,69 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Include>
     <ComponentGroup Id="CimCmdletsFiles" Directory="CimCmdlets">
-        <Component Id="CimCmdlets.psd1" Guid="7187C8E2-0162-4930-806B-390DFA1860C4">
+        <Component Id="CimCmdlets.psd1" Guid="831EA3CD-B72B-453A-85A1-2B5E7B18B63C">
             <File Id="CimCmdlets.psd1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\runtimes\win\lib\netcoreapp3.1\Modules\CimCmdlets\CimCmdlets.psd1" Name="CimCmdlets.psd1" />
         </Component>
     </ComponentGroup>
 
     <ComponentGroup Id="Microsoft.PowerShell.DiagnosticsFiles" Directory="Microsoft.PowerShell.Diagnostics">
-        <Component Id="Diagnostics.format.ps1xml" Guid="392E1900-2B83-4E9B-9075-12990B31DD20">
+        <Component Id="Diagnostics.format.ps1xml" Guid="FBEF4C85-7406-45B0-B417-538CBAF31954">
             <File Id="Diagnostics.format.ps1xml" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\runtimes\win\lib\netcoreapp3.1\Modules\Microsoft.PowerShell.Diagnostics\Diagnostics.format.ps1xml" Name="Diagnostics.format.ps1xml" />
         </Component>
 
-        <Component Id="Event.format.ps1xml" Guid="A05EC6CE-F606-49A3-925F-13BA5A6CAC8C">
+        <Component Id="Event.format.ps1xml" Guid="1BA701C1-4C4D-49BD-AD6F-87E08B89A542">
             <File Id="Event.format.ps1xml" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\runtimes\win\lib\netcoreapp3.1\Modules\Microsoft.PowerShell.Diagnostics\Event.format.ps1xml" Name="Event.format.ps1xml" />
         </Component>
 
-        <Component Id="GetEvent.types.ps1xml" Guid="7EFF9DCE-44AC-4153-B788-130E315435A8">
+        <Component Id="GetEvent.types.ps1xml" Guid="5628F225-C763-4FA4-93B4-0B483DA200AF">
             <File Id="GetEvent.types.ps1xml" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\runtimes\win\lib\netcoreapp3.1\Modules\Microsoft.PowerShell.Diagnostics\GetEvent.types.ps1xml" Name="GetEvent.types.ps1xml" />
         </Component>
 
-        <Component Id="Microsoft.PowerShell.Diagnostics.psd1" Guid="6CCDFE93-997C-48AC-89E2-BF58A0BE142E">
+        <Component Id="Microsoft.PowerShell.Diagnostics.psd1" Guid="C3DA9658-8548-4C47-824F-1A61A9621E27">
             <File Id="Microsoft.PowerShell.Diagnostics.psd1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\runtimes\win\lib\netcoreapp3.1\Modules\Microsoft.PowerShell.Diagnostics\Microsoft.PowerShell.Diagnostics.psd1" Name="Microsoft.PowerShell.Diagnostics.psd1" />
         </Component>
     </ComponentGroup>
 
     <ComponentGroup Id="Microsoft.PowerShell.Host_1Files" Directory="Microsoft.PowerShell.Host_1">
-        <Component Id="Microsoft.PowerShell.Host.psd1_1" Guid="1C75C196-95BB-41AF-86EB-2A31CC9C6CFC">
+        <Component Id="Microsoft.PowerShell.Host.psd1_1" Guid="21383CD1-519E-49B5-B0E5-1231EC83F010">
             <File Id="Microsoft.PowerShell.Host.psd1_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\runtimes\win\lib\netcoreapp3.1\Modules\Microsoft.PowerShell.Host\Microsoft.PowerShell.Host.psd1" Name="Microsoft.PowerShell.Host.psd1" />
         </Component>
     </ComponentGroup>
 
     <ComponentGroup Id="Microsoft.PowerShell.Management_1Files" Directory="Microsoft.PowerShell.Management_1">
-        <Component Id="Microsoft.PowerShell.Management.psd1_1" Guid="68A9CDF5-8DC8-4725-A87E-F280240380D0">
+        <Component Id="Microsoft.PowerShell.Management.psd1_1" Guid="99AC2507-4B37-4DDE-8B8C-6E067EDC5F91">
             <File Id="Microsoft.PowerShell.Management.psd1_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\runtimes\win\lib\netcoreapp3.1\Modules\Microsoft.PowerShell.Management\Microsoft.PowerShell.Management.psd1" Name="Microsoft.PowerShell.Management.psd1" />
         </Component>
     </ComponentGroup>
 
     <ComponentGroup Id="Microsoft.PowerShell.Security_1Files" Directory="Microsoft.PowerShell.Security_1">
-        <Component Id="Microsoft.PowerShell.Security.psd1_1" Guid="4509DA49-71F0-4C3D-A471-F3CBF642803E">
+        <Component Id="Microsoft.PowerShell.Security.psd1_1" Guid="05D027B1-CE89-4B5E-A4BE-CAA60843F12F">
             <File Id="Microsoft.PowerShell.Security.psd1_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\runtimes\win\lib\netcoreapp3.1\Modules\Microsoft.PowerShell.Security\Microsoft.PowerShell.Security.psd1" Name="Microsoft.PowerShell.Security.psd1" />
         </Component>
     </ComponentGroup>
 
     <ComponentGroup Id="Microsoft.PowerShell.Utility_1Files" Directory="Microsoft.PowerShell.Utility_1">
-        <Component Id="Microsoft.PowerShell.Utility.psd1_1" Guid="6A0A23B5-B6B5-4EA5-9478-9953B31185CE">
+        <Component Id="Microsoft.PowerShell.Utility.psd1_1" Guid="A15BC6F0-C15A-4562-BF96-7E2805BC02D3">
             <File Id="Microsoft.PowerShell.Utility.psd1_1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\runtimes\win\lib\netcoreapp3.1\Modules\Microsoft.PowerShell.Utility\Microsoft.PowerShell.Utility.psd1" Name="Microsoft.PowerShell.Utility.psd1" />
         </Component>
     </ComponentGroup>
 
     <ComponentGroup Id="Microsoft.WSMan.ManagementFiles" Directory="Microsoft.WSMan.Management">
-        <Component Id="Microsoft.WSMan.Management.psd1" Guid="97B73E61-1E9B-4FC2-ACAA-94144F767FF9">
+        <Component Id="Microsoft.WSMan.Management.psd1" Guid="AFE8575C-AAA7-4E87-8B2A-60CEC3F6BD7A">
             <File Id="Microsoft.WSMan.Management.psd1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\runtimes\win\lib\netcoreapp3.1\Modules\Microsoft.WSMan.Management\Microsoft.WSMan.Management.psd1" Name="Microsoft.WSMan.Management.psd1" />
         </Component>
 
-        <Component Id="WSMan.format.ps1xml" Guid="0A3832DD-99ED-4BE7-B157-C224F1ECC1AB">
+        <Component Id="WSMan.format.ps1xml" Guid="30A5E6C7-33F5-46C6-BE82-20F2BE85F205">
             <File Id="WSMan.format.ps1xml" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\runtimes\win\lib\netcoreapp3.1\Modules\Microsoft.WSMan.Management\WSMan.format.ps1xml" Name="WSMan.format.ps1xml" />
         </Component>
     </ComponentGroup>
-    
+
     <ComponentGroup Id="PSDiagnosticsFiles" Directory="PSDiagnostics">
-        <Component Id="PSDiagnostics.psd1" Guid="0AFF62CA-9F30-49B1-B5E8-5FE88F7F881A">
+        <Component Id="PSDiagnostics.psd1" Guid="3B18692A-BC6D-4984-8B60-C9A819859E54">
             <File Id="PSDiagnostics.psd1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\runtimes\win\lib\netcoreapp3.1\Modules\PSDiagnostics\PSDiagnostics.psd1" Name="PSDiagnostics.psd1" />
         </Component>
 
-        <Component Id="PSDiagnostics.psm1" Guid="C73E118A-4926-4B7F-8538-D63AA1B13439">
+        <Component Id="PSDiagnostics.psm1" Guid="727BC421-191B-4235-9C2F-AF292AE7F467">
             <File Id="PSDiagnostics.psm1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\runtimes\win\lib\netcoreapp3.1\Modules\PSDiagnostics\PSDiagnostics.psm1" Name="PSDiagnostics.psm1" />
         </Component>
     </ComponentGroup>

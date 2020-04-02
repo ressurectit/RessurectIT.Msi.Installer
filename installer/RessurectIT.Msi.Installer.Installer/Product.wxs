@@ -17,6 +17,12 @@
                       BinaryKey="RessurectIT.Msi.Installer.CustomActions.CA.dll"
                       DllEntry="UpdateConfigPrepareData"/>
 
+        <CustomAction Id="ObtainDefaultConfiguration"
+                      Return="check"
+                      Execute="immediate"
+                      BinaryKey="RessurectIT.Msi.Installer.CustomActions.CA.dll"
+                      DllEntry="ObtainDefaultConfiguration"/>
+
         <CustomAction Id="UpdateConfig"
                       Return="check"
                       Execute="deferred"
@@ -57,15 +63,17 @@
 
         <InstallUISequence>
             <Custom Action="SetRootDrive" Before="AppSearch" />
+            <Custom Action="ObtainDefaultConfiguration" After="AppSearch"><![CDATA[NOT REMOVE]]></Custom>
         </InstallUISequence>
 
         <InstallExecuteSequence>
             <Custom Action="SetRootDrive" Before="AppSearch" />
+            <Custom Action="ObtainDefaultConfiguration" After="AppSearch"><![CDATA[NOT REMOVE AND UILevel <> 5]]></Custom>
             <Custom Action="UpdateConfigPrepareData" After="InstallFiles"><![CDATA[NOT REMOVE]]></Custom>
             <Custom Action="UpdateConfig" After="UpdateConfigPrepareData"><![CDATA[NOT REMOVE]]></Custom>
         </InstallExecuteSequence>
 
-        <!-- <UI Id="MyWixUI_Mondo">
+        <UI Id="MyWixUI_Mondo">
             <UIRef Id="WixUI_Mondo" />
 
             <DialogRef Id="ConfigurationDlg" />
@@ -74,7 +82,7 @@
             <Publish Dialog="SetupTypeDlg" Control="Back" Event="NewDialog" Value="ConfigurationDlg">1</Publish>
         </UI>
 
-        <UIRef Id="WixUI_ErrorProgressText" /> -->
+        <UIRef Id="WixUI_ErrorProgressText" />
     </Product>
 
     <Fragment>

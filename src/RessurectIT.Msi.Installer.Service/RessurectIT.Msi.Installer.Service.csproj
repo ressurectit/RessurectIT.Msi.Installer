@@ -10,6 +10,7 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
+        <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
     </PropertyGroup>
 
     <!-- NUGET DEPENDENCIES -->

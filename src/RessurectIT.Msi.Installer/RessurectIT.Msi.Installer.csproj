@@ -53,4 +53,9 @@
         <PackageReference Include="Serilog.Sinks.File" Version="$(SerilogSinksFile)" />
         <PackageReference Include="Superpower" Version="$(Superpower)" />
     </ItemGroup>
+
+    <!-- EXPORT VERSION NUMBER -->
+    <Target Name="ExportVersion" AfterTargets="Build">
+        <Exec Command="echo $(Version) &gt; $(ProjectDir)\version.txt" />
+    </Target>
 </Project>

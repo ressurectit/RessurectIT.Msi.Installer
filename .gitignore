@@ -1,9 +1,11 @@
 obj/
 bin/
 Logs/
+out/
 .include
 .vs
 .utils/*.wxs
+version.txt
 *~
 *.log
 *.user

@@ -11,6 +11,7 @@
     <!-- BUILD OPTIONS -->
     <PropertyGroup>
         <OutDir>bin</OutDir>
+        <Configurations>Debug;Release;DebugInstaller;ReleaseInstaller</Configurations>
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>

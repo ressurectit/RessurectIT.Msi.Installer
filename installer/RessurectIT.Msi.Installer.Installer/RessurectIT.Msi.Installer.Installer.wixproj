@@ -18,6 +18,15 @@
     <OutputPath>bin\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugInstaller|x86' ">
+    <DefineConstants>Debug</DefineConstants>
+    <OutputPath>bin\</OutputPath>
+    <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseInstaller|x86' ">
+    <OutputPath>bin\</OutputPath>
+    <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <WixExtension Include="WixUIExtension">
       <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
@@ -50,6 +59,25 @@
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />
   <Target Name="EnsureWixToolsetInstalled" Condition=" '$(WixTargetsImported)' != 'true' ">
     <Error Text="The WiX Toolset v3.11 (or newer) build tools must be installed to build this project. To download the WiX Toolset, see http://wixtoolset.org/releases/" />
+  </Target>
+  <Target Name="BuildAppAndGetVersion" BeforeTargets="PrepareForBuild">
+    <RemoveDir Directories="$(ProjectDir)..\..\src\RessurectIT.Msi.Installer.Service\out" />
+    
+    <PropertyGroup>
+      <AppBuildConfig>Release</AppBuildConfig>
+      <AppBuildConfig Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'DebugInstaller'">Debug</AppBuildConfig>
+      <AppBuildConfig Condition="'$(Configuration)' == 'Release' Or '$(Configuration)' == 'ReleaseInstaller'">Release</AppBuildConfig>
+    </PropertyGroup>
+
+    <Exec Command="dotnet publish -c $(AppBuildConfig) -r win7-x64 -o out" WorkingDirectory="$(ProjectDir)..\..\src\RessurectIT.Msi.Installer.Service" />
+
+    <Exec Command="type version.txt" ConsoleToMSBuild="true" WorkingDirectory="$(ProjectDir)..\..\src\RessurectIT.Msi.Installer">
+      <Output TaskParameter="ConsoleOutput" PropertyName="AppVersion" />
+    </Exec>
+
+    <PropertyGroup>
+      <TargetName>$(TargetName)-$(AppVersion)</TargetName>
+    </PropertyGroup>
   </Target>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.

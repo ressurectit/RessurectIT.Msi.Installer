@@ -58,12 +58,16 @@ namespace RessurectIT.Msi.Installer.Installer
         /// <param name="stopCallback">Callback called when there is need to stop installer itself</param>
         public async Task Install(IMsiUpdate update, Action stopCallback)
         {
+            _logger.LogDebug("Running MSI install for '{id}', version: {version}", update.Id, update.Version);
+
             string logPath = Path.Combine(Directory.GetCurrentDirectory(), "msiexec-install.log");
 
             try
             {
+                bool selfUpgrade = IsRessurectITMsiInstallerMsi(update);
+
                 //self update and same or older version
-                if (IsRessurectITMsiInstallerMsi(update) && Assembly.GetExecutingAssembly().GetName().Version >= new Version(update.Version))
+                if (selfUpgrade && Assembly.GetExecutingAssembly().GetName().Version >= new Version(update.Version))
                 {
                     return;
                 }
@@ -80,10 +84,13 @@ namespace RessurectIT.Msi.Installer.Installer
                 process.Start();
 
                 //self update initiated
-                if (IsRessurectITMsiInstallerMsi(update))
+                if (selfUpgrade)
                 {
                     stopCallback();
-                    Process.GetCurrentProcess().Kill();
+
+                    _logger.LogInformation("Self upgrade in process, stopping installer app.");
+
+                    Environment.Exit(0);
                 }
 
                 await Task.Factory.StartNew(() => process.WaitForExit(_config.MsiInstallTimeout));
@@ -113,6 +120,8 @@ namespace RessurectIT.Msi.Installer.Installer
         /// <param name="update">Information about update that should be installed</param>
         public async Task Uninstall(IMsiUpdate update)
         {
+            _logger.LogDebug("Running MSI uninstall for '{id}', version: {version}", update.Id, update.Version);
+
             if (string.IsNullOrEmpty(update.UninstallProductCode))
             {
                 _logger.LogInformation("No product code was specified");
@@ -157,7 +166,7 @@ namespace RessurectIT.Msi.Installer.Installer
         /// </summary>
         /// <param name="update">Information about update that should be installed</param>
         /// <returns>True if provided MSI is for RessurectIT.Msi.Installer</returns>
-        public bool IsRessurectITMsiInstallerMsi(IMsiUpdate update)
+        public static bool IsRessurectITMsiInstallerMsi(IMsiUpdate update)
         {
             string upgradeCode = GetMsiProperty("UpgradeCode", update.MsiPath);
 

@@ -98,7 +98,11 @@ namespace RessurectIT.Msi.Installer.Gatherer
             {
                 try
                 {
-                    updates = JsonConvert.DeserializeObject<Dictionary<string, MsiUpdate>>(result.Content.ReadAsStringAsync().Result) ?? new Dictionary<string, MsiUpdate>();
+                    string body = result.Content.ReadAsStringAsync().Result;
+
+                    _logger.LogDebug("Available updates: '{body}'", body);
+
+                    updates = JsonConvert.DeserializeObject<Dictionary<string, MsiUpdate>>(body) ?? new Dictionary<string, MsiUpdate>();
                 }
                 catch (Exception e)
                 {
@@ -163,6 +167,8 @@ namespace RessurectIT.Msi.Installer.Gatherer
 
                     return true;
                 }).ToArray();
+
+            _logger.LogDebug("Preprocessed new updates {@newUpdates}", (object)newUpdates);
 
             return (from update in newUpdates
                     join installedUpdateIdJoin in installedUpdates.Keys on update.Id equals installedUpdateIdJoin into installedUpdatesIds

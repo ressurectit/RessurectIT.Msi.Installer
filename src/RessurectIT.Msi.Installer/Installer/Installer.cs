@@ -163,6 +163,8 @@ namespace RessurectIT.Msi.Installer.Installer
         {
             if (_config is AppConfig config)
             {
+                _logger.LogDebug("Installing update from protocol request");
+
                 if (string.IsNullOrEmpty(config.Request))
                 {
                     _logger.LogWarning("Unable to install from 'msiinstall:// protocol!' Missing Request!");

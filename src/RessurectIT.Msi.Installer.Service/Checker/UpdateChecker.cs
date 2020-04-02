@@ -14,6 +14,7 @@ using RessurectIT.Msi.Installer.Configuration;
 using RessurectIT.Msi.Installer.Gatherer;
 using RessurectIT.Msi.Installer.Installer.Dto;
 using static RessurectIT.Msi.Installer.Program;
+using static RessurectIT.Msi.Installer.Installer.WindowsInstaller;
 
 namespace RessurectIT.Msi.Installer.Checker
 {
@@ -46,6 +47,11 @@ namespace RessurectIT.Msi.Installer.Checker
         private readonly ServiceConfig _config;
 
         /// <summary>
+        /// Service used for stopping windows service
+        /// </summary>
+        private readonly StopService.StopService _stopService;
+
+        /// <summary>
         /// Serializer settings used for serialization data to response
         /// </summary>
         private readonly JsonSerializerSettings _jsonSerializerSettings;
@@ -60,14 +66,17 @@ namespace RessurectIT.Msi.Installer.Checker
         /// <param name="serviceProvider">Service provider used for obtaining dependencies</param>
         /// <param name="logger">Logger used for logging</param>
         /// <param name="config">Service configuration</param>
+        /// <param name="stopService">Service used for stopping windows service</param>
         public UpdateChecker(IServiceProvider serviceProvider,
                              ILogger<UpdateChecker> logger,
-                             ServiceConfig config)
+                             ServiceConfig config,
+                             StopService.StopService stopService)
         {
             _serviceProvider = serviceProvider;
             _logger = logger;
             _timer = new Timer(config.CheckInterval);
             _config = config;
+            _stopService = stopService;
 
             DefaultContractResolver contractResolver = new DefaultContractResolver
             {
@@ -132,15 +141,23 @@ namespace RessurectIT.Msi.Installer.Checker
             HttpGatherer gatherer = scope.ServiceProvider.GetService<HttpGatherer>();
             IMsiUpdate[] newUpdates = gatherer.CheckForUpdates(true);
 
+            _logger.LogDebug("Found auto install updates: {@newUpdates}", (object)newUpdates);
+
             foreach (IMsiUpdate update in newUpdates)
             {
                 if (_config.LocalServer)
                 {
-                    await Install(update);
+                    if (!await Install(update))
+                    {
+                        break;
+                    }
                 }
                 else
                 {
-                    InstallAsLoggedUser(update);
+                    if (!InstallAsLoggedUser(update))
+                    {
+                        break;
+                    }
                 }
             }
         }
@@ -149,7 +166,7 @@ namespace RessurectIT.Msi.Installer.Checker
         /// Installs update as logged user
         /// </summary>
         /// <param name="update">Update to be installed</param>
-        private void InstallAsLoggedUser(IMsiUpdate update)
+        private bool InstallAsLoggedUser(IMsiUpdate update)
         {
             SECURITY_ATTRIBUTES sa = new SECURITY_ATTRIBUTES();
             sa.nLength = Marshal.SizeOf(sa);
@@ -165,7 +182,7 @@ namespace RessurectIT.Msi.Installer.Checker
             {
                 _logger.LogWarning("There is no available user logged in for '{updateId}' update", update.Id);
 
-                return;
+                return true;
             }
 
             bool result = WinApi.OpenProcessToken(runningProcess.Handle, WinApi.TOKEN_ALL_ACCESS, out IntPtr token);
@@ -174,7 +191,7 @@ namespace RessurectIT.Msi.Installer.Checker
             {
                 _logger.LogError("Failed to obtain user token, error code '{code}'", WinApi.GetLastError());
 
-                return;
+                return true;
             }
 
             string cmdLine = Path.Combine(Directory.GetCurrentDirectory(), @$"RessurectIT.Msi.Installer.exe --request ""{SerializeUpdate(update, _jsonSerializerSettings)}""");
@@ -191,11 +208,13 @@ namespace RessurectIT.Msi.Installer.Checker
                                                 ref si,
                                                 out PROCESS_INFORMATION pi);
 
+            _logger.LogDebug("New process as logged user started successfully: {result}", result);
+
             if (!result)
             {
                 _logger.LogError("Failed to create process as user, error code '{code}'", WinApi.GetLastError());
 
-                return;
+                return true;
             }
 
             result = WinApi.CloseHandle(token);
@@ -204,7 +223,7 @@ namespace RessurectIT.Msi.Installer.Checker
             {
                 _logger.LogError("Failed to close handle for user token, error code '{code}'", WinApi.GetLastError());
 
-                return;
+                return true;
             }
 
             result = WinApi.CloseHandle(pi.hThread);
@@ -213,7 +232,7 @@ namespace RessurectIT.Msi.Installer.Checker
             {
                 _logger.LogError("Failed to close handle for pi, error code '{code}'", WinApi.GetLastError());
 
-                return;
+                return true;
             }
 
             result = WinApi.CloseHandle(pi.hProcess);
@@ -222,13 +241,23 @@ namespace RessurectIT.Msi.Installer.Checker
             {
                 _logger.LogError("Failed to close handle for pi, error code '{code}'", WinApi.GetLastError());
             }
+
+            //stop service in case of self upgrade
+            if (IsRessurectITMsiInstallerMsi(update))
+            {
+                _stopService.StopCallback?.Invoke();
+
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>
         /// Installs update as current user
         /// </summary>
         /// <param name="update">Update to be installed</param>
-        private async Task Install(IMsiUpdate update)
+        private async Task<bool> Install(IMsiUpdate update)
         {
             Process process = new Process
             {
@@ -239,9 +268,21 @@ namespace RessurectIT.Msi.Installer.Checker
                 }
             };
 
-            process.Start();
+            bool result = process.Start();
+
+            //stop service in case of self upgrade
+            if (IsRessurectITMsiInstallerMsi(update))
+            {
+                _stopService.StopCallback?.Invoke();
+
+                return false;
+            }
             
+            _logger.LogDebug("New process started successfully: {result}", result);
+
             await Task.Factory.StartNew(() => process.WaitForExit(_config.MsiInstallTimeout));
+
+            return true;
         }
         #endregion
     }

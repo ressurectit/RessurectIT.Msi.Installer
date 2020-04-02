@@ -165,7 +165,13 @@ namespace RessurectIT.Msi.Installer
 
             DispatcherUnhandledException += (sender, args) =>
             {
-                //TODO - do write to file as log
+                try
+                {
+                    File.AppendAllText("Logs/unhandledErrors.log", $"[{DateTime.Now:s}] {args.Exception}");
+                }
+                catch
+                {
+                }
             };
 
             Config = appConfigObj;

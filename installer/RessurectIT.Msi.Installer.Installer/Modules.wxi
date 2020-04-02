@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+    <ComponentGroup Id="Microsoft.PowerShell.HostFiles" Directory="Microsoft.PowerShell.Host">
+        <Component Id="Microsoft.PowerShell.Host.psd1" Guid="8DAA7A54-2ECA-4F52-9916-DC0EFDE2CFF6">
+            <File Id="Microsoft.PowerShell.Host.psd1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\runtimes\unix\lib\netcoreapp3.1\Modules\Microsoft.PowerShell.Host\Microsoft.PowerShell.Host.psd1" Name="Microsoft.PowerShell.Host.psd1" />
+        </Component>
+    </ComponentGroup>
+    
+    <ComponentGroup Id="Microsoft.PowerShell.ManagementFiles" Directory="Microsoft.PowerShell.Management">
+        <Component Id="Microsoft.PowerShell.Management.psd1" Guid="4BE50A3A-842D-4768-BFCC-EE526326A510">
+            <File Id="Microsoft.PowerShell.Management.psd1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\runtimes\unix\lib\netcoreapp3.1\Modules\Microsoft.PowerShell.Management\Microsoft.PowerShell.Management.psd1" Name="Microsoft.PowerShell.Management.psd1" />
+        </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="Microsoft.PowerShell.SecurityFiles" Directory="Microsoft.PowerShell.Security">
+        <Component Id="Microsoft.PowerShell.Security.psd1" Guid="A0985C1D-471A-4E64-B22D-3D890F6E97A4">
+            <File Id="Microsoft.PowerShell.Security.psd1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\runtimes\unix\lib\netcoreapp3.1\Modules\Microsoft.PowerShell.Security\Microsoft.PowerShell.Security.psd1" Name="Microsoft.PowerShell.Security.psd1" />
+        </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="Microsoft.PowerShell.UtilityFiles" Directory="Microsoft.PowerShell.Utility">
+        <Component Id="Microsoft.PowerShell.Utility.psd1" Guid="B973C882-D25F-4DAA-AEBC-984951592E1E">
+            <File Id="Microsoft.PowerShell.Utility.psd1" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\runtimes\unix\lib\netcoreapp3.1\Modules\Microsoft.PowerShell.Utility\Microsoft.PowerShell.Utility.psd1" Name="Microsoft.PowerShell.Utility.psd1" />
+        </Component>
+    </ComponentGroup>
+</Include>

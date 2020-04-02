@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+    <ComponentGroup Id="trFiles" Directory="tr">
+        <Component Id="Microsoft.CodeAnalysis.CSharp.resources.dll_10" Guid="24EBFE3E-2D34-41FC-9EC1-0A5E30A08FF3">
+            <File Id="Microsoft.CodeAnalysis.CSharp.resources.dll_10" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\tr\Microsoft.CodeAnalysis.CSharp.resources.dll" Name="Microsoft.CodeAnalysis.CSharp.resources.dll" />
+        </Component>
+
+        <Component Id="Microsoft.CodeAnalysis.resources.dll_10" Guid="B10CD438-0C3B-4B57-882E-31BDABE15EF8">
+            <File Id="Microsoft.CodeAnalysis.resources.dll_10" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\tr\Microsoft.CodeAnalysis.resources.dll" Name="Microsoft.CodeAnalysis.resources.dll" />
+        </Component>
+
+        <Component Id="PresentationCore.resources.dll_10" Guid="450743FF-E43A-4BA6-8E55-6AC86FA5405C">
+            <File Id="PresentationCore.resources.dll_10" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\tr\PresentationCore.resources.dll" Name="PresentationCore.resources.dll" />
+        </Component>
+
+        <Component Id="PresentationFramework.resources.dll_10" Guid="8DDA54B0-DAD1-4CAE-8EC4-8B6D9E8D8AC7">
+            <File Id="PresentationFramework.resources.dll_10" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\tr\PresentationFramework.resources.dll" Name="PresentationFramework.resources.dll" />
+        </Component>
+
+        <Component Id="PresentationUI.resources.dll_10" Guid="D9848DD0-9165-4EC2-801B-EC2209E2CD1E">
+            <File Id="PresentationUI.resources.dll_10" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\tr\PresentationUI.resources.dll" Name="PresentationUI.resources.dll" />
+        </Component>
+
+        <Component Id="ReachFramework.resources.dll_10" Guid="2D50C5F2-A177-40EB-9D87-4C895A96E32E">
+            <File Id="ReachFramework.resources.dll_10" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\tr\ReachFramework.resources.dll" Name="ReachFramework.resources.dll" />
+        </Component>
+
+        <Component Id="System.Printing.resources.dll_10" Guid="8951D137-B8F7-4378-A774-DD31410753AE">
+            <File Id="System.Printing.resources.dll_10" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\tr\System.Printing.resources.dll" Name="System.Printing.resources.dll" />
+        </Component>
+
+        <Component Id="System.Windows.Controls.Ribbon.resources.dll_10" Guid="40413237-8AEA-4091-948E-DF93C6936834">
+            <File Id="System.Windows.Controls.Ribbon.resources.dll_10" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\tr\System.Windows.Controls.Ribbon.resources.dll" Name="System.Windows.Controls.Ribbon.resources.dll" />
+        </Component>
+
+        <Component Id="System.Windows.Forms.Design.Editors.resources.dll_10" Guid="71788DBE-C087-4E5A-BBF8-C5E9E96A59FB">
+            <File Id="System.Windows.Forms.Design.Editors.resources.dll_10" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\tr\System.Windows.Forms.Design.Editors.resources.dll" Name="System.Windows.Forms.Design.Editors.resources.dll" />
+        </Component>
+
+        <Component Id="System.Windows.Forms.Design.resources.dll_10" Guid="089B584F-7AC6-432C-8B0F-E7365073C9A7">
+            <File Id="System.Windows.Forms.Design.resources.dll_10" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\tr\System.Windows.Forms.Design.resources.dll" Name="System.Windows.Forms.Design.resources.dll" />
+        </Component>
+
+        <Component Id="System.Windows.Forms.resources.dll_10" Guid="D71DFF25-660D-4882-BD3D-092E3200B848">
+            <File Id="System.Windows.Forms.resources.dll_10" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\tr\System.Windows.Forms.resources.dll" Name="System.Windows.Forms.resources.dll" />
+        </Component>
+
+        <Component Id="System.Windows.Input.Manipulations.resources.dll_10" Guid="691139C6-D32E-4B7A-B216-9B9E6957DC75">
+            <File Id="System.Windows.Input.Manipulations.resources.dll_10" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\tr\System.Windows.Input.Manipulations.resources.dll" Name="System.Windows.Input.Manipulations.resources.dll" />
+        </Component>
+
+        <Component Id="System.Xaml.resources.dll_10" Guid="85FE4EA8-1F5A-40AE-8BBC-457CD27E365F">
+            <File Id="System.Xaml.resources.dll_10" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\tr\System.Xaml.resources.dll" Name="System.Xaml.resources.dll" />
+        </Component>
+
+        <Component Id="UIAutomationClient.resources.dll_10" Guid="03094B82-DBF1-40C2-9DB8-BC26D148DDF6">
+            <File Id="UIAutomationClient.resources.dll_10" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\tr\UIAutomationClient.resources.dll" Name="UIAutomationClient.resources.dll" />
+        </Component>
+
+        <Component Id="UIAutomationClientSideProviders.resources.dll_10" Guid="1C04A00C-3D1B-409E-8AE8-DAAD0FDACF1B">
+            <File Id="UIAutomationClientSideProviders.resources.dll_10" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\tr\UIAutomationClientSideProviders.resources.dll" Name="UIAutomationClientSideProviders.resources.dll" />
+        </Component>
+
+        <Component Id="UIAutomationProvider.resources.dll_10" Guid="D000B13F-E0FA-40F5-99F1-E2EFE19C1323">
+            <File Id="UIAutomationProvider.resources.dll_10" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\tr\UIAutomationProvider.resources.dll" Name="UIAutomationProvider.resources.dll" />
+        </Component>
+
+        <Component Id="UIAutomationTypes.resources.dll_10" Guid="B11E06D9-7D82-4235-9606-89A9550F0465">
+            <File Id="UIAutomationTypes.resources.dll_10" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\tr\UIAutomationTypes.resources.dll" Name="UIAutomationTypes.resources.dll" />
+        </Component>
+
+        <Component Id="WindowsBase.resources.dll_10" Guid="5AC6506B-86D1-45F3-A7B4-49DC940176AD">
+            <File Id="WindowsBase.resources.dll_10" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\tr\WindowsBase.resources.dll" Name="WindowsBase.resources.dll" />
+        </Component>
+
+        <Component Id="WindowsFormsIntegration.resources.dll_10" Guid="3A6AEC19-03BB-4731-81AF-06EA373457A9">
+            <File Id="WindowsFormsIntegration.resources.dll_10" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\tr\WindowsFormsIntegration.resources.dll" Name="WindowsFormsIntegration.resources.dll" />
+        </Component>
+    </ComponentGroup>
+</Include>

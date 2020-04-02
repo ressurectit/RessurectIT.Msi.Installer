@@ -245,6 +245,8 @@ namespace RessurectIT.Msi.Installer.Checker
             //stop service in case of self upgrade
             if (IsRessurectITMsiInstallerMsi(update))
             {
+                _logger.LogInformation("Self upgrade detected, shutting down service!");
+
                 _stopService.StopCallback?.Invoke();
 
                 return false;
@@ -273,6 +275,8 @@ namespace RessurectIT.Msi.Installer.Checker
             //stop service in case of self upgrade
             if (IsRessurectITMsiInstallerMsi(update))
             {
+                _logger.LogInformation("Self upgrade detected, shutting down service!");
+
                 _stopService.StopCallback?.Invoke();
 
                 return false;

@@ -69,6 +69,8 @@ namespace RessurectIT.Msi.Installer.Installer
                 //self update and same or older version
                 if (selfUpgrade && Assembly.GetExecutingAssembly().GetName().Version >= new Version(update.Version))
                 {
+                    _logger.LogInformation("Self upgrade of older or same version detected. Version {version}", update.Version);
+
                     return;
                 }
 
@@ -88,7 +90,7 @@ namespace RessurectIT.Msi.Installer.Installer
                 {
                     stopCallback();
 
-                    _logger.LogInformation("Self upgrade in process, stopping installer app.");
+                    _logger.LogInformation("Self upgrade in process, stopping installer app. Version {version}", update.Version);
 
                     Environment.Exit(0);
                 }
@@ -121,6 +123,14 @@ namespace RessurectIT.Msi.Installer.Installer
         public async Task Uninstall(IMsiUpdate update)
         {
             _logger.LogDebug("Running MSI uninstall for '{id}', version: {version}", update.Id, update.Version);
+
+            //self update and same or older version
+            if (IsRessurectITMsiInstallerMsi(update))
+            {
+                _logger.LogInformation("Uninstall for self upgrade is not possible.");
+
+                return;
+            }
 
             if (string.IsNullOrEmpty(update.UninstallProductCode))
             {

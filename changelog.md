@@ -3,6 +3,7 @@
 ## Version 2.0.0
 
 - complete refactoring of application
+- added support for visual MSI installator for this application
 - application split into two projects
    - two new executables *RessurectIT.Msi.Installer* and *RessurectIT.Msi.Installer.Service*
    - *RessurectIT.Msi.Installer* works as executable which performs installation of msi itself (including running process handling, uninstall, install and starting new process)

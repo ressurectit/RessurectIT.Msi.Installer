@@ -1,6 +1,7 @@
 ﻿{
     "Urls": "http://localhost:8765",
     "UpdatesJsonUrl": "http://localhost:8888/updates.json",
+    "AllowSameVersion": false, 
     "CheckInterval": 300000,
     "Progress": "App",
     "Serilog":
@@ -16,7 +17,7 @@
         ],
         "MinimumLevel":
         {
-            "Default": "Verbose",
+            "Default": "Information",
             "Override":
             {
                 "System": "Error"

@@ -9,7 +9,7 @@
             <![CDATA[Privileged]]>
         </Condition>
 
-        <!-- <Binary Id="RessurectIT.Msi.Installer.CustomActions.CA.dll" SourceFile="$(var.RessurectIT.Msi.Installer.Installer.CustomActions.TargetDir)RessurectIT.Msi.Installer.Installer.CustomActions.CA.dll" />
+        <Binary Id="RessurectIT.Msi.Installer.CustomActions.CA.dll" SourceFile="$(var.RessurectIT.Msi.Installer.Installer.CustomActions.TargetDir)RessurectIT.Msi.Installer.Installer.CustomActions.CA.dll" />
 
         <CustomAction Id="UpdateConfigPrepareData"
                       Return="check"
@@ -21,7 +21,7 @@
                       Return="check"
                       Execute="deferred"
                       BinaryKey="RessurectIT.Msi.Installer.CustomActions.CA.dll"
-                      DllEntry="UpdateConfig"/> -->
+                      DllEntry="UpdateConfig"/>
 
         <CustomAction Id="SetRootDrive" Property="CROOT" Value="C:\RessurectIT" />
 
@@ -41,6 +41,7 @@
                      Absent="disallow"
                      InstallDefault="local">
                 <ComponentGroupRef Id="MsiInstallerFiles" />
+                <ComponentGroupRef Id="MsiInstallerRegistrations" />
                 <ComponentRef Id="InstallFolderPermissions" />
                 <ComponentRef Id="MsiInstallerLogFolderPermissions" />
             </Feature>
@@ -60,8 +61,8 @@
 
         <InstallExecuteSequence>
             <Custom Action="SetRootDrive" Before="AppSearch" />
-            <!-- <Custom Action="UpdateConfigPrepareData" After="InstallFiles"><![CDATA[NOT REMOVE]]></Custom>
-            <Custom Action="UpdateConfig" After="UpdateConfigPrepareData"><![CDATA[NOT REMOVE]]></Custom> -->
+            <Custom Action="UpdateConfigPrepareData" After="InstallFiles"><![CDATA[NOT REMOVE]]></Custom>
+            <Custom Action="UpdateConfig" After="UpdateConfigPrepareData"><![CDATA[NOT REMOVE]]></Custom>
         </InstallExecuteSequence>
 
         <!-- <UI Id="MyWixUI_Mondo">
@@ -215,5 +216,39 @@
                 </CreateFolder>
             </Component>
         </DirectoryRef>
+
+        <ComponentGroup Id="MsiInstallerRegistrations" Directory="INSTALLFOLDER">
+            <Component Id="MsiInstallerProtocolRegistration" Guid="876AB6D3-D71F-4A04-8AA0-0BB1BEDDD508">
+                <RegistryValue Id="MsiInstallerProtocolRootRegistry"
+                               Root="HKCR"
+                               Action="write"
+                               Key="msiinstall"
+                               Value="URL:msiinstall Protocol"
+                               Type="string" />
+
+                <RegistryValue Id="MsiInstallerProtocolUrlRegistry"
+                               Root="HKCR"
+                               Action="write"
+                               Key="msiinstall"
+                               Name="URL Protocol"
+                               Value=""
+                               Type="string" />
+
+                <RegistryValue Id="MsiInstallerProtocolCommandRegistry"
+                               Root="HKCR"
+                               Action="write"
+                               Key="msiinstall\shell\open\command"
+                               Value="&quot;[INSTALLFOLDER]RessurectIT.Msi.Installer.exe&quot; --request &quot;%1&quot;"
+                               Type="string" />
+            </Component>
+
+            <!-- <Component Id="MsiInstallerUrlReservation" Guid="E62D3289-4CBF-42EB-A504-C5C8E9C8AD0E">
+                <CreateFolder/>
+
+                <http:UrlReservation Url="http://+:[SRV_PORT]/" HandleExisting="fail">
+                    <http:UrlAce SecurityPrincipal="Everyone" Rights="all" />
+                </http:UrlReservation>
+            </Component> -->
+        </ComponentGroup>
     </Fragment>
 </Wix>

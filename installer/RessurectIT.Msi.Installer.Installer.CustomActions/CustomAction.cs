@@ -41,6 +41,11 @@ namespace RessurectIT.Msi.Installer.Installer.CustomActions
         /// Name of ALLOW_SAME_VERSION property
         /// </summary>
         private const string PropAllowSameVersion = "ALLOW_SAME_VERSION";
+
+        /// <summary>
+        /// Name of PROGRESS_TYPE property
+        /// </summary>
+        private const string PropProgressType = "PROGRESS_TYPE";
         #endregion
 
 
@@ -63,11 +68,12 @@ namespace RessurectIT.Msi.Installer.Installer.CustomActions
         [CustomAction]
         public static ActionResult UpdateConfig(Session session)
         {
-            string configPath = $"{session.CustomActionData[ConfigFolder]}RessurectIT.Msi.Installer.config.json";
+            string configPath = $"{session.CustomActionData[ConfigFolder]}config.json";
             string updatesJsonUrl = session.CustomActionData[PropUpdatesJsonUrl];
             string checkInterval = session.CustomActionData[PropCheckInterval];
             string remoteLogRestUrl = session.CustomActionData[PropRemoteLogRestUrl];
             string allowSameVersion = session.CustomActionData[PropAllowSameVersion];
+            string progressType = session.CustomActionData[PropProgressType];
 
             session.Log("Begin UpdateConfig");
             session.Log($"Configuration path is '{configPath}'");
@@ -111,8 +117,14 @@ namespace RessurectIT.Msi.Installer.Installer.CustomActions
                 {
                     session.Log("Setting allow same version to true.");
 
-                    configContent = Regex.Replace(configContent, @"""Serilog"":", @"""AllowSameVersion"": true,
-    ""Serilog"":", RegexOptions.Singleline);
+                    configContent = Regex.Replace(configContent, @"""AllowSameVersion"": .*?,", $@"""AllowSameVersion"": true,", RegexOptions.Singleline);
+                }
+
+                if (!string.IsNullOrEmpty(progressType))
+                {
+                    session.Log($"Setting progress type to value '{progressType}'");
+
+                    configContent = Regex.Replace(configContent, @"""Progress"": "".*?""", $@"""Progress"": ""{progressType}""", RegexOptions.Singleline);
                 }
 
                 File.WriteAllText(configPath, configContent);
@@ -141,12 +153,22 @@ namespace RessurectIT.Msi.Installer.Installer.CustomActions
         {
             List<string> configProps = new List<string>
             {
-                $"INSTALLFOLDER={session.GetTargetPath(ConfigFolder)}",
-                $"UPDATE_JSON_URL={session[PropUpdatesJsonUrl]}",
-                $"CHECK_INTERVAL={session[PropCheckInterval]}",
-                $"REMOTE_LOG_REST_URL={session[PropRemoteLogRestUrl]}",
-                $"ALLOW_SAME_VERSION={session[PropAllowSameVersion]}"
+                $"{ConfigFolder}={session.GetTargetPath(ConfigFolder)}"
             };
+
+            string[] configPropsArr =
+            {
+                PropUpdatesJsonUrl,
+                PropCheckInterval,
+                PropRemoteLogRestUrl,
+                PropAllowSameVersion,
+                PropProgressType
+            };
+
+            foreach (string prop in configPropsArr)
+            {
+                configProps.Add($"{prop}={session[prop]}");
+            }
 
             session[PropUpdateConfig] = string.Join(";", configProps);
 

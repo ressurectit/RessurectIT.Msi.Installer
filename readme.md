@@ -8,11 +8,11 @@ Configuration is stored in `config.json`. Also configuration can be provided fro
 
 Configuration consist of 3 types of configurations. You can provide *default* **Asp.Net.Core** configuration here, **RessurectIT.Msi.Installer** configuration and **Serilog** logger configuration.
 
-### Asp.Net.Core
+### Asp.Net.Core configuration
 
 - `Urls` - Semicolon separater array of URLs at which is running server listenening.
 
-### RessurectIT.Msi.Installer
+### RessurectIT.Msi.Installer configuration
 
 - `UpdatesJsonUrl` - URL used for obtaining json containing available updates - *Default* `"http://localhost:8888/updates.json"`
 - `AllowSameVersion` - indication whether is same version allowed to be reinstalled. Same version, but different MSI must be provided, used during development. - *Default* `false`
@@ -50,3 +50,19 @@ Application provides several types of usage.
 - use it as remote http server which allows you to obtain available update for specified `id` using *REST* `<hostUrl>/update/<updateId>` which returns URI `msiinstall://<base64encodedupdatedata>`, this URI can be then opened as new process and it will automatically installs update, this allows your application to use it after user confirms update installation and gracefuly shut down application
 
 ## Installation
+
+### Installation using *msiexec*
+
+When using *msiexec.exe* for installation of application, (for example: msiexec /i RessurectIT.Msi.Installer-*.msi /q PARAMETER_NAME=PARAMETER_VALUE PARAMETER_NAME2=PARAMETER_VALUE2) where you can pass parameters for installation. Parameters are optional. If parameters are not provided, defaults will be used as mentioned in section **RessurectIT.Msi.Installer configuration**.
+
+Available parameters:
+ - INSTALLFOLDER - Path where should be application installed (example INSTALLFOLDER="C:\YourFolderPreference")
+ - UPDATE_JSON_URL - Sets `UpdatesJsonUrl` configuration parameter (example UPDATE_JSON_URL=http://localhost/updates.json)
+ - CHECK_INTERVAL - Sets `CheckInterval` configuration parameter (example CHECK_INTERVAL=900000)
+ - REMOTE_LOG_REST_URL - Sets `RemoteLogRestUrl` configuration parameter (example REMOTE_LOG_REST_URL=http://localhost/api/logs)
+ - ALLOW_SAME_VERSION - Sets `AllowSameVersion` configuration parameter (example ALLOW_SAME_VERSION=1)
+ - PROGRESS_TYPE - Sets `Progress` configuration parameter (example PROGRESS_TYPE=None)
+
+ ### Installation using gui
+
+ When installing application using setup, you can set all values there.

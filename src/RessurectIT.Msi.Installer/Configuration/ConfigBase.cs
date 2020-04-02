@@ -41,7 +41,7 @@
         {
             get;
             set;
-        }
+        } = "App";
 
 #if DEBUG
         /// <summary>

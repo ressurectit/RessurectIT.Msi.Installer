@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Timers;
@@ -287,7 +288,7 @@ namespace RessurectIT.Msi.Installer.Checker
             }
 
             //stop service in case of self upgrade
-            if (IsRessurectITMsiInstallerMsi(update))
+            if (IsRessurectITMsiInstallerMsi(update) && Assembly.GetExecutingAssembly().GetName().Version < new Version(update.Version))
             {
                 _logger.LogInformation("Self upgrade detected, shutting down service!");
 
@@ -318,7 +319,7 @@ namespace RessurectIT.Msi.Installer.Checker
             bool result = process.Start();
 
             //stop service in case of self upgrade
-            if (IsRessurectITMsiInstallerMsi(update))
+            if (IsRessurectITMsiInstallerMsi(update) && Assembly.GetExecutingAssembly().GetName().Version < new Version(update.Version))
             {
                 _logger.LogInformation("Self upgrade detected, shutting down service!");
 

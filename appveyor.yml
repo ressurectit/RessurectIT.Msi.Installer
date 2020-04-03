@@ -1,0 +1,17 @@
+image: Visual Studio 2019
+
+environment:
+  nodejs_version: "11"
+
+init:
+  - ps: |
+      Install-Product node $env:nodejs_version
+
+install:
+  - cmd: .utils\fullClean.bat
+  - cmd: .utils\build.bat Debug
+
+build: off
+
+deploy_script:
+  - ps: Update-AppveyorBuild -Version "$(cat src/RessurectIT.Msi.Installer/version.txt)"

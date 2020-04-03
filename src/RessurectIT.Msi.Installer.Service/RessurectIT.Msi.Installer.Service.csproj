@@ -25,4 +25,10 @@
     <ItemGroup>
         <ProjectReference Include="..\RessurectIT.Msi.Installer\RessurectIT.Msi.Installer.csproj" />
     </ItemGroup>
+
+    <!-- SIGN DLL -->
+    <Target Name="SignDll" AfterTargets="Build" Condition="'$(signpassword)' != '' And '$(Configuration)' == 'Release'">
+        <Exec Command="signTool.exe sign /fd SHA256 /a /f &quot;..\..\.include\RessurectIT Code.pfx&quot; /p $(signpassword) /tr http://timestamp.digicert.com &quot;$(TargetDir)$(TargetName).dll&quot;" />
+        <Exec Command="signTool.exe sign /fd SHA256 /a /f &quot;..\..\.include\RessurectIT Code.pfx&quot; /p $(signpassword) /tr http://timestamp.digicert.com &quot;$(TargetDir)$(TargetName).exe&quot;" />
+    </Target>
 </Project>

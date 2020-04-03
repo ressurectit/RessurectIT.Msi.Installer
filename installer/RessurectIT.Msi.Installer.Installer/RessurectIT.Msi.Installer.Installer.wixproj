@@ -69,7 +69,7 @@
       <AppBuildConfig Condition="'$(Configuration)' == 'Release' Or '$(Configuration)' == 'ReleaseInstaller'">Release</AppBuildConfig>
     </PropertyGroup>
 
-    <Exec Command="dotnet publish -c $(AppBuildConfig) -r win7-x64 -o out" WorkingDirectory="$(ProjectDir)..\..\src\RessurectIT.Msi.Installer.Service" />
+    <Exec Command="dotnet publish -c $(AppBuildConfig) -r win7-x64 -o out -p:signpassword=$(signpassword)" WorkingDirectory="$(ProjectDir)..\..\src\RessurectIT.Msi.Installer.Service" />
 
     <Exec Command="type version.txt" ConsoleToMSBuild="true" WorkingDirectory="$(ProjectDir)..\..\src\RessurectIT.Msi.Installer">
       <Output TaskParameter="ConsoleOutput" PropertyName="AppVersion" />
@@ -80,6 +80,11 @@
     <PropertyGroup>
       <TargetName>$(TargetName)-$(AppVersion)</TargetName>
     </PropertyGroup>
+  </Target>
+
+  <!-- SIGN DLL -->
+  <Target Name="SignDll" AfterTargets="Build" Condition="'$(signpassword)' != '' And '$(Configuration)' == 'ReleaseInstaller'">
+    <Exec Command="signTool.exe sign /fd SHA256 /a /f &quot;..\..\.include\RessurectIT Code.pfx&quot; /p $(signpassword) /tr http://timestamp.digicert.com &quot;$(TargetDir)$(TargetName).msi&quot;" />
   </Target>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.

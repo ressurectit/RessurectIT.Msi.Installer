@@ -2,6 +2,7 @@ obj/
 bin/
 Logs/
 out/
+appveyor-tools/
 .include
 .vs
 .utils/*.wxs

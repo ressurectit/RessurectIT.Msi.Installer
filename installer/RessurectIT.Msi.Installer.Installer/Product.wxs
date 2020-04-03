@@ -246,7 +246,7 @@
                                Root="HKCR"
                                Action="write"
                                Key="msiinstall\shell\open\command"
-                               Value="&quot;[INSTALLFOLDER]RessurectIT.Msi.Installer.exe&quot; --request &quot;%1&quot;"
+                               Value="&quot;[INSTALLFOLDER]RessurectIT.Msi.Installer.exe&quot; --install &quot;%1&quot;"
                                Type="string" />
             </Component>
 

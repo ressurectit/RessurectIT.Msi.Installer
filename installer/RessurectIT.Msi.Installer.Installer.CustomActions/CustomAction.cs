@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using Microsoft.Deployment.WindowsInstaller;
@@ -45,6 +46,11 @@ namespace RessurectIT.Msi.Installer.Installer.CustomActions
         private const string PropProgressType = "PROGRESS_TYPE";
 
         /// <summary>
+        /// Name of MIN_LOG_LEVEL property
+        /// </summary>
+        private const string PropMinLogLevel = "MIN_LOG_LEVEL";
+
+        /// <summary>
         /// Name of UpdateConfig property
         /// </summary>
         private const string PropUpdateConfig = "UpdateConfig";
@@ -83,6 +89,11 @@ namespace RessurectIT.Msi.Installer.Installer.CustomActions
         /// Default value for progress Type
         /// </summary>
         private const string DefaultProgressType = "App";
+
+        /// <summary>
+        /// Default value for minimal log level
+        /// </summary>
+        private const string DefaultMinLogLevel = "Information";
         #endregion
 
 
@@ -102,12 +113,14 @@ namespace RessurectIT.Msi.Installer.Installer.CustomActions
             string remoteLogRestUrl = session.CustomActionData[PropRemoteLogRestUrl];
             string allowSameVersion = session.CustomActionData[PropAllowSameVersion];
             string progressType = session.CustomActionData[PropProgressType];
+            string minLogLevel = session.CustomActionData[PropMinLogLevel];
 
             session.Log("Begin UpdateConfig");
             session.Log($"Configuration path is '{configPath}'");
             session.Log($"Update json URL: '{updatesJsonUrl}'");
             session.Log($"Check interval: '{checkInterval}'");
             session.Log($"Progress type: '{progressType}'");
+            session.Log($"Minimal log level: '{minLogLevel}'");
             session.Log($"Remote log rest URL: '{remoteLogRestUrl}'");
 
             try
@@ -156,6 +169,23 @@ namespace RessurectIT.Msi.Installer.Installer.CustomActions
                     configContent = Regex.Replace(configContent, @"""Progress"": "".*?""", $@"""Progress"": ""{progressType}""", RegexOptions.Singleline);
                 }
 
+                string[] allowedLogLevels =
+                {
+                    "Verbose",
+                    "Debug",
+                    "Information",
+                    "Warning",
+                    "Error",
+                    "Fatal"
+                };
+
+                if (!string.IsNullOrEmpty(minLogLevel) && allowedLogLevels.Contains(minLogLevel))
+                {
+                    session.Log($"Setting minimal log level to value '{minLogLevel}'");
+
+                    configContent = Regex.Replace(configContent, @"""Default"": "".*?""", $@"""Default"": ""{minLogLevel}""", RegexOptions.Singleline);
+                }
+
                 File.WriteAllText(configPath, configContent);
             }
             catch (Exception e)
@@ -185,12 +215,14 @@ namespace RessurectIT.Msi.Installer.Installer.CustomActions
             string remoteLogRestUrl = session[PropRemoteLogRestUrl];
             string allowSameVersion = session[PropAllowSameVersion];
             string progressType = session[PropProgressType];
+            string minLogLevel = session[PropMinLogLevel];
 
             string defaultUpdatesJsonUrl = session[$"{PropUpdatesJsonUrl}-{PropDefaultName}"];
             string defaultCheckInterval = session[$"{PropCheckInterval}-{PropDefaultName}"];
             string defaultRemoteLogRestUrl = session[$"{PropRemoteLogRestUrl}-{PropDefaultName}"];
             string defaultAllowSameVersion = session[$"{PropAllowSameVersion}-{PropDefaultName}"];
             string defaultProgressType = session[$"{PropProgressType}-{PropDefaultName}"];
+            string defaultMinLogLevel = session[$"{PropMinLogLevel}-{PropDefaultName}"];
 
             if (string.IsNullOrEmpty(defaultUpdatesJsonUrl))
             {
@@ -215,6 +247,11 @@ namespace RessurectIT.Msi.Installer.Installer.CustomActions
             if (string.IsNullOrEmpty(defaultProgressType))
             {
                 defaultProgressType = session[$"{PropProgressType}-{PropDefaultName}"] = string.IsNullOrEmpty(progressType) ? DefaultDefault : progressType;
+            }
+
+            if (string.IsNullOrEmpty(defaultMinLogLevel))
+            {
+                defaultMinLogLevel = session[$"{PropMinLogLevel}-{PropDefaultName}"] = string.IsNullOrEmpty(minLogLevel) ? DefaultDefault : minLogLevel;
             }
 
             string defaultConfigContent;
@@ -296,6 +333,20 @@ namespace RessurectIT.Msi.Installer.Installer.CustomActions
                 }
             }
 
+            if (defaultMinLogLevel == DefaultDefault)
+            {
+                Match match = Regex.Match(defaultConfigContent, @"""Default"":\s?""(?<value>Verbose|Debug|Information|Warning|Error|Fatal)""", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+
+                if (match.Success)
+                {
+                    session[PropMinLogLevel] = match.Groups["value"].Value;
+                }
+                else
+                {
+                    session[PropMinLogLevel] = DefaultMinLogLevel;                    
+                }
+            }
+
             return ActionResult.Success;
         }
         #endregion
@@ -322,7 +373,8 @@ namespace RessurectIT.Msi.Installer.Installer.CustomActions
                 PropCheckInterval,
                 PropRemoteLogRestUrl,
                 PropAllowSameVersion,
-                PropProgressType
+                PropProgressType,
+                PropMinLogLevel
             };
 
             foreach (string prop in configPropsArr)

@@ -27,6 +27,15 @@ namespace RessurectIT.Msi.Installer.Gatherer.Dto
             get;
             set;
         }
+
+        /// <summary>
+        /// Gets or sets indication that user should be notified about new available update
+        /// </summary>
+        public bool? Notify
+        {
+            get;
+            set;
+        }
         #endregion
 
 

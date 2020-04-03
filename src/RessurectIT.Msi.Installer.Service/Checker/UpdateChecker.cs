@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using RessurectIT.Msi.Installer.Configuration;
 using RessurectIT.Msi.Installer.Gatherer;
+using RessurectIT.Msi.Installer.Gatherer.Dto;
 using RessurectIT.Msi.Installer.Installer.Dto;
 using static RessurectIT.Msi.Installer.Program;
 using static RessurectIT.Msi.Installer.Installer.WindowsInstaller;
@@ -24,6 +25,20 @@ namespace RessurectIT.Msi.Installer.Checker
     [ExportEx]
     public class UpdateChecker : IDisposable
     {
+        #region constants
+
+        /// <summary>
+        /// Install operation
+        /// </summary>
+        private const string InstallOperation = "install";
+
+        /// <summary>
+        /// Notify operation
+        /// </summary>
+        private const string NotifyOperation = "notify";
+        #endregion
+
+
         #region private fields
 
         /// <summary>
@@ -139,22 +154,50 @@ namespace RessurectIT.Msi.Installer.Checker
             using IServiceScope scope = _serviceProvider.CreateScope();
 
             HttpGatherer gatherer = scope.ServiceProvider.GetService<HttpGatherer>();
-            IMsiUpdate[] newUpdates = gatherer.CheckForUpdates(true);
+            MsiUpdate[] newUpdates = gatherer.CheckForUpdates<MsiUpdate>();
 
-            _logger.LogDebug("Found auto install updates: {@newUpdates}", (object)newUpdates);
+            IMsiUpdate[] autoInstallUpdates = newUpdates
+                .Where(update => _config.AutoInstall || update.AutoInstall.HasValue && update.AutoInstall.Value)
+                .ToArray();
 
-            foreach (IMsiUpdate update in newUpdates)
+            IMsiUpdate[] notifyUpdates = newUpdates
+                .Where(update => !_config.AutoInstall && (!update.AutoInstall.HasValue || !update.AutoInstall.Value) && update.Notify.HasValue && update.Notify.Value)
+                .ToArray();
+
+            _logger.LogDebug("Found auto install updates: {@updates}", (object)autoInstallUpdates);
+
+            foreach (IMsiUpdate update in autoInstallUpdates)
             {
                 if (_config.LocalServer)
                 {
-                    if (!await Install(update))
+                    if (!await Install(update, InstallOperation))
                     {
                         break;
                     }
                 }
                 else
                 {
-                    if (!InstallAsLoggedUser(update))
+                    if (!InstallAsLoggedUser(update, InstallOperation))
+                    {
+                        break;
+                    }
+                }
+            }
+
+            _logger.LogDebug("Found notify updates: {@updates}", (object)notifyUpdates);
+
+            foreach (IMsiUpdate update in notifyUpdates)
+            {
+                if (_config.LocalServer)
+                {
+                    if (!await Install(update, NotifyOperation))
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    if (!InstallAsLoggedUser(update, NotifyOperation))
                     {
                         break;
                     }
@@ -166,7 +209,8 @@ namespace RessurectIT.Msi.Installer.Checker
         /// Installs update as logged user
         /// </summary>
         /// <param name="update">Update to be installed</param>
-        private bool InstallAsLoggedUser(IMsiUpdate update)
+        /// <param name="operation">Type of operation that should be called (install|notify)</param>
+        private bool InstallAsLoggedUser(IMsiUpdate update, string operation)
         {
             SECURITY_ATTRIBUTES sa = new SECURITY_ATTRIBUTES();
             sa.nLength = Marshal.SizeOf(sa);
@@ -194,7 +238,7 @@ namespace RessurectIT.Msi.Installer.Checker
                 return true;
             }
 
-            string cmdLine = Path.Combine(Directory.GetCurrentDirectory(), @$"RessurectIT.Msi.Installer.exe --request ""{SerializeUpdate(update, _jsonSerializerSettings)}""");
+            string cmdLine = Path.Combine(Directory.GetCurrentDirectory(), @$"RessurectIT.Msi.Installer.exe --{operation} ""{SerializeUpdate(update, _jsonSerializerSettings)}""");
 
             result = WinApi.CreateProcessAsUser(token,
                                                 null,
@@ -259,14 +303,15 @@ namespace RessurectIT.Msi.Installer.Checker
         /// Installs update as current user
         /// </summary>
         /// <param name="update">Update to be installed</param>
-        private async Task<bool> Install(IMsiUpdate update)
+        /// <param name="operation">Type of operation that should be called (install|notify)</param>
+        private async Task<bool> Install(IMsiUpdate update, string operation)
         {
             Process process = new Process
             {
                 StartInfo =
                 {
                     FileName = Path.Combine(Directory.GetCurrentDirectory(), "RessurectIT.Msi.Installer.exe"),
-                    Arguments = $@"--request ""{SerializeUpdate(update, _jsonSerializerSettings)}"""
+                    Arguments = $@"--{operation} ""{SerializeUpdate(update, _jsonSerializerSettings)}"""
                 }
             };
 

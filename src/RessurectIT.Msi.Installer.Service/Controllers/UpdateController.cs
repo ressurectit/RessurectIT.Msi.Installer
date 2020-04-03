@@ -75,7 +75,7 @@ namespace RessurectIT.Msi.Installer.Controllers
         {
             _logger.LogDebug("Getting update for '{id}'. Machine: '{MachineName}'", id);
 
-            IMsiUpdate? result = _gatherer.CheckForUpdates()
+            IMsiUpdate? result = _gatherer.CheckForUpdates<IMsiUpdate>()
                 .Where(update => update.Id == id)
                 .OrderByDescending(update => new Version(update.Version))
                 .FirstOrDefault();

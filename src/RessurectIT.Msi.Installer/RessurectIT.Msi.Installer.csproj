@@ -40,6 +40,7 @@
         <PackageReference Include="Microsoft.Management.Infrastructure" Version="$(MicrosoftManagementInfrastructure)" />
         <PackageReference Include="Microsoft.PowerShell.SDK" Version="$(MicrosoftPowerShellSDK)" />
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="$(MicrosoftSourceLinkGitHub)" PrivateAssets="All" />
+        <!-- <PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="10.0.18362.2005" /> -->
         <PackageReference Include="Newtonsoft.Json" Version="$(NewtonsoftJson)" />
         <PackageReference Include="RessurectIT.Git.Version" Version="$(RessurectITGitVersion)" PrivateAssets="All" />
         <PackageReference Include="Serilog" Version="$(Serilog)" />

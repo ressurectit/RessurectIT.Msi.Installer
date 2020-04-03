@@ -75,9 +75,8 @@ namespace RessurectIT.Msi.Installer.Gatherer
         /// <summary>
         /// Checks for updates and returns array of updates to install
         /// </summary>
-        /// <param name="autoInstallFilter">When true applies auto install filter, otherwise no</param>
         /// <returns>Array of updates that should be installed</returns>
-        public IMsiUpdate[] CheckForUpdates(bool autoInstallFilter = false)
+        public TUpdate[] CheckForUpdates<TUpdate>() where TUpdate : IMsiUpdate
         {
             HttpResponseMessage result;
 
@@ -89,7 +88,7 @@ namespace RessurectIT.Msi.Installer.Gatherer
             {
                 _logger.LogError(e, "Unable to obtain updates json! Machine: '{MachineName}'");
 
-                return new IMsiUpdate[0];
+                return new TUpdate[0];
             }
 
             Dictionary<string, MsiUpdate> updates;
@@ -108,14 +107,14 @@ namespace RessurectIT.Msi.Installer.Gatherer
                 {
                     _logger.LogError(e, "Error during deserialization of updates result. Machine: '{MachineName}'");
 
-                    return new IMsiUpdate[0];
+                    return new TUpdate[0];
                 }
             }
             else
             {
                 _logger.LogError($"Obtaining failed, returned status code '{result.StatusCode}'. Machine: '{{MachineName}}'");
 
-                return new IMsiUpdate[0];
+                return new TUpdate[0];
             }
 
             Dictionary<string, InstalledUpdateInfo> installedUpdates = _updatesDatabase.GetInstalledUpdates();
@@ -175,11 +174,10 @@ namespace RessurectIT.Msi.Installer.Gatherer
                     from installedUpdateId in installedUpdatesIds.DefaultIfEmpty()
                     let updateVersion = new Version(update.Version)
                     let installedVersion = installedUpdateId != null ? installedUpdates[installedUpdateId].GetVersionObj(_logger) : null
-                    where !string.IsNullOrEmpty(update.MsiPath) && 
-                          (!autoInstallFilter || _config.AutoInstall || (update.AutoInstall.HasValue && update.AutoInstall.Value)) &&
+                    where !string.IsNullOrEmpty(update.MsiPath) &&
                           ((installedUpdateId == null || installedVersion < updateVersion) ||
                            (_config.AllowSameVersion && installedVersion == updateVersion && update.ComputedHash != installedUpdates[installedUpdateId].Hash))
-                    select (IMsiUpdate) new MsiUpdate
+                    select (TUpdate) (IMsiUpdate) new MsiUpdate
                     {
                         Id = update.Id,
                         Version = update.Version,
@@ -194,7 +192,8 @@ namespace RessurectIT.Msi.Installer.Gatherer
                         AutoInstall = update.AutoInstall,
                         AdminPrivilegesRequired = update.AdminPrivilegesRequired,
                         StartProcessPath = update.StartProcessPath,
-                        ForceStop = update.ForceStop
+                        ForceStop = update.ForceStop,
+                        Notify = update.Notify
                     }).ToArray();
         }
         #endregion

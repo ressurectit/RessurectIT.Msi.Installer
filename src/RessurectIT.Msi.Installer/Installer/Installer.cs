@@ -163,31 +163,31 @@ namespace RessurectIT.Msi.Installer.Installer
         {
             if (_config is AppConfig config)
             {
-                _logger.LogDebug("Installing update from protocol request");
+                _logger.LogDebug("Installing update from protocol");
 
-                if (string.IsNullOrEmpty(config.Request))
+                if (string.IsNullOrEmpty(config.Install))
                 {
-                    _logger.LogWarning("Unable to install from 'msiinstall:// protocol!' Missing Request!");
+                    _logger.LogWarning("Unable to install from 'msiinstall:// protocol!' Missing Install!");
 
                     return;
                 }
 
                 //drop msiinstall:// protocol prefix
-                if (config.Request.StartsWith("msiinstall://"))
+                if (config.Install.StartsWith("msiinstall://"))
                 {
-                    config.Request = config.Request.Replace("msiinstall://", string.Empty);
-                    config.Request = config.Request.Trim('/');
+                    config.Install = config.Install.Replace("msiinstall://", string.Empty);
+                    config.Install = config.Install.Trim('/');
                 }
 
                 IMsiUpdate msiUpdate;
 
                 try
                 {
-                    msiUpdate = JsonConvert.DeserializeObject<MsiUpdate>(Encoding.UTF8.GetString(Convert.FromBase64String(config.Request)));
+                    msiUpdate = JsonConvert.DeserializeObject<MsiUpdate>(Encoding.UTF8.GetString(Convert.FromBase64String(config.Install)));
                 }
                 catch (Exception e)
                 {
-                    _logger.LogWarning(e, "Unable to install from 'msiinstall:// protocol!' Failed to deserialize '{request}'!", config.Request);
+                    _logger.LogWarning(e, "Unable to install from 'msiinstall:// protocol!' Failed to deserialize '{request}'!", config.Install);
 
                     return;
                 }

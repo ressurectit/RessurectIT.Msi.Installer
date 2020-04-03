@@ -8,9 +8,9 @@
         #region public properties
 
         /// <summary>
-        /// Gets or sets request uri containing encoded msi update request
+        /// Gets or sets install uri containing encoded msi update request
         /// </summary>
-        public string? Request
+        public string? Install
         {
             get;
             set;

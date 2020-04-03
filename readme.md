@@ -62,6 +62,7 @@ Available parameters:
  - REMOTE_LOG_REST_URL - Sets `RemoteLogRestUrl` configuration parameter (example REMOTE_LOG_REST_URL=http://localhost/api/logs)
  - ALLOW_SAME_VERSION - Sets `AllowSameVersion` configuration parameter (example ALLOW_SAME_VERSION=1)
  - PROGRESS_TYPE - Sets `Progress` configuration parameter (example PROGRESS_TYPE=None)
+ - MIN_LOG_LEVEL - Sets minimal log level for logger possible values are Verbose|Debug|Information|Warning|Error|Fatal (example MIN_LOG_LEVEL=Debug)
 
  ### Installation using gui
 

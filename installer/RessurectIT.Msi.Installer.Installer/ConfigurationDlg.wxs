@@ -3,21 +3,33 @@
     <Fragment>
         <UI>
             <Dialog Id="ConfigurationDlg" Width="370" Height="270" Title="[ProductName] [Setup]" NoMinimize="yes">
-                <Control Id="UpdateUrlLabel" Type="Text" X="45" Y="73" Width="100" Height="15" TabSkip="no" Text="Update json URL:"/>
-                <Control Id="UpdateUrlEdit" Type="Edit" X="45" Y="85" Width="220" Height="18" Property="UPDATE_JSON_URL" />
+                <Control Id="UpdateUrlLabel" Type="Text" X="45" Y="65" Width="100" Height="15" TabSkip="no" Text="Update json URL:"/>
+                <Control Id="UpdateUrlEdit" Type="Edit" X="45" Y="77" Width="220" Height="18" Property="UPDATE_JSON_URL" />
 
-                <Control Id="CheckIntervalLabel" Type="Text" X="45" Y="105" Width="100" Height="15" TabSkip="no" Text="Check interval:"/>
-                <Control Id="CheckIntervalEdit" Type="Edit" X="45" Y="117" Width="220" Height="18" Property="CHECK_INTERVAL" />
+                <Control Id="CheckIntervalLabel" Type="Text" X="45" Y="97" Width="100" Height="15" TabSkip="no" Text="Check interval:"/>
+                <Control Id="CheckIntervalEdit" Type="Edit" X="45" Y="109" Width="220" Height="18" Property="CHECK_INTERVAL" />
 
-                <Control Id="AllowSameVersionLabel" Type="Text" X="45" Y="137" Width="100" Height="15" TabSkip="no" Text="Allow same version:"/>
-                <Control Id="AllowSameVersionEdit" Type="CheckBox" X="45" Y="146" Width="60" Height="18" Property="ALLOW_SAME_VERSION" CheckBoxValue="1" />
+                <Control Id="AllowSameVersionLabel" Type="Text" X="45" Y="129" Width="100" Height="15" TabSkip="no" Text="Allow same version:"/>
+                <Control Id="AllowSameVersionEdit" Type="CheckBox" X="45" Y="138" Width="60" Height="18" Property="ALLOW_SAME_VERSION" CheckBoxValue="1" />
 
-                <Control Id="ProgressTypeLabel" Type="Text" X="45" Y="169" Width="100" Height="15" TabSkip="no" Text="Progress type:"/>
-                <Control Id="ProgressTypeEdit" Type="ComboBox" ComboList="yes" X="45" Y="181" Width="220" Height="18" Property="PROGRESS_TYPE" >
+                <Control Id="ProgressTypeLabel" Type="Text" X="45" Y="157" Width="100" Height="15" TabSkip="no" Text="Progress type:"/>
+                <Control Id="ProgressTypeEdit" Type="ComboBox" ComboList="yes" X="45" Y="169" Width="220" Height="18" Property="PROGRESS_TYPE" >
                     <ComboBox Property="PROGRESS_TYPE">
                         <ListItem Value="None" />
                         <ListItem Value="MsiExec" />
                         <ListItem Value="App" />
+                    </ComboBox>
+                </Control>
+
+                <Control Id="MinLogLevelLabel" Type="Text" X="45" Y="189" Width="100" Height="15" TabSkip="no" Text="Minimal log level:"/>
+                <Control Id="MinLogLevelEdit" Type="ComboBox" ComboList="yes" X="45" Y="201" Width="220" Height="18" Property="MIN_LOG_LEVEL" >
+                    <ComboBox Property="MIN_LOG_LEVEL">
+                        <ListItem Value="Verbose" />
+                        <ListItem Value="Debug" />
+                        <ListItem Value="Information" />
+                        <ListItem Value="Warning" />
+                        <ListItem Value="Error" />
+                        <ListItem Value="Fatal" />
                     </ComboBox>
                 </Control>
 

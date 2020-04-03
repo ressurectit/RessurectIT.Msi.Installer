@@ -8,10 +8,46 @@ init:
       Install-Product node $env:nodejs_version
 
 install:
-  - cmd: .utils\fullClean.bat
-  - cmd: .utils\build.bat Debug
+  - ps: ./.utils/fullClean.ps1
+  - ps: mkdir .include
+  - ps: iex ((New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/appveyor/secure-file/master/install.ps1'))
+  - cmd: appveyor-tools\secure-file -decrypt ".includeEnc\RessurectIT.snk.enc" -secret %enc_secret% -salt %snksalt% -out .include\RessurectIT.snk
+  - cmd: appveyor-tools\secure-file -decrypt ".includeEnc\RessurectIT Code.pfx.enc" -secret %enc_secret% -salt %pfxsalt% -out ".include\RessurectIT Code.pfx"
 
 build: off
+test: off
 
-deploy_script:
+build_script:
+  - ps: |
+      if($env:APPVEYOR_REPO_TAG -eq "true")
+      {
+        $env:APPVEYOR_REPO_TAG_NAME -match "^v(\d+\.\d+)\.\d+"
+        git checkout "$($Matches[1])" -q
+
+        ./.utils/build.bat Release $env:pfx_secret
+        # Update-AppveyorBuild -Version "$(cat version.bak)"
+      }
+      else
+      {
+        git checkout $env:APPVEYOR_REPO_BRANCH -q
+
+        ./.utils/build.bat Debug
+        # Update-AppveyorBuild -Version "$(cat version.bak)"
+      }
+
+
+artifacts:
+  - path: '**\*.msi'
+
+deploy:
+  - provider: GitHub
+    artifact: /.*\.msi/
+    description: 'Stable version release'
+    auth_token:
+      secure: FOD7P4H4NF3p30wWrc/CUbtuP1YDUtMGeJgiHGo9P8uwpf+fBcKLxLZ/CLCjTsx1
+    force_update: true
+    on:
+      APPVEYOR_REPO_TAG: true
+
+after_deploy:
   - ps: Update-AppveyorBuild -Version "$(cat src/RessurectIT.Msi.Installer/version.txt)"

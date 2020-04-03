@@ -1233,8 +1233,8 @@
             <File Id="mscordaccore.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\mscordaccore.dll" Name="mscordaccore.dll" />
         </Component>
 
-        <Component Id="mscordaccore_amd64_amd64_4.700.19.60701.dll" Guid="87C43FD7-E6A1-4517-98D3-7066A70BA02D">
-            <File Id="mscordaccore_amd64_amd64_4.700.19.60701.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\mscordaccore_amd64_amd64_4.700.19.60701.dll" Name="mscordaccore_amd64_amd64_4.700.19.60701.dll" />
+        <Component Id="mscordaccore_amd64_amd64_4.700.20.6602.dll" Guid="87C43FD7-E6A1-4517-98D3-7066A70BA02D">
+            <File Id="mscordaccore_amd64_amd64_4.700.20.6602.dll" KeyPath="yes" Source="$(sys.CURRENTDIR)..\..\src\RessurectIT.Msi.Installer.Service\out\mscordaccore_amd64_amd64_4.700.20.6602.dll" Name="mscordaccore_amd64_amd64_4.700.20.6602.dll" />
         </Component>
 
         <Component Id="mscordbi.dll" Guid="35ACA8B8-6569-44D2-BFB8-6C013A57A2C8">

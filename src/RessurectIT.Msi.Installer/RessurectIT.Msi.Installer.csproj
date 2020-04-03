@@ -62,7 +62,7 @@
 
     <!-- SIGN DLL -->
     <Target Name="SignDll" AfterTargets="Build" Condition="'$(signpassword)' != '' And '$(Configuration)' == 'Release'">
-        <Exec Command="signTool.exe sign /fd SHA256 /a /f &quot;..\..\.include\RessurectIT Code.pfx&quot; /p $(signpassword) /tr http://timestamp.digicert.com &quot;$(TargetDir)$(TargetName).dll&quot;" />
-        <Exec Command="signTool.exe sign /fd SHA256 /a /f &quot;..\..\.include\RessurectIT Code.pfx&quot; /p $(signpassword) /tr http://timestamp.digicert.com &quot;$(TargetDir)$(TargetName).exe&quot;" />
+        <Exec Command="&quot;C:\Program Files (x86)\Windows Kits\10\bin\10.0.18362.0\x64\signTool.exe&quot; sign /fd SHA256 /a /f &quot;..\..\.include\RessurectIT Code.pfx&quot; /p $(signpassword) /tr http://timestamp.digicert.com &quot;$(TargetDir)$(TargetName).dll&quot;" />
+        <Exec Command="&quot;C:\Program Files (x86)\Windows Kits\10\bin\10.0.18362.0\x64\signTool.exe&quot; sign /fd SHA256 /a /f &quot;..\..\.include\RessurectIT Code.pfx&quot; /p $(signpassword) /tr http://timestamp.digicert.com &quot;$(TargetDir)$(TargetName).exe&quot;" />
     </Target>
 </Project>

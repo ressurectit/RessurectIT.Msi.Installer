@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/6auxqwixtu6axe6s?svg=true)](https://ci.appveyor.com/project/kukjevov/ressurectit-msi-installer)
+
 # RessurectIT.Msi.Installer
 
 RessurectIT tool used for installing other MSI installers automaticaly.
